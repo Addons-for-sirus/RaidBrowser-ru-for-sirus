@@ -1,0 +1,253 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Libs\LibStub\LibStub.lua"/>
+    <Include file="Libs\stdlib\stdlib.xml"/>
+    <Include file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml"/>
+    <Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml"/>
+    <Include file="Libs\AceConsole-3.0\AceConsole-3.0.xml"/>
+	
+	<Frame name="BA_RaidBrowser_RaidSetTemplate" virtual="true">
+		<Backdrop bgFile="Interface\Tooltips\ChatBubble-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Frame>	
+	<Frame name="BARaidBrowserRaidSet" parent="LFRBrowseFrame" inherits="BA_RaidBrowser_RaidSetTemplate">
+		<Size>
+			<AbsDimension x="120" y="25"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="LFRBrowseFrame" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="100" y="165"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer>
+				<FontString name="BARaidBrowserRaidSetEditBox" inherits="ChatFontNormal" text="Spec?" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="125" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="5" y="-4" />
+						</Anchor>
+					</Anchors>
+					<FontString inherits="ChatFontNormal"/>
+				</FontString>
+			</Layer>	
+		</Layers>	
+		<Frames>
+			<Button name="BARaidBrowserRaidSetButton">
+				<Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						BARaidBrowserRaidSetButton_OnClick();
+						PlaySound("igMainMenuOptionCheckBoxOn");
+					</OnClick>
+				</Scripts>
+				<NormalTexture name="$parentNormalTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture name="$parentPushedTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</PushedTexture>
+				<DisabledTexture name="$parentDisabledTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</DisabledTexture>
+				<HighlightTexture name="$parentHighlightTexture" file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</HighlightTexture>
+			</Button>
+		</Frames>
+	</Frame>
+	<Frame name="BARaidBrowserEditSpec" parent="LFRBrowseFrame" inherits="BA_RaidBrowser_RaidSetTemplate">
+		<Size>
+			<AbsDimension x="300" y="170"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="LFRBrowseFrame" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="0" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer>
+				<FontString name="BARaidBrowserEditSpecEditBox" inherits="ChatFontNormal" text="Edit" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="90" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="10" y="-10" />
+						</Anchor>
+					</Anchors>
+					<FontString inherits="ChatFontNormal"/>
+				</FontString>
+				<FontString name="BARaidBrowserEditNameText" inherits="ChatFontNormal" text="Name" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="90" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="10" y="-40" />
+						</Anchor>
+					</Anchors>
+					<FontString inherits="ChatFontNormal"/>
+				</FontString>
+				<FontString name="BARaidBrowserEditGearScoreText" inherits="ChatFontNormal" text="GearScore" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="90" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="10" y="-80" />
+						</Anchor>
+					</Anchors>
+					<FontString inherits="ChatFontNormal"/>
+				</FontString>
+			</Layer>	
+		</Layers>	
+		<Frames>
+			<Button name="BARaidBrowserEditSpecCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="BARaidBrowserEditSpec" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-1" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="BARaidBrowserEditSpecSaveButton" inherits="UIPanelButtonTemplate" text="Save">
+				<Size>
+					<AbsDimension x="85" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="BARaidBrowserEditSpec" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-8" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						BARaidBrowserEditSpecSaveButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="BARaidBrowserEditCurrentSpecButton" inherits="UIPanelButtonTemplate" text="Current Spec">
+				<Size>
+					<AbsDimension x="95" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="BARaidBrowserEditSpec" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="8" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						BARaidBrowserEditCurrentSpecButton_OnClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Frame name="BARaidBrowserEditName" inherits="BA_RaidBrowser_RaidSetTemplate">
+				<Size>
+					<AbsDimension x="175" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="BARaidBrowserEditNameText" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<EditBox name="BARaidBrowserEditNameEditBox" >
+						<Size>
+							<AbsDimension x="170" y="16"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="5" y="-4" />
+							</Anchor>
+						</Anchors>
+						<FontString inherits="ChatFontNormal"/>						
+					</EditBox>										
+				</Frames>
+			</Frame>
+			<Frame name="BARaidBrowserEditGearScore" inherits="BA_RaidBrowser_RaidSetTemplate">
+				<Size>
+					<AbsDimension x="175" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="BARaidBrowserEditGearScoreText" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<EditBox name="BARaidBrowserEditGearScoreEditBox" >
+						<Size>
+							<AbsDimension x="170" y="16"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="5" y="-4" />
+							</Anchor>
+						</Anchors>
+						<FontString inherits="ChatFontNormal"/>						
+					</EditBox>									
+				</Frames>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				BARaidBrowserRaidSetButton:Disable();
+			</OnShow>
+			<OnHide>
+				BARaidBrowserRaidSetButton:Enable();
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

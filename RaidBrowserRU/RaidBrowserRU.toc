@@ -1,0 +1,18 @@
+## Interface: 30300
+## Title: Raid Browser RU
+## Version: v1.2 Beta
+## Notes: A raid finder that parses chat channel text and displays any found raids in the raid browser LFR frame.
+## Notes-ruRU: Анализ текста канала чата и отображение найденных рейдов в стандартном окне поиска рейдов. /rb
+## Author: Horsebreed, адаптация русский язык и сленг при сборе рейда на wowcircle.com - Bigalex
+## SavedVariablesPerCharacter: raid_browser_character_raidsets, raid_browser_character_current_raidset
+## OptionalDeps: GearScoreLite
+## X-Embeds: Ace3
+
+embedsru.xml
+
+coreru.lua
+eventru.lua
+timerru.lua
+statsru.lua
+guiru.lua
+raidset_frameru.lua
