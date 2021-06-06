@@ -369,6 +369,11 @@ local raid_list = {
 			create_pattern_from_template('око', 25, 'nm', 'Крепость Бурь'),
 			{ 
 				'око'..csep..'об',
+				'окооб'..csep..'с0',
+				'окооб'..csep..'с'..csep..'0',
+				'окооб'..csep..'с'..csep..'нуля',
+				'в'..csep..'окооб'..csep..'с'..csep..'нуля',
+				'в'..csep..'окооб'..csep..'с'..csep..'нуля',
 				'в'..csep..'око'..csep..'об',
 				'V'..csep..'око'..csep..'об',
 				'v'..csep..'око'..csep..'об',
