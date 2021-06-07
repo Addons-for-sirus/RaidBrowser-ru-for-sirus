@@ -88,6 +88,7 @@ local raid_list = {
 				'РБК',
 				'НРБК',
 				'в'..csep..'рбк',
+				'в'..csep..'нрбк',
 				'на'..csep..'3'..csep..'рбк',
 				'на'..csep..'3'..csep..'нрбк',
 				'на'..csep..'3'..csep..'НРБК',
@@ -190,7 +191,7 @@ local raid_list = {
 	},
 	
 	{ -- цлк10хм
-		name = 'Цлк10хм',
+		name = 'Цлк 10 хм',
 		instance_name = 'Цитадель Ледяной Короны',
 		size = 10,
 		difficulty = 3,
@@ -211,7 +212,7 @@ local raid_list = {
 	},
 
 	{ -- цлк25хм
-		name = 'Цлк25хм',
+		name = 'Цлк 25 хм',
 		instance_name = 'Цитадель Ледяной Короны',
 		size = 25,
 		difficulty = 4,
@@ -229,7 +230,7 @@ local raid_list = {
 	},
 
 	{ -- цлк10об
-		name = 'Цлк10об',
+		name = 'Цлк 10 об',
 		instance_name = 'Цитадель Ледяной Короны',
 		size = 10,
 		difficulty = 1,
@@ -248,7 +249,7 @@ local raid_list = {
 	},
 
 	{ -- цлк25об
-		name = 'Цлк25об',
+		name = 'Цлк 25 об',
 		instance_name = 'Цитадель Ледяной Короны',
 		size = 25,
 		difficulty = 2,
@@ -443,7 +444,7 @@ local raid_list = {
 	
 	
 	{ -- ивк10
-		name = 'Ивк10',
+		name = 'Ивк 10',
 		instance_name = 'Испытание крестоносца',
 		size = 10,
 		difficulty = 3,
@@ -458,7 +459,7 @@ local raid_list = {
 	},
 
 	{ -- ивк25
-		name = 'Ивк25',
+		name = 'Ивк 25',
 		instance_name = 'Испытание крестоносца',
 		size = 25,
 		difficulty = 4,
@@ -472,18 +473,23 @@ local raid_list = {
 	},
 
 	{ -- ик10
-		name = 'Ик10',
+		name = 'Ик 10',
 		instance_name = 'Испытание крестоносца',
 		size = 10,
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ик', 10, 'nm', 'Испытание крестоносца'),
-			{ '%[призыв авангарда %(10 игроков%)%]' }
+			{ '%[призыв авангарда %(10 игроков%)%]',
+			'ик'..csep..'оня'..csep..'10',
+			'ик\оня'..csep..'10',
+			'ик/оня'..csep..'10',
+			'ик/оня'..csep..'(10)',
+			}
 		),
 	},
 
 	{ -- ик25
-		name = 'Ик25',
+		name = 'Ик 25',
 		instance_name = 'Испытание крестоносца',
 		size = 25,
 		difficulty = 2,
@@ -495,7 +501,7 @@ local raid_list = {
 	},
 	
 	{ -- рс10хм
-		name = 'Рс10хм',
+		name = 'Рс 10 хм',
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 3,
@@ -503,7 +509,7 @@ local raid_list = {
 	},
 
 	{ -- рс25хм
-		name = 'Рс25хм',
+		name = 'Рс 25 хм',
 		instance_name = 'Рубиновое святилище',
 		size = 25,
 		difficulty = 4,
@@ -511,7 +517,7 @@ local raid_list = {
 	},
 
 	{ -- рс10об
-		name = 'Рс10об',
+		name = 'Рс 10 об',
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 1,
@@ -519,7 +525,7 @@ local raid_list = {
 	},
 
 	{ -- рс25об
-		name = 'Рс25об',
+		name = 'Рс 25 об',
 		instance_name = 'Рубиновое святилище',
 		size = 25,
 		difficulty = 2,
@@ -530,7 +536,7 @@ local raid_list = {
 	},
 	
 	{ -- са10
-		name = 'Са10',
+		name = 'Са 10',
 		instance_name = 'Склеп Аркавона',
 		size = 10,
 		difficulty = 1,
@@ -540,7 +546,7 @@ local raid_list = {
 	
 
 	{ -- са25
-		name = 'Са25',
+		name = 'Са 25',
 		instance_name = 'Склеп Аркавона',
 		size = 25,
 		difficulty = 2,
@@ -552,13 +558,34 @@ local raid_list = {
 		},
 	},
 		
+		
+		
+		{ -- ульда 10 хм
+		name = 'Ульда 10 хм',
+		instance_name = 'Ульдуар',
+		size = 10,
+		difficulty = 3,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('ульда', 10, 'hc', 'Ульдуар'),
+			{ 
+				'ульда'..csep..'10'..csep..'хм',
+				'ульда'..csep..'10'..csep..'гер',
+				
+				'утюг'..csep..'10'..csep..'хм',
+				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'10',				
+			
+			}
+		),
+	},
+
 	{ -- ульда10
-		name = 'Ульда10',
+		name = 'Ульда 10',
 		instance_name = 'Ульдуар',
 		size = 10,
 		difficulty = 1,
 		patterns = {
 			'ульда'..csep..'10',
+			'ульдар'..csep..'10',
 			'ульдуар'..csep..'10',
 			'в'..csep..'ульду'..csep..'10',
 			'в'..csep..'ульду'..csep..'10',
@@ -568,8 +595,34 @@ local raid_list = {
 		},
 	},
 	
+	
+	{ -- ульда25 хм
+		name = 'Ульда 25 хм',
+		instance_name = 'Ульдуар',
+		size = 25,
+		difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('ульда', 25, 'hc', 'Ульдуар'),
+			{ 
+				'ульда'..csep..'25'..csep..'на',
+				'ульда'..csep..'10-25'..csep..'хм',
+				'ульда'..csep..'10-25'..csep..'гер',
+				
+				'утюг'..csep..'ульда'..csep..'хм',
+				'утюг'..csep..'ульда'..csep..'гер',
+				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'25'..csep..'хм',				
+			'ульдуар'..csep..'25'..csep..'хм',
+			'ульдуар'..csep..'25'..csep..'гер',
+			'в'..csep..'ульду'..csep..'25',
+		
+			}
+		),
+	},
+
+
+	
 	{ -- ульда25
-		name = 'Ульда25',
+		name = 'Ульда 25',
 		instance_name = 'Ульдуар',
 		size = 25,
 		difficulty = 2,
@@ -578,6 +631,7 @@ local raid_list = {
 			{ 
 				'ульда'..csep..'25'..csep..'на',
 				'ульда'..csep..'10-25',
+				
 				'утюг'..csep..'ульда',
 				'на'..csep..'утюга'..csep..'в'..csep..'ульду',				
 			'ульдуар'..csep..'25',
@@ -663,6 +717,9 @@ local raid_list = {
 			create_pattern_from_template('кара', 10, 'nm', 'Каражан'),
 			{ 
 				'кара'..csep..'об',
+				'кара'..csep..'10об',
+				'каражан'..csep..'10об',
+				'кара'..csep..'10'..csep..'об',
 				'каражан'..csep..'об',
 				'кара'..csep..'гер',
 			}
@@ -760,7 +817,7 @@ local role_patterns = {
 
 local gearscore_patterns = {
 	
-	'[0-99999]','пару','хил','дд','танк','танки','+','[0-99999]*','все'
+	'[0-99999]','пару','хил','дд','танк','танки','+','[0-99999]*','все',
 }
 
 local lfm_patterns = {
