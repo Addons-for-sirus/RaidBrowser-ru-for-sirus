@@ -88,6 +88,10 @@ local raid_list = {
 				'РБК',
 				'НРБК',
 				'в'..csep..'рбк',
+				'собираю'..csep..'рбк',
+				'собераю'..csep..'рбк',
+				'собераю'..csep..'в'..csep..'рбк',
+				'собираю'..csep..'в'..csep..'рбк',
 				'в'..csep..'нрбк',
 				'на'..csep..'3'..csep..'рбк',
 				'на'..csep..'3'..csep..'нрбк',
@@ -1017,8 +1021,9 @@ local function is_lfm_channel(channel)
 end
 
 local function event_handler(self, event, message, sender, ...)
+
 	if is_lfm_channel(event) then
-		local raid_info, roles, gs = raid_browser.raid_info(message)
+		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		
 		if raid_info and roles and gs then
 			
@@ -1030,6 +1035,18 @@ local function event_handler(self, event, message, sender, ...)
 				gs = gs, 
 				time = time(), 
 				message = message
+				-- local raid_name = raid_browser.lfm_messages[LFRBrowseFrame.selectedName].raid_info.name
+		-- local name [id = GetChannelName(lfm_messages);
+		-- local namelfm = lfm_messages
+				-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+				-- message = GetDefaultLanguage(raid_name)
+				-- Check if the specific channel exists
+-- myChannel = 1;
+-- id, name = GetChannelName(message);
+-- if (id > 0 and name ~= nil) then
+  -- SendChatMessage("This is just a test.", "CHANNEL", nil, id);
+-- end
+-- id, name = GetChannelName(id);
 			};
 			
 			raid_browser.gui.update_list();
@@ -1039,7 +1056,7 @@ local function event_handler(self, event, message, sender, ...)
 end
 
 function raid_browser:OnEnable()
-	raid_browser:Print('loaded. Type /rb to toggle the raid browser.')
+	raid_browser:Print('Загружен. Пиши /rb чтобы открыть RaidBrowser.')
 
 	-- LFM messages expire after 60 seconds
 	raid_browser.expiry_time = 60;

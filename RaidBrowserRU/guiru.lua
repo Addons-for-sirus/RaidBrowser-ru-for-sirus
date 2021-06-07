@@ -90,18 +90,18 @@ for i = 1, NUM_LFR_LIST_BUTTONS do
 			GameTooltip:SetOwner(button, 'ANCHOR_RIGHT');
 			
 			local seconds = time() - button.lfm_info.time;
-			local last_sent = string.format('Last sent: %d seconds ago', seconds);
+			local last_sent = string.format('Последнее сообщение: %d секунд назад', seconds);
 			GameTooltip:AddLine(button.lfm_info.message, 1, 1, 1, true);
 			GameTooltip:AddLine(last_sent);
 			
 			if button.raid_locked then
-				GameTooltip:AddLine('\nYou are |cffff0000saved|cffffd100 for ' .. button.raid_info.name);
+				GameTooltip:AddLine('\n|cffff0000Кд|cffffd100 для ' .. button.raid_info.name);
 --				local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
 --				GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
 				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty)
-				GameTooltip:AddLine('The ID of the instance  ' .. tostring(id));
+				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
-				GameTooltip:AddLine('\nYou are |cff00ffffnot saved|cffffd100 for ' .. button.raid_info.name);
+				GameTooltip:AddLine('\n|cff00ffffНет кд|cffffd100 для ' .. button.raid_info.name);
 			end
 			
 			GameTooltip:Show();

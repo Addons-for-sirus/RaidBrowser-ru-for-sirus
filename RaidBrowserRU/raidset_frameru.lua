@@ -29,7 +29,7 @@ BARaidSetDropdown.initialize = function(self, level)
 end
 
 local function on_raidset_edit()
-	BARaidBrowserEditSpecEditBox:SetText("Edit "..raid_browser_character_current_raidset.name);
+	BARaidBrowserEditSpecEditBox:SetText("Редактировать "..raid_browser_character_current_raidset.name);
 	BARaidBrowserEditNameEditBox:SetText(raid_browser_character_current_raidset.spec);
 	BARaidBrowserEditGearScoreEditBox:SetText(raid_browser_character_current_raidset.gs);
 	BARaidBrowserEditSpec:Show();
