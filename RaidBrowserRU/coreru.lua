@@ -584,6 +584,7 @@ local raid_list = {
 			create_pattern_from_template('зс', 25, 'nm', 'Кривой Клык: Змеиное святилище'),
 			{ 
 				'зс'..csep..'об',
+				'зс'..csep..'%(об%)',
 				'зс',
 				'ЗС'..csep..'об'..csep..'от',			
 				'зс'..csep..'от',
