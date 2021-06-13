@@ -988,6 +988,8 @@ local role_patterns = {
 		'[0-9]'..csep..'рдд',
 		'[0-9]*'..csep..'спд',
 		'[0-9]*'..csep..'шп',
+		'кастеры',
+		'кастер',
 		'[0-9]*'..csep..'сова',
 		'[0-9]*'..csep..'демон',
 		'[0-9]*'..csep..'элем',
@@ -1053,10 +1055,20 @@ local role_patterns = {
 }
 
 local gearscore_patterns = {
+
+	'[1-3][0-9][0-9]%++',
+	'[1-3][0-9][0-9]%+',
+	'[1-3][0-9][0-9]',
 	
-	'[0-300]','+','[0-300]+',
 	
-	'пару','хил','Хил','дд','танк','танки','+','[0-300]*','все','рдд','Г'..csep..'ХМ','Танк',
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 
@@ -1082,6 +1094,8 @@ local guild_recruitment_patterns = {
 	'гильдия',
 	'ГИЛЬДИЯ',
 	'набор',
+	'рассмотрим',
+	'проходок',
 	'epgp',
 	'ep',
 	'приглашает',
@@ -1138,13 +1152,30 @@ local function remove_achievement_text(message)
 end
 
 local function format_gs_string(gs)
-	local formatted = string.gsub(gs, sep..'*%+?', ''); 
-	formatted  = string.gsub(formatted , 'к', '')
-	formatted  = string.gsub(formatted , sep, '.');
-	formatted  = tonumber(formatted);
+   
+	local formatted = string.gsub(gs, "(", " ") 	
+	
+	formatted  = string.gsub(formatted ,"1"," ")
+	
+	-- formatted = string.gsub(formatted,'', '')
+	-- formatted = string.gsub(formatted,sep,'.');
+	-- formatted = tonumber(formatted);
+	
+	-- if gs  > 1000 then
+		-- gs  = gs / 1000 ;
+		
+	
+	-- elseif gs > 100 then
+		-- gs = gs / 100 ;
+		
+	
+	-- elseif gs > 1 then
+		-- gs = gs / 10;
+	-- end
 
 
-	return  gs ;
+	return gs
+	-- return string.format('%.1f', gs)
 end
 
 
@@ -1254,7 +1285,11 @@ function raid_browser.raid_info(message)
 
 		-- If a gs requirement was found, then save it and continue.
 		if gs_start and gs_end then
+		-- return 
+			 -- return gs_start
+			 -- gs = string.gsub(message, gs_start)
 			gs = format_gs_string(string.sub(message, gs_start))
+			else gs = 'нет'
 			
 		end
 	end

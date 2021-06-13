@@ -32,7 +32,7 @@
 		</Anchors>
 		<Layers>
 			<Layer>
-				<FontString name="BARaidBrowserRaidSetEditBox" inherits="ChatFontNormal" text="Spec?" justifyH="LEFT">
+				<FontString name="BARaidBrowserRaidSetEditBox" inherits="ChatFontNormal" text="Спек?" justifyH="LEFT">
 					<Size>
 						<AbsDimension x="125" y="16"/>
 					</Size>
@@ -122,7 +122,7 @@
 					</Anchors>
 					<FontString inherits="ChatFontNormal"/>
 				</FontString>
-				<FontString name="BARaidBrowserEditNameText" inherits="ChatFontNormal" text="Name" justifyH="LEFT">
+				<FontString name="BARaidBrowserEditNameText" inherits="ChatFontNormal" text="Спек" justifyH="LEFT">
 					<Size>
 						<AbsDimension x="90" y="16"/>
 					</Size>
@@ -133,7 +133,7 @@
 					</Anchors>
 					<FontString inherits="ChatFontNormal"/>
 				</FontString>
-				<FontString name="BARaidBrowserEditGearScoreText" inherits="ChatFontNormal" text="GearScore" justifyH="LEFT">
+				<FontString name="BARaidBrowserEditGearScoreText" inherits="ChatFontNormal" text="ИтемЛвл" justifyH="LEFT">
 					<Size>
 						<AbsDimension x="90" y="16"/>
 					</Size>
@@ -156,7 +156,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="BARaidBrowserEditSpecSaveButton" inherits="UIPanelButtonTemplate" text="Save">
+			<Button name="BARaidBrowserEditSpecSaveButton" inherits="UIPanelButtonTemplate" text="Сохранить">
 				<Size>
 					<AbsDimension x="85" y="21"/>
 				</Size>
@@ -173,23 +173,23 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="BARaidBrowserEditCurrentSpecButton" inherits="UIPanelButtonTemplate" text="Current Spec">
-				<Size>
-					<AbsDimension x="95" y="21"/>
-				</Size>
-				<Anchors>
-					<Anchor point="BOTTOMLEFT" relativeTo="BARaidBrowserEditSpec" relativePoint="BOTTOMLEFT">
-						<Offset>
-							<AbsDimension x="8" y="10"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						BARaidBrowserEditCurrentSpecButton_OnClick()
-					</OnClick>
-				</Scripts>
-			</Button>
+			<!-- <Button name="BARaidBrowserEditCurrentSpecButton" inherits="UIPanelButtonTemplate" text="Current Spec"> -->
+				<!-- <Size> -->
+					<!-- <AbsDimension x="95" y="21"/> -->
+				<!-- </Size> -->
+				<!-- <Anchors> -->
+					<!-- <Anchor point="BOTTOMLEFT" relativeTo="BARaidBrowserEditSpec" relativePoint="BOTTOMLEFT"> -->
+						<!-- <Offset> -->
+							<!-- <AbsDimension x="8" y="10"/> -->
+						<!-- </Offset> -->
+					<!-- </Anchor> -->
+				<!-- </Anchors> -->
+				<!-- <Scripts> -->
+					<!-- <OnClick> -->
+						<!-- BARaidBrowserEditCurrentSpecButton_OnClick() -->
+					<!-- </OnClick> -->
+				<!-- </Scripts> -->
+			<!-- </Button> -->
 			<Frame name="BARaidBrowserEditName" inherits="BA_RaidBrowser_RaidSetTemplate">
 				<Size>
 					<AbsDimension x="175" y="25"/>

@@ -9,7 +9,11 @@ local gs_list_column = LFRBrowseFrameColumnHeader2
 local raid_list_column = LFRBrowseFrameColumnHeader3
 
 gs_list_column:SetText('Илвл')
-LFRBrowseFrameColumnHeader2:Hide()
+LFRBrowseFrameColumnHeader1:SetWidth(110)
+LFRBrowseFrameColumnHeader2:SetWidth(45)
+-- LFRBrowseFrameColumnHeader3:Hide()
+LFRBrowseFrameColumnHeader3:SetWidth(78)
+LFRBrowseFrameColumnHeader7:Hide()
 raid_list_column:SetText('Рейд')
 name_column:SetText('Кто собирает')
 
@@ -96,12 +100,14 @@ for i = 1, NUM_LFR_LIST_BUTTONS do
 			
 			if button.raid_locked then
 				GameTooltip:AddLine('\n|cffff0000Кд|cffffd100 для ' .. button.raid_info.name);
---				local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
---				GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
+				
+				-- local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
+				-- GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
 				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty)
 				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
 				GameTooltip:AddLine('\n|cff00ffffНет кд|cffffd100 для ' .. button.raid_info.name);
+			
 			end
 			
 			GameTooltip:Show();
@@ -137,14 +143,18 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	button.lfm_info = lfm_info;
 	button.raid_info = lfm_info.raid_info;
 	
+	
 	-- Update selected LFR raid host name
 	button.unitName = host_name;
+	button.name:SetWidth(100);
 
 	-- Update button text with raid host name , GS, Raid, and role information
 	button.name:SetText(host_name);
 	
 	button.level:SetText(button.lfm_info.gs); -- Previously level, now GS
-	button.level:Hide();
+	-----------------------------------------------------------------------------------------------------------------------------------
+	-- button.level:Hide();
+	button.level:SetWidth(30);
 
 	-- Raid name
 	button.class:SetText(button.raid_info.name); 
@@ -152,7 +162,8 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	button.raid_locked = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty);
 	button.type = "party";
 
-	button.partyIcon:Show();
+	-- button.partyIcon:Show();
+	button.partyIcon:Hide();
 
 	button.tankIcon:Hide();
 	button.healerIcon:Hide();
@@ -176,7 +187,8 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	button:Enable();
 	button.name:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	button.level:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-
+	-- -----------------------------------------------
+	-- button.level:SetMax(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	-- If the raid is saved, then color the raid text in the list as red
 	if button.raid_locked then
 		button.class:SetTextColor(1, 0, 0);
@@ -189,6 +201,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	button.healerIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
 	button.damageIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
 	button.partyIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
+	button.partyIcon:Hide();
 end
 
 local function insert_lfm_button(button, index)
