@@ -287,6 +287,7 @@ local raid_list = {
 				'цлк'..csep..'25'..csep..'об',	
 				'цлк'..csep..'25об',					
 		"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'об',
+		"Цитадель Ледняной Короны"..csep..'25',
 			}
 		),
 	},
@@ -750,7 +751,11 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 25,
 		difficulty = 4,
-		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),
+		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),{ 
+				'в'..csep..'рс'..csep..'25'..csep..'хм',
+				'рс'..csep..'25'..csep..'хм',
+				'в'..csep..'рс'..csep..'хм',
+			} 
 	},
 
 	{ -- рс10об
