@@ -1160,6 +1160,12 @@ local wts_message_patterns = {
 	'куплю'..sep,
 	'wts'..sep,
 	'selling'..sep,
+	'покупатель'..sep,
+	'покупателя'..sep,
+	'покупатели'..sep,
+	
+	
+	
 };
 
 local function refresh_lfm_messages()
