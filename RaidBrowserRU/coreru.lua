@@ -736,8 +736,10 @@ local raid_list = {
 			create_pattern_from_template('ик', 10, 'nm', 'Испытание крестоносца'),
 			{ '%[призыв авангарда %(10 игроков%)%]',
 			'ик'..csep..'оня'..csep..'10',
+			'ик'..csep..'оню'..csep..'10',
 			'ик\оня'..csep..'10',
 			'ИК%\ОНЯ'..csep..'10',
+			'ИК%\ОНю'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10ка',
 			'ИК%/ОНЯ'..csep..'10ка',
@@ -1115,9 +1117,15 @@ local channel_listeners = {};
 local guild_recruitment_patterns = {
 	'гильдию',
 	'гильдия',
-	'ГИЛЬДИЯ',
+	
 	'набор',
 	'рассмотрим',
+	'pve',
+	'guild',
+	'рассмотрим',
+	'rt',
+	'kick',
+	
 	
 	'проходок',
 	'epgp',
@@ -1163,9 +1171,6 @@ local wts_message_patterns = {
 	'покупатель'..sep,
 	'покупателя'..sep,
 	'покупатели'..sep,
-	
-	
-	
 };
 
 local function refresh_lfm_messages()
@@ -1346,7 +1351,8 @@ local function event_handler(self, event, message, sender, ...)
 				roles = roles, 
 				gs = gs, 
 				time = time(), 
-				message = message
+				message = message,
+				arg2 == arg2
 				-- local raid_name = raid_browser.lfm_messages[LFRBrowseFrame.selectedName].raid_info.name
 		-- local name [id = GetChannelName(lfm_messages);
 		-- local namelfm = lfm_messages
