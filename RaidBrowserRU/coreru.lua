@@ -74,7 +74,22 @@ local raid_list = {
 	-- Note: The order of each raid is deliberate.
 	-- Heroic raids are checked first, since NM raids will have the default 'icc10' pattern. 
 	-- Be careful about changing the order of the raids below
-	
+	{ -- рлк
+		name = 'рлк',
+		instance_name = 'Испытание чемпиона',
+		size = 5,
+		difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('рлк', 5, 'nm', 'Испытание чемпиона'),
+			{
+				'рлк'..csep..'гер',
+				'в'..csep..'залы',
+				'в '..csep..'кузню',
+				'в'..csep..'яму',
+			
+			}
+		),	
+	},
 	{ -- рбк
 		name = 'рбк',
 		instance_name = 'Черные топи',
@@ -1285,9 +1300,9 @@ end
 
 local function format_gs_string(gs)
    
-	local formatted = string.gsub(gs, "(", " ") 	
+	local formatted = string.gsub(gs, "+", " ") 	
 	
-	formatted  = string.gsub(formatted ,"1"," ")
+	formatted  = string.gsub(formatted ,"1","% ")
 	
 	-- formatted = string.gsub(formatted,'', '')
 	-- formatted = string.gsub(formatted,sep,'.');
@@ -1443,48 +1458,79 @@ end
 
 local function event_handler(self, event, message, sender,channel,  ...)
 	
-	  -- for name, info in pairs(raid_browser.lfm_messages) do
--- local lang = arg3
-
--- if arg3 == "орочий"   then
+	
  
   if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
+		arg2 = arg2
+		arg3 = arg3
+		if raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "всеобщий") then
+	-- Put the sender in the table of active raids
+			raid_browser.lfm_messages[sender] = {
+				sender = sender,
+				raid_info = raid_info, 
+				roles = roles, 
+				gs = gs,  
+				time = time(), 				
+				message = message.."\n|cff00ff00Хозяин собирает Альянс|r",
+			};
+			
+			elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "орочий") then
+	
+			raid_browser.lfm_messages[sender] = {
+				sender = sender,
+				raid_info = raid_info, 
+				roles = roles, 
+				gs = gs,  
+				time = time(), 				
+				message = message.."\n|cff00ff00Хозяин собирает Орду|r",
+			};
+			
+			elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "арго скорпидов") then
+	
+			raid_browser.lfm_messages[sender] = {
+				sender = sender,
+				raid_info = raid_info, 
+				roles = roles, 
+				gs = gs,  
+				time = time(), 				
+				message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
+			};
+			
+		elseif raid_info and roles and gs and (arg3 == "орочий")  then
 		
-		-- local lang = arg3
-		-- RegisterEvent("CHAT_MSG_CHANNEL")
-	
-	-- function OnEvent()
-	-- if (event == "CHAT_MSG_CHANNEL") and (languageName == "орочий")  then
-     -- local lang = "орочий" 
-	 
-	
-	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
-	  -- local lang = "всеобщий" 
-	   
-	 
-	   -- if (event == "CHAT_MSG_CHANNEL")   then
-     -- local lang = "орочий" 
-	 -- end
-	 
-	
-	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
-	  -- local lang = "всеобщий" 
-		if raid_info and roles and gs  then
-		
-	
-			-- local lang = "всеобщий" 
-			-- Put the sender in the table of active raids
+			
 			raid_browser.lfm_messages[sender] = {
 				sender = sender,
 				raid_info = raid_info, 
 				roles = roles, 
 				gs = gs,  
 				time = time(), 
-				-- message = message.."  "..lang,
-				message = message,
+				
+				message = message.."\n|cffff0000Орда|r",
 			};
-
+			
+			elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
+		
+			raid_browser.lfm_messages[sender] = {
+				sender = sender,
+				raid_info = raid_info, 
+				roles = roles, 
+				gs = gs,  
+				time = time(), 				
+				message = message.."\n|cff0000ffАльянс|r",
+			};
+			elseif raid_info and roles and gs and (arg3 == "арго скорпида")  then
+	
+			raid_browser.lfm_messages[sender] = {
+				sender = sender,
+				raid_info = raid_info, 
+				roles = roles, 
+				gs = gs,  
+				time = time(), 				
+				message = message.."\n|cffffcc00Ренегаты|r",
+			};
+			
 end
 
 
@@ -1518,7 +1564,25 @@ end
   -- SendChatMessage("This is just a test.", "CHANNEL", nil, id);
 -- end
 -- id, name = GetChannelName(id);
-			
+			-- local lang = arg3
+		-- RegisterEvent("CHAT_MSG_CHANNEL")
+	
+	-- function OnEvent()
+	-- if (event == "CHAT_MSG_CHANNEL") and (languageName == "орочий")  then
+     -- local lang = "орочий" 
+	 
+	
+	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
+	  -- local lang = "всеобщий" 
+	   
+	 
+	   -- if (event == "CHAT_MSG_CHANNEL")   then
+     -- local lang = "орочий" 
+	 -- end
+	 
+	
+	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
+	  -- local lang = "всеобщий" 
 		end
 	end
 	-- end
