@@ -7,15 +7,12 @@ local refresh_button = LFRBrowseFrameRefreshButton
 local name_column = LFRBrowseFrameColumnHeader1
 local gs_list_column = LFRBrowseFrameColumnHeader2
 local raid_list_column = LFRBrowseFrameColumnHeader3
--- local lang = LFRBrowseFrameColumnHeader4
 
 gs_list_column:SetText('Илвл')
 LFRBrowseFrameColumnHeader1:SetWidth(110)
 LFRBrowseFrameColumnHeader2:SetWidth(45)
 -- LFRBrowseFrameColumnHeader3:Hide()
 LFRBrowseFrameColumnHeader3:SetWidth(78)
--- LFRBrowseFrameColumnHeader4:SetWidth(78)
-
 LFRBrowseFrameColumnHeader7:Hide()
 raid_list_column:SetText('Рейд')
 name_column:SetText('Кто собирает')

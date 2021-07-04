@@ -88,7 +88,7 @@ local raid_list = {
 				'нРБК',
 				'рбк',
 				'РБК',
-				'н'..csep..'РБК',
+				'н'..csep..'рбк',
 				'Н'..csep..'РБК',
 				'Н'..csep..'рбк',
 				'РБК',
@@ -96,9 +96,20 @@ local raid_list = {
 				'в'..csep..'рбк',
 				'три'..csep..'рбк',
 				'три'..csep..'нрбк',
+				'онли'..csep..'нрбк',
+				'темный'..csep..'лабиринт',
 				'собираю'..csep..'рбк',
 				'собераю'..csep..'рбк',
+				
 				'собераю'..csep..'в'..csep..'рбк',
+				'собераю'..csep..'на'..csep..'3'..csep..'рбк',
+				'собераю'..csep..'на'..csep..'три'..csep..'рбк',
+				'собераю'..csep..'на'..csep..'3'..csep..'нрбк',
+				'собераю'..csep..'на'..csep..'три'..csep..'нрбк',
+					'собираю'..csep..'на'..csep..'три'..csep..'рбк',
+					'собираю'..csep..'на'..csep..'3'..csep..'рбк',
+					'собираю'..csep..'на'..csep..'три'..csep..'нрбк',
+					'собираю'..csep..'на'..csep..'3'..csep..'нрбк',
 				'н'..csep..'р'..csep..'б'..csep..'к',
 				'собираю'..csep..'в'..csep..'рбк',
 				'в'..csep..'нрбк',
@@ -123,7 +134,7 @@ local raid_list = {
 				'на'..csep..'5'..csep..'кату',
 				'5'..csep..'категория',
 				'на'..csep..'5'..csep..'категорию',
-				'на'..csep..'5'..csep..'категорию',
+				
 			"%[5 Категория%]"..csep..'+',
 			"%[5 Категория%]"..csep..'++',
 			"%[5 Категория%]"..csep..'+++',
@@ -150,6 +161,9 @@ local raid_list = {
 				'на'..csep..'4'..csep..'категорию',
 			
 			"%[4 Категория%]"..csep..'+',
+			"%[4 Категория%]"..csep..'++',
+			"%[4 Категория%]"..csep..'+++',
+			"%[4 Категория%]"..csep..'++++',
 			'на'..csep.."%[4 Категория%]",
 			}
 		),	
@@ -167,6 +181,10 @@ local raid_list = {
 				'3'..csep..'категория',
 				'на'..csep..'3'..csep..'категорию',
 			"%[3 Категория%]"..csep..'+',
+			"%[3 Категория%]"..csep..'++',
+				"%[3 Категория%]"..csep..'+++',
+				"%[3 Категория%]"..csep..'++++',
+					"%[3 Категория%]"..csep..'+++++',
 			'на'..csep.."%[3 Категория%]",
 			}
 		),	
@@ -184,6 +202,9 @@ local raid_list = {
 				'2'..csep..'категория',
 				'на'..csep..'2'..csep..'категорию',
 			"%[2 Категория%]"..csep..'+',
+			"%[2 Категория%]"..csep..'++',
+			"%[2 Категория%]"..csep..'+++',
+			"%[2 Категория%]"..csep..'++++',
 			'на'..csep.."%[2 Категория%]",
 			
 			}
@@ -240,10 +261,17 @@ local raid_list = {
 			create_pattern_from_template('цлк', 25, 'hc', 'Цитадель Ледяной Короны'),
 			{
 				'лич'..csep..'цлк'..csep..'25'..csep..'хм',
+				'лич'..csep..'цлк'..csep..'25'..csep..'гер',
 				'цлк'..csep..'25'..csep..'хм',
+				'цлк'..csep..'25'..csep..'гер',
+				'в'..csep..'цлк'..csep..'25'..csep..'хм',
+				'в'..csep..'цлк'..csep..'25'..csep..'гер',
 				'лич'..csep..'25'..csep..'хм',
+				'лич'..csep..'25'..csep..'гер',
 				'на'..csep..'лича'..csep..'25'..csep..'хм',
+				'на'..csep..'лича'..csep..'25'..csep..'гер',
 				'на'..csep..'лича'..csep..'цлк'..csep..'25'..csep..'хм',
+				'на'..csep..'лича'..csep..'цлк'..csep..'25'..csep..'гер',
 	"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'хм',
 	"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'гер',
 	
@@ -264,6 +292,7 @@ local raid_list = {
 				'цлк'..csep..'10'..csep..'репа',
 				'цлк'..csep..'репа',
 				'цлк'..csep..'репофарм',
+				'репофарм'..csep..'цлк',
 				'лич'..csep..'10'..csep..'об',
 				'%[слава рейдеру ледяной короны  %(10 игроков%)%]',
 				'%[Чума нежизни%]'..csep..'10'..csep..'об',
@@ -310,11 +339,15 @@ local raid_list = {
 				'гм'..csep..'гер',
 				'ГРУЛ%/МАГИК'..csep..'гер',
 				'магик%/грул'..csep..'гер',
+				'магик%/грул'..csep..'хм',
 				'мг'..csep..'гер',
+				'мг'..csep..'хм',
 				-- "М*Г"..csep..'ХМ',
 				-- 'М/Г ХМ',
 				
 				'м%/г'..csep..'хм',
+				'г%/м'..csep..'хм',
+				'г%/м'..csep..'гер',
 					'м%/г'..csep..'гер',
 			
 				'М'..csep..'Г'..csep..'ХМ',
@@ -353,6 +386,7 @@ local raid_list = {
 				'магик'..csep..'грул',
 				'в'..csep..'мг',
 				'фаст'..csep..'охота',
+				'на'..csep..'охоту',
 				'охота'..csep..'на'..csep..'фул',
 				'м'..csep..'и'..csep..'г'..csep..'об',
 				'м'..csep..'и'..csep..'г',
@@ -429,7 +463,10 @@ local raid_list = {
 		patterns = create_pattern_from_template('ос', 10, 'simple', 'Обсидиановое святилище'),{ 
 				'в'..csep..'ос'..csep..'10',
 				'ос'..csep..'10',
+				'ос'..csep..'10'..csep..'на'..csep..'%+'..csep..'3',
+				'в'..csep..'ос'..csep..'на'..csep..'%+'..csep..'3',
 				"%[Сартарион должен умереть!%]",
+				"%[Обсидиановое святилище%]"..csep..'10',
 				
 			} 
 	},
@@ -441,7 +478,9 @@ local raid_list = {
 		difficulty = 2,
 		patterns = create_pattern_from_template('ос', 25, 'simple', 'Обсидиановое святилище'),{ 
 				'в'..csep..'ос'..csep..'25',
+				'ос'..csep..'25'..csep..'на'..csep..'+'..csep..'3',
 				'ос'..csep..'25',
+				"%[Обсидиановое святилище%]"..csep..'25',
 				"[Меньше – не значит хуже %(25 игроков%)]",
 				"[Меньше – не значит хуже %(25 игроков%)]"..csep..'ос',
 			} 
@@ -457,9 +496,13 @@ local raid_list = {
 			create_pattern_from_template('ульда', 10, 'hc', 'Ульдуар'),
 			{ 
 				'ульда'..csep..'10'..csep..'хм',
+				'ульдуар'..csep..'10'..csep..'хм',
+				'ульдуар'..csep..'10'..csep..'гер',
 				'ульд'..csep..'10'..csep..'хм',
 				'ульд'..csep..'10'..csep..'гер',
 				'ульда'..csep..'10'..csep..'гер',		
+				'в'..csep..'ульду'..csep..'10'..csep..'гер',
+				'в'..csep..'ульду'..csep..'10'..csep..'хм',
 				'ульда10хм',					
 				'утюг'..csep..'10'..csep..'хм',
 				'утюг'..csep..'10',
@@ -506,7 +549,9 @@ local raid_list = {
 				'ульд'..csep..'25'..csep..'хм',
 				'ульд'..csep..'25'..csep..'гер',
 				'ульда'..csep..'10-25'..csep..'хм',
-				'ульда'..csep..'10-25'..csep..'гер',				
+				'ульда'..csep..'10-25'..csep..'гер',	
+			'в'..csep..'ульду'..csep..'на'..csep..'утюга',	
+'в'..csep..'ульду'..csep..'25'..csep..'на'..csep..'утюга',				
 				'утюг'..csep..'ульда'..csep..'хм',
 				'утюг'..csep..'ульда'..csep..'гер',
 				'на'..csep..'утюга'..csep..'25',
@@ -570,6 +615,10 @@ local raid_list = {
 			'накс'..csep..'25',
 			'наксрамас'..csep..'25',
 			"%[Наксрамас%]"..csep..'25',
+			"%[Ануб'Рекан должен умереть!%]"..csep..'25',
+			"%[Нот Чумной должен умереть!%]"..csep..'25',
+			"%[Инструктор Разувий должен умереть!%]"..csep..'25',
+			"%[Лоскутик должен умереть!!%]"..csep..'25',
 		},
 	},
 	
@@ -583,9 +632,12 @@ local raid_list = {
 			create_pattern_from_template('око хм', 25, 'nm', 'Крепость Бурь'),
 			{ 
 				'око'..csep..'хм',
+				'око'..csep..'гер',
 				-- 'В'..csep..'око'..csep..'хм',
 				'в'..csep..'око'..csep..'хм',
+				'в'..csep..'око'..csep..'гер',
 				'v'..csep..'око'..csep..'хм',
+				'v'..csep..'око'..csep..'гер',
 			"%[Око%]"..csep..'хм',
 			"%[Око%]"..csep..'гер',
 			}
@@ -681,6 +733,7 @@ local raid_list = {
 
 				'за'..csep..'нид',
 			    'на'..csep..'3'..csep..'сундука',
+				'на'..csep..'4+'..csep..'сундука',
 				 'сундук',
 				  'сундука',
 				  "%[Зул'Аман%]",
@@ -737,7 +790,8 @@ local raid_list = {
 			{ '%[призыв авангарда %(10 игроков%)%]',
 			'ик'..csep..'оня'..csep..'10',
 			'ик'..csep..'оню'..csep..'10',
-			'ик\оня'..csep..'10',
+			'ик%\оня'..csep..'10',
+			'ик%/оня'..csep..'10',
 			'ИК%\ОНЯ'..csep..'10',
 			'ИК%\ОНю'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10',
@@ -747,6 +801,8 @@ local raid_list = {
 			'ИКОНЯ'..csep..'10',
 			'ИкОня'..csep..'10',
 			'ИК'..csep..'ОНЯ'..csep..'10',
+			'ик'..csep..'и'..csep..'оня',
+			'ик'..csep..'после'..csep..'они',
 			'ИК'..csep..'ОНЯ'..csep..'10',
 			'ИК%\ОНЯ'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10',
@@ -757,6 +813,7 @@ local raid_list = {
 			'ик%+оня'..csep..'(10)',
 			'ик%/оня'..csep..'10',
 			'ик'..csep..'10',
+			'ик'..csep..'10'..csep..'об',
 				"%[Испытание крестоносца%]"..csep..'10'..csep..'об',
 				"%[Испытание крестоносца%]"..csep..'10',
 			}
@@ -787,7 +844,12 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 3,
-		patterns = create_pattern_from_template('рс', 10, 'hc', 'Рубиновое святилище'),
+		patterns = create_pattern_from_template('рс', 10, 'hc', 'Рубиновое святилище'),{ 
+				'в'..csep..'рс'..csep..'10'..csep..'хм',
+				'рс'..csep..'10'..csep..'хм',
+				'в'..csep..'рс'..csep..'10'..csep..'гер',
+				'рс'..csep..'10'..csep..'гер',
+			} 
 	},
 
 	{ -- рс25хм
@@ -798,7 +860,10 @@ local raid_list = {
 		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),{ 
 				'в'..csep..'рс'..csep..'25'..csep..'хм',
 				'рс'..csep..'25'..csep..'хм',
-				'в'..csep..'рс'..csep..'хм',
+			
+				'в'..csep..'рс'..csep..'25'..csep..'гер',
+				'рс'..csep..'25'..csep..'гер',
+				
 			} 
 	},
 
@@ -807,7 +872,12 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 1,
-		patterns = create_pattern_from_template('рс', 10, 'nm', 'Рубиновое святилище'),
+		patterns = create_pattern_from_template('рс', 10, 'nm', 'Рубиновое святилище'),{ 
+				'в'..csep..'рс'..csep..'10'..csep..'об',
+				'рс'..csep..'10'..csep..'об',
+				'в'..csep..'рс'..csep..'10',
+				'рс'..csep..'10',
+			} 
 	},
 
 	{ -- рс25об
@@ -818,6 +888,8 @@ local raid_list = {
 		patterns = create_pattern_from_template('рс', 25, 'nm', 'Рубиновое святилище'),{ 
 				'в'..csep..'рс'..csep..'25',
 				'рс'..csep..'25',
+				'в'..csep..'рс'..csep..'25'..csep..'об',
+				'рс'..csep..'25'..csep..'об',
 			} 
 	},
 	
@@ -843,6 +915,7 @@ local raid_list = {
 		difficulty = 2,
 		patterns = {
 		'са 25',
+		'са'..csep..'25',
 		'склеп'..csep..'25', 
 		'с'..csep..'а'..csep..'25',
 		"%[Склеп Аркавона%]"..csep..'25',
@@ -901,6 +974,8 @@ local raid_list = {
 		difficulty = 1,
 		patterns = {
 			'оня'..csep..'10',
+			'только'..csep..'оня'..csep..'10',
+			'только'..csep..'оня',
 			'в'..csep..'оню'..csep..'10',
 			"%[Логово Ониксии%]"..csep..'10',
 			
@@ -919,13 +994,20 @@ local raid_list = {
 			create_pattern_from_template('кара', 10, 'nm', 'Каражан'),
 			{ 
 				'кара'..csep..'хм',
+				'кара'..csep..'гер',
 				'в'..csep..'кару'..csep..'хм'..csep..'с',
 				'в'..csep..'кару'..csep..'хм'..csep..'на',
+				'в'..csep..'кару'..csep..'гер'..csep..'с',
+				'в'..csep..'кару'..csep..'гер'..csep..'на',
 				'кара'..csep..'хм'..csep..'на'..csep..'гнева',
 				'кару'..csep..'хм',
+				'кара'..csep..'гер'..csep..'на'..csep..'гнева',
+				'кару'..csep..'гер',
 				'в'..csep..'кару'..csep..'хм',
+				'в'..csep..'кару'..csep..'гер',
 				'каражан'..csep..'хм',
-				'кара'..csep..'гер',
+				'каражан'..csep..'гер',
+				
 				"%[Каражан%]"..csep..'гер',
 				"%[Каражан%]"..csep..'хм',
 			}
@@ -952,8 +1034,7 @@ local raid_list = {
 				'кара'..csep..'10'..csep..'токены',
 				'каражан'..csep..'об',	
 				'каражан',					
-				'Каражан'..csep..'об',		
-				'Каражан',					
+									
 				"%[Каражан%]",
 				"%[Каражан%]"..csep..'об',
 			}
@@ -967,6 +1048,7 @@ local raid_list = {
 		difficulty = 1,
 		patterns = {
 			'огненные'..csep..'недра',
+			
 		},
 	},
 	
@@ -998,6 +1080,8 @@ local role_patterns = {
 		'животных',
 		'мутанты',
 		'сильнейших'..csep..'дд',
+		'топовых'..csep..'дд',
+		
 		
 		-- melee dps
 		'[0-9]*'..csep..'дд',
@@ -1023,19 +1107,19 @@ local role_patterns = {
 		'[0-9]*'..csep..'тела',
 		'дд','пару',
 		'р%(дд%)',
-		'Кольчужники',
+	
 		'кольчужники',
 		'ткань',
-		'Латники',
+		
 		'латники',
 		'дпс',
 		'дпс+',
 		'дпс++',
 'пару'..csep..'дд',
 'дд'..csep..'рдд',
-'дд\рдд',
-'дд.рдд',
-'дд/рдд',
+'дд%\рдд',
+'дд%.рдд',
+'дд%/рдд',
 'пару'..csep..'рдд',
 'пара'..csep..'рдд',
 'пара'..csep..'дд',
@@ -1053,7 +1137,7 @@ local role_patterns = {
 		'[0-9]*'..csep..'дц',	'дц','ДЦ','Дц',
 		'[0-9]*'..csep..'хприст',
 			'[0-9]*'..csep..'прист',
-		'хил','пару','Хил',
+		'хил','пару',
 		'солохил',
 	},
 	
@@ -1072,7 +1156,8 @@ local role_patterns = {
 		'протопал',
 		'[0-9]*'..csep..'пвар',
 		'протовар',
-		'[0-9]*'..csep..'мт/от',
+		'[0-9]*'..csep..'мт%/от',
+		'[0-9]*'..csep..'мт%\от',
 		'[0-9]*'..csep..'от',
 		'дк'..csep..'танк',
 		'[0-9]*'..csep..'танк'..csep..'дк',
@@ -1141,11 +1226,19 @@ local guild_recruitment_patterns = {
 	'закрытое',
 	'приглашает',
 	'требуется',
+	'активность',
+	'активных',
+	'от нас',
+	'от вас',
 	'требуются',
 	'прогресс',
 	'рт',
 	'ходим',
+	'донабор',
+	'открывает',
+	'знаменитая',
 	'статик',
+	'pvp',
 	'ведет'..csep..'набор',
 	'ведет'..csep..'добор',
 	'идет'..csep..'добор',
@@ -1172,6 +1265,9 @@ local wts_message_patterns = {
 	'покупателя'..sep,
 	'покупатели'..sep,
 };
+
+
+
 
 local function refresh_lfm_messages()
 	for name, info in pairs(raid_browser.lfm_messages) do
@@ -1329,30 +1425,87 @@ function raid_browser.raid_info(message)
 			
 		end
 	end
+-- local language = language;
+		-- local language = languageName()
+		-- if language  then 
+		-- language = "орочий"
+		
+-- end
 
 	return raid_info, roles, gs
+	-- , 	 language
 end
 
 local function is_lfm_channel(channel)
 	return channel == 'CHAT_MSG_CHANNEL' or channel == 'CHAT_MSG_YELL';
 end
+-- local arg1, arg2, arg3 = ...;
 
-local function event_handler(self, event, message, sender, ...)
+local function event_handler(self, event, message, sender,channel,  ...)
+	
+	  -- for name, info in pairs(raid_browser.lfm_messages) do
+-- local lang = arg3
 
-	if is_lfm_channel(event) then
+-- if arg3 == "орочий"   then
+ 
+  if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		
-		if raid_info and roles and gs then
-			
+		-- local lang = arg3
+		-- RegisterEvent("CHAT_MSG_CHANNEL")
+	
+	-- function OnEvent()
+	-- if (event == "CHAT_MSG_CHANNEL") and (languageName == "орочий")  then
+     -- local lang = "орочий" 
+	 
+	
+	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
+	  -- local lang = "всеобщий" 
+	   
+	 
+	   -- if (event == "CHAT_MSG_CHANNEL")   then
+     -- local lang = "орочий" 
+	 -- end
+	 
+	
+	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
+	  -- local lang = "всеобщий" 
+		if raid_info and roles and gs  then
+		
+	
+			-- local lang = "всеобщий" 
 			-- Put the sender in the table of active raids
 			raid_browser.lfm_messages[sender] = {
 				sender = sender,
 				raid_info = raid_info, 
 				roles = roles, 
-				gs = gs, 
+				gs = gs,  
 				time = time(), 
+				-- message = message.."  "..lang,
 				message = message,
-				arg2 == arg2
+			};
+
+end
+
+
+	raid_browser.gui.update_list();
+	
+	
+	
+	
+			-- elseif raid_info and roles and gs and (subevent == "CHAT_MSG_CHANNEL" and languageName == "орочий") then
+			
+			
+			-- raid_browser.lfm_messages[sender] = {
+				-- sender = sender,
+				-- raid_info = raid_info, 
+				-- roles = roles, 
+				-- gs = gs, 
+				-- time = time(), 
+				-- message = "орочий",
+				
+			-- };
+			
 				-- local raid_name = raid_browser.lfm_messages[LFRBrowseFrame.selectedName].raid_info.name
 		-- local name [id = GetChannelName(lfm_messages);
 		-- local namelfm = lfm_messages
@@ -1365,13 +1518,14 @@ local function event_handler(self, event, message, sender, ...)
   -- SendChatMessage("This is just a test.", "CHANNEL", nil, id);
 -- end
 -- id, name = GetChannelName(id);
-			};
 			
-			raid_browser.gui.update_list();
 		end
 	end
+	-- end
 	
-end
+-- end
+-- end
+-- end
 
 function raid_browser:OnEnable()
 	raid_browser:Print('Загружен. Пиши /rb чтобы открыть RaidBrowser.')
