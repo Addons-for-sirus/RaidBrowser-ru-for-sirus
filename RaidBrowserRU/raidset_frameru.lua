@@ -7,6 +7,7 @@ end
 local info = {}
 
 local BARaidSetDropdown = CreateFrame("Frame", "BARaidSetDropdown", LFRBrowseFrame);
+
 BARaidSetDropdown.point = "TOPRIGHT"
 BARaidSetDropdown.relativePoint = "BOTTOMRIGHT"
 BARaidSetDropdown.relativeTo = "BARaidBrowserRaidSetButton"
@@ -37,6 +38,56 @@ end
 
 -- Create raidset save button
 local button = CreateFrame("BUTTON","RaidBrowserRaidSetSaveButton", LFRBrowseFrame, "OptionsButtonTemplate")
+------------------------- movable
+LFRBrowseFrame:EnableMouse(true)
+LFRBrowseFrame:SetMovable(true)
+LFRBrowseFrame:RegisterForDrag("LeftButton")
+LFRBrowseFrame:Show()
+LFRParentFrame:SetScript("OnShow", function(this) 
+ 
+   this:SetAllPoints(LFRBrowseFrame)
+  end)
+LFRBrowseFrame:SetScript("OnDragStart", function(this) 
+  this:StartMoving() 
+  end)
+LFRBrowseFrame:SetScript("OnDragStop", function(this)  
+  this:StopMovingOrSizing()
+  frame_x,frame_y = this:GetCenter()
+  frame_x = frame_x - GetScreenWidth() / 2
+  frame_y = frame_y - GetScreenHeight() / 2
+  this:ClearAllPoints()
+  this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
+   -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
+   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+  end)
+
+
+-------------------------
+-- UIParent:EnableMouse(true)
+-- LFRParentFrame:SetMovable(true)
+-- LFRParentFrame:RegisterForDrag("LeftButton")
+-- LFRParentFrame:Show()
+
+-- LFRParentFrame:SetScript("OnDragStart", function(this) 
+  -- this:StartMoving() 
+  -- end)
+-- LFRParentFrame:SetScript("OnDragStop", function(this)  
+  -- this:StopMovingOrSizing()
+  -- frame_x,frame_y = this:GetCenter()
+  -- frame_x = frame_x - GetScreenWidth() / 2
+  -- frame_y = frame_y - GetScreenHeight() / 2
+  -- this:ClearAllPoints()
+  -- this:SetPoint("CENTER",UIParent,"CENTER",frame_x,frame_y)
+  -- end)
+
+
+
+
+
+
+
+---------------------
+
 button:SetPoint("CENTER", LFRBrowseFrame, "CENTER", -53, 168)
 button:EnableMouse(true)
 button:RegisterForClicks("AnyUp")
