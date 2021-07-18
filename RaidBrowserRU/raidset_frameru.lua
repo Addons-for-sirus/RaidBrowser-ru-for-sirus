@@ -43,10 +43,7 @@ LFRBrowseFrame:EnableMouse(true)
 LFRBrowseFrame:SetMovable(true)
 LFRBrowseFrame:RegisterForDrag("LeftButton")
 LFRBrowseFrame:Show()
-LFRParentFrame:SetScript("OnShow", function(this) 
- 
-   this:SetAllPoints(LFRBrowseFrame)
-  end)
+
 LFRBrowseFrame:SetScript("OnDragStart", function(this) 
   this:StartMoving() 
   end)
@@ -60,7 +57,11 @@ LFRBrowseFrame:SetScript("OnDragStop", function(this)
    -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
    LFRParentFrame:SetAllPoints(LFRBrowseFrame)
   end)
-
+  
+ LFRBrowseFrame:SetScript("OnShow", function(tralala) 
+	--LFRParentFrame:SetPoint("CENTER", LFRBrowseFrame,"CENTER",0,0)
+		LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+	 end)
 
 -------------------------
 -- UIParent:EnableMouse(true)
