@@ -39,30 +39,63 @@ end
 -- Create raidset save button
 local button = CreateFrame("BUTTON","RaidBrowserRaidSetSaveButton", LFRBrowseFrame, "OptionsButtonTemplate")
 ------------------------- movable
-LFRBrowseFrame:EnableMouse(true)
-LFRBrowseFrame:SetMovable(true)
-LFRBrowseFrame:RegisterForDrag("LeftButton")
-LFRBrowseFrame:Show()
+--LFRBrowseFrame:EnableMouse(true)
+--LFRBrowseFrame:SetMovable(true)
+--LFRBrowseFrame:RegisterForDrag("LeftButton")
+--LFRBrowseFrame:Show()
+--
+--LFRBrowseFrame:SetScript("OnDragStart", function(this) 
+--  this:StartMoving() 
+--  end)
+--LFRBrowseFrame:SetScript("OnDragStop", function(this)  
+--  this:StopMovingOrSizing()
+--  frame_x,frame_y = this:GetCenter()
+--  frame_x = frame_x - GetScreenWidth() / 2
+--  frame_y = frame_y - GetScreenHeight() / 2
+--  this:ClearAllPoints()
+--  this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
+--   -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
+----   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+--  end)
+--  
+-- LFRParentFrame:SetScript("OnShow", function(tralala) 
+--	--LFRParentFrame:SetPoint("CENTER", LFRBrowseFrame,"CENTER",0,0)
+--	tralala:ClearAllPoints()
+--		tralala:SetAllPoints(LFRBrowseFrame)
+--	 end)
+-----------------------------------------------------------------
+LFRParentFrame:EnableMouse(true)
+LFRParentFrame:SetMovable(true)
+LFRParentFrame:RegisterForDrag("LeftButton")
+--LFRParentFrame:Show()
 
-LFRBrowseFrame:SetScript("OnDragStart", function(this) 
+LFRParentFrame:SetScript("OnDragStart", function(this) 
   this:StartMoving() 
   end)
-LFRBrowseFrame:SetScript("OnDragStop", function(this)  
+LFRParentFrame:SetScript("OnDragStop", function(this)  
   this:StopMovingOrSizing()
   frame_x,frame_y = this:GetCenter()
   frame_x = frame_x - GetScreenWidth() / 2
   frame_y = frame_y - GetScreenHeight() / 2
-  this:ClearAllPoints()
+  --this:ClearAllPoints()
   this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
    -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
-   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+--   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
   end)
   
  LFRBrowseFrame:SetScript("OnShow", function(tralala) 
 	--LFRParentFrame:SetPoint("CENTER", LFRBrowseFrame,"CENTER",0,0)
-		LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+	tralala:ClearAllPoints()
+		tralala:SetAllPoints(LFRParentFrame)
 	 end)
 
+
+
+
+
+
+--LFRParentFrame:ClearAllPoints()
+--LFRParentFrame:SetAllPoints(LFRBrowseFrame)
 -------------------------
 -- UIParent:EnableMouse(true)
 -- LFRParentFrame:SetMovable(true)
