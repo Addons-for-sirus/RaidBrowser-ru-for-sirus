@@ -549,7 +549,8 @@ local raid_list = {
 			'%[слава рейдеру ульдуара %(10 игроков%)%]',
 			'%[защитник ульдуара%]',
 			'%[посланник титанов%]',
-			"%[Ульдуар%]"..csep..'10'..csep..'об',		
+			"%[Ульдуар%]"..csep..'10'..csep..'об',	
+			"%[Ульдуар%]"..csep..'10',	
 		},
 	},
 	
@@ -1011,7 +1012,7 @@ local raid_list = {
 		size = 10,
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('кара', 10, 'nm', 'Каражан'),
+			create_pattern_from_template('кара', 10, 'hc', 'Каражан'),
 			{ 
 				'кара'..csep..'хм',
 				'кара'..csep..'гер',
@@ -1138,15 +1139,15 @@ local role_patterns = {
 		'дпс',
 		'дпс+',
 		'дпс++',
-'пару'..csep..'дд',
-'дд'..csep..'рдд',
-'дд%\рдд',
-'дд%.рдд',
-'дд%/рдд',
-'пару'..csep..'рдд',
-'пара'..csep..'рдд',
-'пара'..csep..'дд',
-'помогите',
+	'пару'..csep..'дд',
+	'дд'..csep..'рдд',
+	'дд%\рдд',
+	'дд%.рдд',
+	'дд%/рдд',
+	'пару'..csep..'рдд',
+	'пара'..csep..'рдд',
+	'пара'..csep..'дд',
+	'помогите',
 
 	},
 	
@@ -1308,9 +1309,9 @@ end
 
 local function format_gs_string(gs)
    
-	local formatted = string.gsub(gs, "+", " ") 	
+	local formatted = string.sub(gs, "+", " ") 	
 	
-	formatted  = string.gsub(formatted ,"1","% ")
+	--formatted  = string.sub(formatted ,"1","% ")
 	
 	-- formatted = string.gsub(formatted,'', '')
 	-- formatted = string.gsub(formatted,sep,'.');
@@ -1437,13 +1438,14 @@ function raid_browser.raid_info(message)
 	-- Search for a gearscore requirement.
 	for _, pattern in pairs(gearscore_patterns) do
 		local gs_start, gs_end = string.find(message, pattern)
-
+		 local gs_final = string.match(message, pattern)
 		-- If a gs requirement was found, then save it and continue.
 		if gs_start and gs_end then
 		-- return 
 			 -- return gs_start
-			 -- gs = string.gsub(message, gs_start)
-			gs = format_gs_string(string.sub(message, gs_start))
+			
+			  gs = gs_final;
+			--gs = format_gs_string(string.sub(message, gs_start))
 			else gs = 'нет'
 			
 		end
