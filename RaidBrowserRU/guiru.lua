@@ -121,6 +121,7 @@ function addon:OnClick(button)
 			LFRParentFrame:Show()
 			end
 	end
+	LFRBrowseFrameRefreshButton:Hide()
 end
 
 function addon:Togglelfrwindow()
@@ -133,6 +134,7 @@ function addon:Togglelfrwindow()
 			LFRParentFrame:Show()
 			end
 	end
+	LFRBrowseFrameRefreshButton:Hide()
 end
 ---------------------
 ---------------------
