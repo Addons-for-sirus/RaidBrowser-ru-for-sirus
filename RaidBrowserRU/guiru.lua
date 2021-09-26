@@ -111,10 +111,7 @@ function addon:OnProfileEnable()
     end
 
 function addon:OnClick(button)
---	LFRParentFrame:Show()
-	
-	  SendChatMessage(/lfr , "CHANNEL", nil, "1"); 
-	
+	LFRParentFrame:Show()
 	end
 
 ---------------------
