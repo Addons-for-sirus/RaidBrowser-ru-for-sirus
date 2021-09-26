@@ -9,7 +9,7 @@ end
 _G = _G
 
 local TITLE = rbTitle
-local SIMSW = rb
+
 
 local addon = RaidBrowser
 addon.vars = vars
@@ -84,21 +84,21 @@ function addon:OnEnable()
         label = "RaidBrowser",
         icon = "Interface\\AddOns\\RaidBrowser\\icon",
       })
-    dataobj.OnClick = function(self, button)
-	        if button == "RightButton" then
-	                RaidBrowser:OpenMenu(self,addon)
-	        else
-	                RaidBrowser:togglesimswindow()
-	        end
+			 dataobj.OnClick = function(self, button)
+								if button == "RightButton" then
+										RaidBrowser:OpenMenu(self,addon)
+								else
+										RaidBrowser:Togglelfrwindow()
+								end
              end    
-    dataobj.OnTooltipShow = function(tooltip)
-                if tooltip and tooltip.AddLine then
-                        tooltip:SetText("RaidBrowser")
-                        tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
-                        tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
-                        tooltip:Show()
-                end
-                              end            
+			dataobj.OnTooltipShow = function(tooltip)
+				if tooltip and tooltip.AddLine then
+						tooltip:SetText("RaidBrowser")
+						tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
+						tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
+						tooltip:Show()
+				end
+            end            
 
   end  
 
@@ -111,19 +111,32 @@ function addon:OnProfileEnable()
     end
 
 function addon:OnClick(button)
-	LFRParentFrame:Show()
+
+	if LFRParentFrame then
+		if LFRParentFrame:IsShown() then
+			LFRParentFrame:Hide()
+			
+		else
+			
+			LFRParentFrame:Show()
+			end
 	end
+end
 
+function addon:Togglelfrwindow()
+	if LFRParentFrame then
+		if LFRParentFrame:IsShown() then
+			LFRParentFrame:Hide()
+			
+		else
+			
+			LFRParentFrame:Show()
+			end
+	end
+end
 ---------------------
 ---------------------
 ---------------------
----------------------
-
-
-
----------------------
----------------------
---------------------- 
 ---------------------
 
 raid_browser.gui = {}
@@ -430,5 +443,3 @@ LFRFrame_SetActiveTab(2)
 
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
-
-

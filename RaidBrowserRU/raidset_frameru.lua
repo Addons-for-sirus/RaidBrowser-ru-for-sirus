@@ -33,7 +33,17 @@ local function on_raidset_edit()
 	BARaidBrowserEditSpecEditBox:SetText("Редактировать "..raid_browser_character_current_raidset.name);
 	BARaidBrowserEditNameEditBox:SetText(raid_browser_character_current_raidset.spec);
 	BARaidBrowserEditGearScoreEditBox:SetText(raid_browser_character_current_raidset.gs);
-	BARaidBrowserEditSpec:Show();
+--	BARaidBrowserEditSpec:Show();
+
+		if BARaidBrowserEditSpec then
+		if BARaidBrowserEditSpec:IsShown() then
+			BARaidBrowserEditSpec:Hide()
+			
+		else
+			
+			BARaidBrowserEditSpec:Show()
+			end
+	end
 end
 
 
