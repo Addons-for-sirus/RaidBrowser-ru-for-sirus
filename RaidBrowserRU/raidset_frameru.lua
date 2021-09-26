@@ -36,8 +36,7 @@ local function on_raidset_edit()
 	BARaidBrowserEditSpec:Show();
 end
 
--- Create raidset save button
-local button = CreateFrame("BUTTON","RaidBrowserRaidSetSaveButton", LFRBrowseFrame, "OptionsButtonTemplate")
+
 ------------------------- movable
 
 LFRParentFrame:EnableMouse(true)
@@ -55,14 +54,18 @@ LFRParentFrame:SetScript("OnDragStop", function(this)
   frame_y = frame_y - GetScreenHeight() / 2
   --this:ClearAllPoints()
   this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
+  LFRBrowseFrameInviteButton:SetPoint("RIGHT", LFRParentFrame,"BOTTOM",150,22)
    -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
 --   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
   end)
   
  LFRBrowseFrame:SetScript("OnShow", function(tralala) 
 	--LFRParentFrame:SetPoint("CENTER", LFRBrowseFrame,"CENTER",0,0)
-	tralala:ClearAllPoints()
+		tralala:ClearAllPoints()
 		tralala:SetAllPoints(LFRParentFrame)
+		LFRBrowseFrameInviteButton:ClearAllPoints()
+		LFRBrowseFrameInviteButton:SetPoint("RIGHT", LFRParentFrame,"BOTTOM",150,22)
+
 	 end)
 
 
@@ -70,7 +73,8 @@ LFRParentFrame:SetScript("OnDragStop", function(this)
 
 
 ---------------------
-
+-- Create raidset save button
+local button = CreateFrame("BUTTON","RaidBrowserRaidSetSaveButton", LFRBrowseFrame, "OptionsButtonTemplate")
 button:SetPoint("CENTER", LFRBrowseFrame, "CENTER", -53, 168)
 button:EnableMouse(true)
 button:RegisterForClicks("AnyUp")

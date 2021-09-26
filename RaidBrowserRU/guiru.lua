@@ -1,3 +1,134 @@
+
+local addonName, vars = ...
+local L = vars.L
+if AceLibrary:HasInstance("FuBarPlugin-2.0") then
+	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
+else
+	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
+end
+_G = _G
+
+local TITLE = rbTitle
+local SIMSW = rb
+
+local addon = RaidBrowser
+addon.vars = vars
+-------------------------------------------
+-------
+-------- создаем  мини кнопку и саму панель v2
+--------
+----------
+----------- 
+
+-- FuBar stuff
+addon.name = "RaidBrowser"
+addon.hasIcon = true
+addon.hasNoColor = true
+addon.clickableTooltip = false
+addon.independentProfile = true
+addon.cannotDetachTooltip = true
+addon.hideWithoutStandby = true
+
+
+
+
+
+function addon:OnTextUpdate()
+	self:SetText("RaidBrowser")
+  local f = addon.minimapFrame; 
+  if f then -- ticket #14
+    f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
+  end
+end
+
+-- AceDB stuff
+addon:RegisterDB("RaidBrowserDB")
+addon:RegisterDefaults("profile", {
+
+
+	})
+
+-- ACE options menu
+local options = {
+  type = 'group',
+  handler = RaidBrowser,
+--  args = {},
+	
+  --settings = {},
+ }
+
+ addon.OnMenuRequest = options
+
+
+
+local SLDB
+
+function addon:OnEnable()
+
+  self:OnProfileEnable()
+  
+  
+
+  if SLDB then
+    return
+  end
+  if AceLibrary:HasInstance("LibDataBroker-1.1") then
+    SLDB = AceLibrary("LibDataBroker-1.1")
+  elseif LibStub then
+    SLDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
+  end
+  if SLDB then
+    local dataobj = SLDB:GetDataObjectByName("RaidBrowser") or 
+      SLDB:NewDataObject("RaidBrowser", {
+        type = "launcher",
+        label = "RaidBrowser",
+        icon = "Interface\\AddOns\\RaidBrowser\\icon",
+      })
+    dataobj.OnClick = function(self, button)
+	        if button == "RightButton" then
+	                RaidBrowser:OpenMenu(self,addon)
+	        else
+	                RaidBrowser:togglesimswindow()
+	        end
+             end    
+    dataobj.OnTooltipShow = function(tooltip)
+                if tooltip and tooltip.AddLine then
+                        tooltip:SetText("RaidBrowser")
+                        tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
+                        tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
+                        tooltip:Show()
+                end
+                              end            
+
+  end  
+
+  end
+
+function addon:OnProfileDisable()
+    end
+
+function addon:OnProfileEnable()
+    end
+
+function addon:OnClick(button)
+--	LFRParentFrame:Show()
+	
+	  SendChatMessage(/lfr , "CHANNEL", nil, "1"); 
+	
+	end
+
+---------------------
+---------------------
+---------------------
+---------------------
+
+
+
+---------------------
+---------------------
+--------------------- 
+---------------------
+
 raid_browser.gui = {}
 
 local search_button = LFRQueueFrameFindGroupButton
@@ -33,8 +164,9 @@ local function clear_highlights()
 	end	
 end
 
-join_button:SetText('Спам в пм')
+join_button:SetText('Авто сообщение')
 join_button:SetScript('OnClick', on_join)
+
 
 local function format_count(value)
    if value == 1 then
@@ -301,3 +433,5 @@ LFRFrame_SetActiveTab(2)
 
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
+
+
