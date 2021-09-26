@@ -135,7 +135,9 @@ end
 
 
 -- Assignment operator for LFR buttons
-local function assign_lfr_button(button, host_name, lfm_info, index)
+local function assign_lfr_button(button, host_name, lfm_info, index,message)
+		arg2 = arg2
+		arg3 = arg3
 	local offset = FauxScrollFrame_GetOffset(LFRBrowseFrameListScrollFrame);
 	button.index = index;
 	index = index - offset;
@@ -145,13 +147,18 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	
 	
 	-- Update selected LFR raid host name
+
 	button.unitName = host_name;
 	button.name:SetWidth(100);
 
 	-- Update button text with raid host name , GS, Raid, and role information
-	button.name:SetText(host_name);
-	
-	button.level:SetText(button.lfm_info.gs); -- Previously level, now GS
+--	if (arg3 == "орочий") then 
+--	button.name:SetText('|cffff0000'..111);
+--	else button.name:SetText(host_name);
+--	end
+
+	button.name:SetText(button.lfm_info.sender);
+	button.level:SetText(button.lfm_info.gs); -- Previously level, now GS, then ilvl
 	-----------------------------------------------------------------------------------------------------------------------------------
 	-- button.level:Hide();
 	button.level:SetWidth(30);
@@ -185,8 +192,8 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	end
 	
 	button:Enable();
-	button.name:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	button.level:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+--	button.name:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
+--	button.level:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	-- -----------------------------------------------
 	-- button.level:SetMax(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	-- If the raid is saved, then color the raid text in the list as red
@@ -202,6 +209,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index)
 	button.damageIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
 	button.partyIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
 	button.partyIcon:Hide();
+	LFRBrowseFrameRefreshButton:Hide();
 end
 
 local function insert_lfm_button(button, index)

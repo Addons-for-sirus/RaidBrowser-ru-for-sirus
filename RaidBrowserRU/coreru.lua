@@ -1027,8 +1027,7 @@ local raid_list = {
 				'в'..csep..'кару'..csep..'хм',
 				'в'..csep..'кару'..csep..'гер',
 				'каражан'..csep..'хм',
-				'каражан'..csep..'гер',
-				
+				'каражан'..csep..'гер',				
 				"%[Каражан%]"..csep..'гер',
 				"%[Каражан%]"..csep..'хм',
 			}
@@ -1475,34 +1474,34 @@ local function event_handler(self, event, message, sender,channel,  ...)
 		arg2 = arg2
 		arg3 = arg3
 		if raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "всеобщий") then
-	-- Put the sender in the table of active raids
-			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+			-- Put the sender in the table of active raids
+			raid_browser.lfm_messages[sender] = {				
+				sender = "|cff00ff00"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
-				gs = gs,  
+				gs = "|cff00ff00"..gs,  
 				time = time(), 				
 				message = message.."\n|cff00ff00Хозяин собирает Альянс|r",
 			};
 			
-			elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "орочий") then
+		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "орочий") then
 	
 			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+				sender = "|cff00ff00"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
-				gs = gs,  
+				gs = "|cff00ff00"..gs,  
 				time = time(), 				
 				message = message.."\n|cff00ff00Хозяин собирает Орду|r",
 			};
 			
-			elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "арго скорпидов") then
+		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "арго скорпидов") then
 	
 			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+				sender = "|cff00ff00"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
-				gs = gs,  
+				gs = "|cff00ff00"..gs,  
 				time = time(), 				
 				message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
 			};
@@ -1510,30 +1509,29 @@ local function event_handler(self, event, message, sender,channel,  ...)
 		elseif raid_info and roles and gs and (arg3 == "орочий")  then
 		
 			
-			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+			raid_browser.lfm_messages[sender] = {				
+				sender = "|cffff0000"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
 				gs = gs,  
-				time = time(), 
-				
+				time = time(), 				
 				message = message.."\n|cffff0000Орда|r",
-			};
+			};		
 			
-			elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
+		elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
 		
 			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+				sender = "|cff0000ff"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
 				gs = gs,  
 				time = time(), 				
 				message = message.."\n|cff0000ffАльянс|r",
 			};
-			elseif raid_info and roles and gs and (arg3 == "арго скорпида")  then
+		elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
 	
 			raid_browser.lfm_messages[sender] = {
-				sender = sender,
+				sender = "|cffffcc00"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
 				gs = gs,  
@@ -1541,65 +1539,14 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				message = message.."\n|cffffcc00Ренегаты|r",
 			};
 			
-end
+		end
 
 
 	raid_browser.gui.update_list();
-	
-	
-	
-	
-			-- elseif raid_info and roles and gs and (subevent == "CHAT_MSG_CHANNEL" and languageName == "орочий") then
-			
-			
-			-- raid_browser.lfm_messages[sender] = {
-				-- sender = sender,
-				-- raid_info = raid_info, 
-				-- roles = roles, 
-				-- gs = gs, 
-				-- time = time(), 
-				-- message = "орочий",
-				
-			-- };
-			
-				-- local raid_name = raid_browser.lfm_messages[LFRBrowseFrame.selectedName].raid_info.name
-		-- local name [id = GetChannelName(lfm_messages);
-		-- local namelfm = lfm_messages
-				-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-				-- message = GetDefaultLanguage(raid_name)
-				-- Check if the specific channel exists
--- myChannel = 1;
--- id, name = GetChannelName(message);
--- if (id > 0 and name ~= nil) then
-  -- SendChatMessage("This is just a test.", "CHANNEL", nil, id);
--- end
--- id, name = GetChannelName(id);
-			-- local lang = arg3
-		-- RegisterEvent("CHAT_MSG_CHANNEL")
-	
-	-- function OnEvent()
-	-- if (event == "CHAT_MSG_CHANNEL") and (languageName == "орочий")  then
-     -- local lang = "орочий" 
-	 
-	
-	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
-	  -- local lang = "всеобщий" 
-	   
-	 
-	   -- if (event == "CHAT_MSG_CHANNEL")   then
-     -- local lang = "орочий" 
-	 -- end
-	 
-	
-	 -- elseif (event == "CHAT_MSG_CHANNEL") and (languageName == "всеобщий")  then
-	  -- local lang = "всеобщий" 
+
 		end
 	end
-	-- end
-	
--- end
--- end
--- end
+
 
 function raid_browser:OnEnable()
 	raid_browser:Print('Загружен. Пиши /rb чтобы открыть RaidBrowser.')
