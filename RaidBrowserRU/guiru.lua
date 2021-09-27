@@ -1,4 +1,3 @@
-
 local addonName, vars = ...
 local L = vars.L
 if AceLibrary:HasInstance("FuBarPlugin-2.0") then
@@ -7,10 +6,7 @@ else
 	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
 end
 _G = _G
-
 local TITLE = rbTitle
-
-
 local addon = RaidBrowser
 addon.vars = vars
 -------------------------------------------
@@ -28,11 +24,6 @@ addon.clickableTooltip = false
 addon.independentProfile = true
 addon.cannotDetachTooltip = true
 addon.hideWithoutStandby = true
-
-
-
-
-
 function addon:OnTextUpdate()
 	self:SetText("RaidBrowser")
   local f = addon.minimapFrame; 
@@ -40,7 +31,6 @@ function addon:OnTextUpdate()
     f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
   end
 end
-
 -- AceDB stuff
 addon:RegisterDB("RaidBrowserDB")
 addon:RegisterDefaults("profile", {
@@ -56,10 +46,7 @@ local options = {
 	
   --settings = {},
  }
-
  addon.OnMenuRequest = options
-
-
 
 local SLDB
 
@@ -267,7 +254,6 @@ end
 
 -- Hide unused dropdown menu
 LFRBrowseFrameRaidDropDown:Hide()
-
 search_button:SetText('Find Raid')
 search_button:SetScript('OnClick', function() end)
 
@@ -287,8 +273,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	index = index - offset;
 
 	button.lfm_info = lfm_info;
-	button.raid_info = lfm_info.raid_info;
-	
+	button.raid_info = lfm_info.raid_info;	
 	
 	-- Update selected LFR raid host name
 
