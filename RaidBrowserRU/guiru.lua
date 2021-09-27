@@ -33,8 +33,9 @@ local function clear_highlights()
 	end	
 end
 
-join_button:SetText('Спам в пм')
+join_button:SetText('Авто сообщение')
 join_button:SetScript('OnClick', on_join)
+
 
 local function format_count(value)
    if value == 1 then
@@ -123,7 +124,6 @@ end
 
 -- Hide unused dropdown menu
 LFRBrowseFrameRaidDropDown:Hide()
-
 search_button:SetText('Find Raid')
 search_button:SetScript('OnClick', function() end)
 
@@ -143,8 +143,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	index = index - offset;
 
 	button.lfm_info = lfm_info;
-	button.raid_info = lfm_info.raid_info;
-	
+	button.raid_info = lfm_info.raid_info;	
 	
 	-- Update selected LFR raid host name
 
@@ -301,3 +300,4 @@ LFRFrame_SetActiveTab(2)
 
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
+LFRBrowseFrameRefreshButton:Hide()
