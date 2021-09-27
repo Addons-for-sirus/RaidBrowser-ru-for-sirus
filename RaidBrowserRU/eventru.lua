@@ -34,8 +34,7 @@ local function OnEvent(...)
 			BA_SavedInstance.saved_name[i] = saved_name;
 			BA_SavedInstance.id[i] = id;
 			BA_SavedInstance.saved_size[i] = saved_size;
-			BA_SavedInstance.difficulty[i] = difficulty;
-			
+			BA_SavedInstance.difficulty[i] = difficulty;			
 		end
 	elseif event == "PLAYER_ALIVE" then
 		if not raid_browser_character_raidsets then
