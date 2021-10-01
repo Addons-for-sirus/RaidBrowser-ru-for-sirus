@@ -100,14 +100,14 @@ for i = 1, NUM_LFR_LIST_BUTTONS do
 			GameTooltip:AddLine(last_sent);
 			
 			if button.raid_locked then
-				GameTooltip:AddLine('\n|cffff0000Кд|cffffd100 для ' .. button.raid_info.name);
+				GameTooltip:AddLine('\n|cffff0000Кд для ' .. button.raid_info.name);
 				
 				-- local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
 				-- GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
 				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty)
 				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
-				GameTooltip:AddLine('\n|cff00ffffНет кд|ff00ff00 для ' .. button.raid_info.name);
+				GameTooltip:AddLine('\n|cff00ff00Нет кд для ' .. button.raid_info.name);
 			
 			end
 			
