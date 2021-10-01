@@ -1772,7 +1772,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 		elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
 		
 			raid_browser.lfm_messages[sender] = {
-				sender = "|cff0000ff"..sender,
+				sender = "|cff00E5EE"..sender,
 				raid_info = raid_info, 
 				roles = roles, 
 				gs = gs,  

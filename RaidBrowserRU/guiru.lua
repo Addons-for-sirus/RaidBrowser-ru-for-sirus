@@ -107,7 +107,7 @@ for i = 1, NUM_LFR_LIST_BUTTONS do
 				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty)
 				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
-				GameTooltip:AddLine('\n|cff00ffffНет кд|cffffd100 для ' .. button.raid_info.name);
+				GameTooltip:AddLine('\n|cff00ffffНет кд|ff00ff00 для ' .. button.raid_info.name);
 			
 			end
 			
@@ -199,7 +199,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	if button.raid_locked then
 		button.class:SetTextColor(1, 0, 0);
 	else
-		button.class:SetTextColor(0, 1, 1);
+		button.class:SetTextColor(0, 255, 0);
 	end;
 	
 	-- Set up the corresponding textures for the roles columns
