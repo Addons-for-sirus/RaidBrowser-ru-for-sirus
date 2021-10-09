@@ -22,6 +22,7 @@ BA_SavedInstance.saved_name = {}
 BA_SavedInstance.id = {}
 BA_SavedInstance.saved_size = {}
 BA_SavedInstance.difficulty = {}
+BA_SavedInstance.locked = {}
 
 local function OnEvent(...)
 	local self, event = ...
@@ -30,11 +31,12 @@ local function OnEvent(...)
 	elseif event == "UPDATE_INSTANCE_INFO" then
 		wipe{BA_SavedInstance}
 		for i = 1, GetNumSavedInstances() do
-			local saved_name, id, reset, difficulty, _, _, _, _, saved_size = GetSavedInstanceInfo(i);
+			local saved_name, id, reset, difficulty, locked, _, _, _, saved_size = GetSavedInstanceInfo(i);
 			BA_SavedInstance.saved_name[i] = saved_name;
 			BA_SavedInstance.id[i] = id;
 			BA_SavedInstance.saved_size[i] = saved_size;
-			BA_SavedInstance.difficulty[i] = difficulty;			
+			BA_SavedInstance.difficulty[i] = difficulty;
+			BA_SavedInstance.locked[i] = locked;
 		end
 	elseif event == "PLAYER_ALIVE" then
 		if not raid_browser_character_raidsets then

@@ -3,15 +3,15 @@ raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowserRU', 'AceConsole-3.0
 local addonName, vars = ...
 local L = vars.L
 if AceLibrary:HasInstance("FuBarPlugin-2.0") then
-	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
+	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
 else
-	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
+	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
 end
 
 local TITLE = rbTitle
-local addon = RaidBrowser
+local addon = RaidBrowserRU
 addon.vars = vars
-addon.name = "RaidBrowser"
+addon.name = "RaidBrowserRU"
 addon.hasIcon = true
 addon.hasNoColor = true
 addon.clickableTooltip = false
@@ -19,7 +19,7 @@ addon.independentProfile = true
 addon.cannotDetachTooltip = true
 addon.hideWithoutStandby = true
 function addon:OnTextUpdate()
-	self:SetText("RaidBrowser")
+	self:SetText("RaidBrowserRU")
   local f = addon.minimapFrame; 
   if f then -- ticket #14
     f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
@@ -35,7 +35,7 @@ addon:RegisterDefaults("profile", {
 -- ACE options menu
 local options = {
   type = 'group',
-  handler = RaidBrowser,
+  handler = RaidBrowserRU,
 --  args = {},
 	
   --settings = {},
@@ -45,11 +45,7 @@ local options = {
 local SLDB
 
 function addon:OnEnable()
-
-  self:OnProfileEnable()
-  
-  
-
+  self:OnProfileEnable()  
   if SLDB then
     return
   end
@@ -59,31 +55,31 @@ function addon:OnEnable()
     SLDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
   end
   if SLDB then
-    local dataobj = SLDB:GetDataObjectByName("RaidBrowser") or 
-      SLDB:NewDataObject("RaidBrowser", {
+    local dataobj = SLDB:GetDataObjectByName("RaidBrowserRU") or 
+      SLDB:NewDataObject("RaidBrowserRU", {
         type = "launcher",
-        label = "RaidBrowser",
-        icon = "Interface\\AddOns\\RaidBrowser\\icon",
+        label = "RaidBrowserRU",
+        icon = "Interface\\AddOns\\RaidBrowserRU\\icon",
       })
 			 dataobj.OnClick = function(self, button)
 								if button == "RightButton" then
-										RaidBrowser:OpenMenu(self,addon)
+										RaidBrowserRU:OpenMenu(self,addon)
 								else
-										RaidBrowser:Togglelfrwindow()
+										RaidBrowserRU:Togglelfrwindow()
 								end
              end    
 			dataobj.OnTooltipShow = function(tooltip)
 				if tooltip and tooltip.AddLine then
-						tooltip:SetText("RaidBrowser")
+						tooltip:SetText("RaidBrowserRU")
 						tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
 						tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
 						tooltip:Show()
 				end
             end            
 
-  end  
+			end  
 
-  end
+			end
 
 function addon:OnProfileDisable()
     end
@@ -91,167 +87,28 @@ function addon:OnProfileDisable()
 function addon:OnProfileEnable()
     end
 
-function addon:OnClick(button)
+function addon:OnClick()	
+	if LFRParentFrame then
+		if LFRParentFrame:IsShown() then
+			LFRParentFrame:Hide()			
+		else
+		LFRParentFrame:Show()
+			end
+	end
+	LFRBrowseFrameRefreshButton:Hide()
+end
 
+function addon:Togglelfrwindow(self)
 	if LFRParentFrame then
 		if LFRParentFrame:IsShown() then
 			LFRParentFrame:Hide()
-			
 		else
-			
 			LFRParentFrame:Show()
 			end
 	end
 	LFRBrowseFrameRefreshButton:Hide()
 end
 
-function addon:Togglelfrwindow()
-	if LFRParentFrame then
-		if LFRParentFrame:IsShown() then
-			LFRParentFrame:Hide()
-			
-		else
-			
-			LFRParentFrame:Show()
-			end
-	end
-	LFRBrowseFrameRefreshButton:Hide()
-end
----------------------
----------------------
----------------------
----------------------
-
-
-
---[[
-
-
-local TITLE = rbTitle
-local addon = RaidBrowser
-addon.vars = vars
--------------------------------------------
--------
--------- создаем  мини кнопку и саму панель v2
---------
-----------
------------ 
-
--- FuBar stuff
-addon.name = "RaidBrowser"
-addon.hasIcon = true
-addon.hasNoColor = true
-addon.clickableTooltip = false
-addon.independentProfile = true
-addon.cannotDetachTooltip = true
-addon.hideWithoutStandby = true
-function addon:OnTextUpdate()
-	self:SetText("RaidBrowser")
-  local f = addon.minimapFrame; 
-  if f then -- ticket #14
-    f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
-  end
-end
--- AceDB stuff
-addon:RegisterDB("RaidBrowserDB")
-addon:RegisterDefaults("profile", {
-
-
-	})
-
--- ACE options menu
-local options = {
-  type = 'group',
-  handler = RaidBrowser,
---  args = {},
-	
-  --settings = {},
- }
- addon.OnMenuRequest = options
-
-local SLDB
-
-function addon:OnEnable()
-
-  self:OnProfileEnable()
-  
-  
-
-  if SLDB then
-    return
-  end
-  if AceLibrary:HasInstance("LibDataBroker-1.1") then
-    SLDB = AceLibrary("LibDataBroker-1.1")
-  elseif LibStub then
-    SLDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
-  end
-  if SLDB then
-    local dataobj = SLDB:GetDataObjectByName("RaidBrowser") or 
-      SLDB:NewDataObject("RaidBrowser", {
-        type = "launcher",
-        label = "RaidBrowser",
-        icon = "Interface\\AddOns\\RaidBrowser\\icon",
-      })
-			 dataobj.OnClick = function(self, button)
-								if button == "RightButton" then
-										RaidBrowser:OpenMenu(self,addon)
-								else
-										RaidBrowser:Togglelfrwindow()
-								end
-             end    
-			dataobj.OnTooltipShow = function(tooltip)
-				if tooltip and tooltip.AddLine then
-						tooltip:SetText("RaidBrowser")
-						tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
-						tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
-						tooltip:Show()
-				end
-            end            
-
-  end  
-
-  end
-
-function addon:OnProfileDisable()
-    end
-
-function addon:OnProfileEnable()
-    end
-
-function addon:OnClick(button)
-
-	if LFRParentFrame then
-		if LFRParentFrame:IsShown() then
-			LFRParentFrame:Hide()
-			
-		else
-			
-			LFRParentFrame:Show()
-			end
-	end
-	LFRBrowseFrameRefreshButton:Hide()
-end
-
-function addon:Togglelfrwindow()
-	if LFRParentFrame then
-		if LFRParentFrame:IsShown() then
-			LFRParentFrame:Hide()
-			
-		else
-			
-			LFRParentFrame:Show()
-			end
-	end
-	LFRBrowseFrameRefreshButton:Hide()
-end
----------------------
----------------------
----------------------
----------------------
-
-
-
-]]--
 -- Whitespace separator
 local sep = '[%s-_,.]';
 
