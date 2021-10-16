@@ -198,6 +198,23 @@ local raid_list = {
 			}
 		),	
 	},
+
+	{ -- контр + эттин
+		name = "Контр",
+		instance_name = 'Черные топи',
+		size = 5,
+		difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('контр', 5, 'nm', 'Черные топи'),
+			{
+				'контракты',
+				'эттины',
+				'контракты'..csep..'+'..csep..'эттины',
+				'эттины'..csep..'%+'..csep..'контракты',
+							
+			}
+		),	
+	},
 	{ -- рбк
 		name = 'рбк',
 		instance_name = 'Черные топи',
