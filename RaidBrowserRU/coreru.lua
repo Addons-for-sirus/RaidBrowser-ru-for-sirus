@@ -1076,31 +1076,6 @@ local raid_list = {
 
 	
 
-	{ -- ов 10
-		name = 'ов 10',
-		instance_name = 'Око Вечности',
-		size = 10,
-		difficulty = 1,
-		patterns = create_pattern_from_template('ов', 25, 'simple', 'Око Вечности'),{ 
-				'в'..csep..'ов'..csep..'10',
-				'ов'..csep..'10',
-				"%[Малигос должен умереть!%]",
-			} 
-	},
-	
-	
-	{ -- ов 25
-		name = 'ов 25',
-		instance_name = 'Око Вечности',
-		size = 25,
-		difficulty = 2,
-		patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{ 
-				'в'..csep..'ов'..csep..'25',
-				'ов'..csep..'25',
-			} 
-	},
-	
-	
 	
 	{ -- оня25
 		name = 'Оня 25',
@@ -1214,6 +1189,37 @@ local raid_list = {
 			'[%s-_,.]+bt'..csep..'25[%s-_,.]+',
 		},
 	},
+
+	
+	{ -- ов 10
+		name = 'ов 10',
+		instance_name = 'Око Вечности',
+		size = 10,
+		difficulty = 1,
+		patterns = create_pattern_from_template('ов', 25, 'simple', 'Око Вечности'),{ 
+				'в'..csep..'ов'..csep..'10',
+				'ов'..csep..'10',
+				"%[Малигос должен умереть!%]",
+			} 
+	},
+	
+	
+	{ -- ов 25
+		name = 'ов 25',
+		instance_name = 'Око Вечности',
+		size = 25,
+		difficulty = 2,
+		patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{ 
+				'в'..csep..'ов'..csep..'25',
+				'ов'..csep..'25',
+			} 
+	},
+	
+	
+
+
+
+
 }
 
 local role_patterns = {	
