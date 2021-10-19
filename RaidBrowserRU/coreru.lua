@@ -1005,6 +1005,9 @@ local raid_list = {
 		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),{ 
 				'в'..csep..'рс'..csep..'25'..csep..'хм',
 				'рс'..csep..'25'..csep..'хм',
+				'рс25/хм',
+				'рс25/гер',
+				'Рс25/хм',
 			
 				'в'..csep..'рс'..csep..'25'..csep..'гер',
 				'рс'..csep..'25'..csep..'гер',
