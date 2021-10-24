@@ -209,6 +209,8 @@ local raid_list = {
 			{
 				'контракты',
 				'эттины',
+				'на'..csep..'элиток',
+				'на'..csep..'эллиток',
 				'контракты'..csep..'+'..csep..'эттины',
 				'эттины'..csep..'%+'..csep..'контракты',
 							
@@ -1214,7 +1216,34 @@ local raid_list = {
 				'ов'..csep..'25',
 			} 
 	},
+	{ -- бс 25
+		name = 'бс 25',
+		instance_name = 'Бронзовое святилище',
+		size = 25,
+		difficulty = 2,
+		patterns = create_pattern_from_template('бс', 25, 'hc', 'Бронзовое святилище'),{ 
+				'в'..csep..'бс'..csep..'25'..csep..'хм',
+				'в'..csep..'бс'..csep..'25'..csep..'гер',
+				'бс'..csep..'25'..csep..'хм',
+				'бс'..csep..'25'..csep..'гер',
+				'в'..csep..'бс'..csep..'хм',
+				'в'..csep..'бс'..csep..'гер',
+				
+			} 
+	},
 	
+	{ -- бс 25
+		name = 'бс 25',
+		instance_name = 'Бронзовое святилище',
+		size = 25,
+		difficulty = 2,
+		patterns = create_pattern_from_template('бс', 25, 'nm', 'Бронзовое святилище'),{ 
+				'в'..csep..'бс'..csep..'25'..csep..'об',
+				'бс'..csep..'25'..csep..'об',
+				'в'..csep..'бс'..csep..'25',
+				'бс'..csep..'25',
+			} 
+	},
 	
 
 
@@ -1305,8 +1334,7 @@ local role_patterns = {
 		'танк',
 	
 		'танки',
-			
-		'пару',
+					
 		'пару'..csep..'танков',	
 		'[0-9]*'..csep..'ппал', 
 		'протопал',
@@ -1410,7 +1438,9 @@ local guild_recruitment_patterns = {
 local wts_message_patterns = {
 	'скупаю'..sep,
 	'продам'..sep,
+	'прода'..sep,
 	'продает'..sep,
+	'продае'..sep,
 	'продаёт'..sep,
 	'голдран'..sep,
 	'продаю'..sep,
