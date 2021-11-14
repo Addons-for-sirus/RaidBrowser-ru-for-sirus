@@ -438,7 +438,7 @@ LFRBrowseFrameList_Update = raid_browser.gui.update_list
 LFRBrowseFrameListButton_SetData = insert_lfm_button
 
 -- Set the "Browse" tab to be active.
--- LFRFrame_SetActiveTab(2)
+LFRFrame_SetActiveTab(2)
 
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
