@@ -1,3 +1,145 @@
+
+-- Register addon
+-- raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowserRU', 'AceConsole-3.0')
+local addonName, vars = ...
+local L = vars.L
+if AceLibrary:HasInstance("FuBarPlugin-2.0") then
+	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
+else
+	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
+end
+
+local TITLE = rbTitle
+local addon = RaidBrowserRU
+addon.vars = vars
+addon.name = "RaidBrowserRU"
+addon.hasIcon = true
+addon.hasNoColor = true
+addon.clickableTooltip = false
+addon.independentProfile = true
+addon.cannotDetachTooltip = true
+addon.hideWithoutStandby = true
+
+function addon:OnTextUpdate()
+	self:SetText("RaidBrowserRU")
+  local f = addon.minimapFrame; 
+  if f then -- ticket #14
+    f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
+  end
+end
+-- AceDB stuff
+addon:RegisterDB("RaidBrowserDB")
+addon:RegisterDefaults("profile", {
+
+
+	})
+
+-- ACE options menu
+local options = {
+	type = 'group',
+	handler = RaidBrowserRU,
+	--  args = {},
+	--settings = {},
+}
+addon.OnMenuRequest = options
+
+
+
+	-- addon:HookScript("OnClick",function()
+	-- 	LFRFrame_SetActiveTab(1)
+	-- 	if LFRParentFrame:IsShown()   then
+	-- 		LFRParentFrame:Hide()
+	-- 		LFRQueueFrame:Hide()
+	-- 		LFRBrowseFrame:Hide()				
+			
+	-- 	else
+	-- 		LFRParentFrame:Show()
+	-- 		LFRQueueFrame:Show()
+	-- 		-- LFRQueueFrame:Hide()
+	-- 		LFRBrowseFrame:Show()		
+
+	-- 	end
+	
+	
+	-- end)
+
+-- function addon:Togglelfrwindow(self)
+-- 	if LFRParentFrame then
+-- 		if LFRParentFrame:IsShown() then
+-- 			LFRParentFrame:Hide()
+-- 			print("s")
+-- 		else
+-- 			LFRParentFrame:Show()
+-- 			print("4")
+-- 			end
+-- 	end
+-- 	LFRBrowseFrameRefreshButton:Hide()
+-- end
+function lfrchange()
+	LFRFrame_SetActiveTab(2)
+	
+end
+
+
+function RaidBrowserRU:OnClick()
+	LFRFrame_SetActiveTab(2)
+	
+				if LFRParentFrame:IsShown()   then
+					LFRParentFrame:Hide()
+				else
+					 ShowUIPanel(LFRParentFrame)
+					LFRBrowseFrame:Show();
+					LFRQueueFrame:Hide();
+				end
+end
+
+
+local RBDB
+
+function addon:OnEnable()	
+	
+  self:OnProfileEnable()  
+  if RBDB then
+    return
+  end
+  if AceLibrary:HasInstance("LibDataBroker-1.1") then
+    RBDB = AceLibrary("LibDataBroker-1.1")
+  elseif LibStub then
+    RBDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
+  end
+  if RBDB then
+    local dataobj = RBDB:GetDataObjectByName("RaidBrowserRU") or 
+	RBDB:NewDataObject("RaidBrowserRU", {
+        type = "launcher",
+        label = "RaidBrowserRU",
+        icon = "Interface\\AddOns\\RaidBrowserRU\\icon",
+      })
+			dataobj.OnClick = function(self, button)
+								if button == "RightButton" then
+										RaidBrowserRU:OpenMenu(self,addon)
+								else
+										print("Click")
+										RaidBrowserRU:OnClick()
+								end
+             				end    
+				dataobj.OnTooltipShow = function(tooltip)
+					if tooltip and tooltip.AddLine then
+							tooltip:SetText("RaidBrowserRU")
+							tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
+							tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
+							tooltip:Show()
+					end
+				end
+
+			end
+		end
+
+function addon:OnProfileDisable()
+    end
+
+function addon:OnProfileEnable()
+    end
+
 raid_browser.gui = {}
 
 local search_button = LFRQueueFrameFindGroupButton
@@ -296,7 +438,7 @@ LFRBrowseFrameList_Update = raid_browser.gui.update_list
 LFRBrowseFrameListButton_SetData = insert_lfm_button
 
 -- Set the "Browse" tab to be active.
-LFRFrame_SetActiveTab(2)
+-- LFRFrame_SetActiveTab(2)
 
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
