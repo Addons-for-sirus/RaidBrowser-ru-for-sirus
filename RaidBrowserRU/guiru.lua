@@ -246,7 +246,7 @@ for i = 1, NUM_LFR_LIST_BUTTONS do
 				
 				-- local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
 				-- GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
-				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty)
+				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty,button.raid_info.locked)
 				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
 				GameTooltip:AddLine('\n|cff00ff00Нет кд для ' .. button.raid_info.name);
@@ -307,7 +307,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	-- Raid name
 	button.class:SetText(button.raid_info.name); 
 
-	button.raid_locked = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty);
+	button.raid_locked = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty,button.raid_info.locked);
 	button.type = "party";
 
 	-- button.partyIcon:Show();

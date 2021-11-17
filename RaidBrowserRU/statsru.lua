@@ -20,7 +20,7 @@ end
 
 function raid_browser.stats.raid_lock_info(instance_name, size, difficulty,locked)
 	for i = 1, #BA_SavedInstance.saved_name do
-		if BA_SavedInstance.saved_name[i] == instance_name and BA_SavedInstance.saved_size[i] == size and BA_SavedInstance.difficulty[i] == difficulty --and BA_SavedInstance.locked[i] == lockedi
+		if BA_SavedInstance.saved_name[i] == instance_name and BA_SavedInstance.saved_size[i] == size and BA_SavedInstance.difficulty[i] == difficulty and BA_SavedInstance.locked[i] == not locked
 		then
 			return true, BA_SavedInstance.id[i];
 		end
