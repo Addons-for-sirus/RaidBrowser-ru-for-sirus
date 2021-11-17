@@ -14,32 +14,32 @@ local raid_patterns_template = {
 		'<raid>' .. csep .. '<size>' .. csep .. '%(?хм?%)?',
 		psep..'%(?хм?%)?' .. csep .. '<raid>' .. csep .. '<size>',
 		'<raid>' .. csep .. '%(?хм?%)?' .. csep .. '<size>',
-		
+
 		'<raid>' .. csep .. '<size>' .. csep .. '%(?гер?%)?',
 		psep..'%(?гер?%)?' .. csep .. '<raid>' .. csep .. '<size>',
 		'<raid>' .. csep .. '%(?гер?%)?' .. csep .. '<size>',
-		
+
 		'<fullraid>' .. csep .. '<size>' .. csep .. '%(?хм?%)?',
 		psep..'%(?хм?%)?' .. csep .. '<fullraid>' .. csep .. '<size>',
 		'<fullraid>' .. csep .. '%(?хм?%)?' .. csep .. '<size>',
-		
+
 		'<fullraid>' .. csep .. '<size>' .. csep .. '%(?гер?%)?',
 		psep..'%(?гер?%)?' .. csep .. '<fullraid>' .. csep .. '<size>',
-		'<fullraid>' .. csep .. '%(?гер?%)?' .. csep .. '<size>',		
+		'<fullraid>' .. csep .. '%(?гер?%)?' .. csep .. '<size>',
 	},
-	
+
 	nm = {
 		'<raid>' .. csep .. '<size>' .. csep .. '%(?об?%)?',
 		psep..'%(?об?%)?' .. csep .. '<raid>' .. csep .. '<size>',
 		'<raid>' .. csep .. '%(?об?%)?' .. csep .. '<size>',
 		'<raid>' .. csep .. '<size>',
-		
+
 		'<fullraid>' .. csep .. '<size>' .. csep .. '%(?об?%)?',
 		psep..'%(?об?%)?' .. csep .. '<fullraid>' .. csep .. '<size>',
 		'<fullraid>' .. csep .. '%(?об?%)?' .. csep .. '<size>',
 		'<fullraid>' .. csep .. '<size>',
 	},
-	
+
 	simple = {
 		'<raid>' .. csep .. '<size>',
 		'<size>' .. csep .. '<raid>',
@@ -50,15 +50,15 @@ local function create_pattern_from_template(raid_name_pattern, size, difficulty,
 	if not raid_name_pattern or not size or not difficulty or not full_raid_name then
 		return;
 	end
-	
+
 	full_raid_name = string.lower(full_raid_name);
-	
+
 	if size == 10 then
 		size = '1[0o]';
 	elseif size == 40 then
 		size = '4[0p]';
 	end
-	
+
 	-- Replace placeholders with the specified raid info
 	return std.algorithm.transform(raid_patterns_template[difficulty], function(pattern)
 		pattern = string.gsub(pattern, '<fullraid>', full_raid_name);
@@ -67,10 +67,10 @@ local function create_pattern_from_template(raid_name_pattern, size, difficulty,
         return pattern;
 	end);
 end
-			
+
 local raid_list = {
 	-- Note: The order of each raid is deliberate.
-	-- Heroic raids are checked first, since NM raids will have the default 'icc10' pattern. 
+	-- Heroic raids are checked first, since NM raids will have the default 'icc10' pattern.
 	-- Be careful about changing the order of the raids below
 	{ -- рлк
 		name = 'рлк',
@@ -84,9 +84,9 @@ local raid_list = {
 				'в'..csep..'залы',
 				'в '..csep..'кузню',
 				'в'..csep..'яму',
-			
+
 			}
-		),	
+		),
 	},
 
 	{ -- контр + эттин
@@ -103,9 +103,9 @@ local raid_list = {
 				'на'..csep..'эллиток',
 				'контракты'..csep..'+'..csep..'эттины',
 				'эттины'..csep..'%+'..csep..'контракты',
-							
+
 			}
-		),	
+		),
 	},
 	{ -- рбк
 		name = 'рбк',
@@ -132,7 +132,7 @@ local raid_list = {
 				'темный'..csep..'лабиринт',
 				'собираю'..csep..'рбк',
 				'собераю'..csep..'рбк',
-				
+
 				'собераю'..csep..'в'..csep..'рбк',
 				'собераю'..csep..'на'..csep..'3'..csep..'рбк',
 				'собераю'..csep..'на'..csep..'три'..csep..'рбк',
@@ -148,11 +148,11 @@ local raid_list = {
 				'на'..csep..'3'..csep..'рбк',
 				'на'..csep..'3'..csep..'нрбк',
 				'на'..csep..'3'..csep..'НРБК',
-			
+
 			}
-		),	
+		),
 	},
-	
+
 	{ -- 5 ката
 		name = '5 ката',
 		instance_name = 'Черные топи',
@@ -161,12 +161,12 @@ local raid_list = {
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('5 ката', 5, 'nm', 'Черные топи'),
 			{
-				
+
 				'5'..csep..'ката',
 				'на'..csep..'5'..csep..'кату',
 				'5'..csep..'категория',
 				'на'..csep..'5'..csep..'категорию',
-				
+
 			"%[5 Категория%]"..csep..'+',
 			"%[5 Категория%]"..csep..'++',
 			"%[5 Категория%]"..csep..'+++',
@@ -176,9 +176,9 @@ local raid_list = {
 			"%[5 Категория%]"..csep..'+++++++',
 			'на'..csep.."%[5 Категория%]",
 			}
-		),	
+		),
 	},
-	
+
 	{ -- 4 ката
 		name = '4 ката',
 		instance_name = 'Черные топи',
@@ -191,14 +191,14 @@ local raid_list = {
 				'на'..csep..'4'..csep..'кату',
 				'4'..csep..'категория',
 				'на'..csep..'4'..csep..'категорию',
-			
+
 			"%[4 Категория%]"..csep..'+',
 			"%[4 Категория%]"..csep..'++',
 			"%[4 Категория%]"..csep..'+++',
 			"%[4 Категория%]"..csep..'++++',
 			'на'..csep.."%[4 Категория%]",
 			}
-		),	
+		),
 	},
 	{ -- 3 ката
 		name = '3 ката',
@@ -219,7 +219,7 @@ local raid_list = {
 					"%[3 Категория%]"..csep..'+++++',
 			'на'..csep.."%[3 Категория%]",
 			}
-		),	
+		),
 	},
 	{ -- 2 ката
 		name = '2 ката',
@@ -238,11 +238,11 @@ local raid_list = {
 			"%[2 Категория%]"..csep..'+++',
 			"%[2 Категория%]"..csep..'++++',
 			'на'..csep.."%[2 Категория%]",
-			
+
 			}
-		),	
+		),
 	},
-	
+
 	{ -- 1 ката
 		name = '1 ката',
 		instance_name = 'Черные топи',
@@ -255,13 +255,13 @@ local raid_list = {
 				'на'..csep..'1'..csep..'кату',
 				'1'..csep..'категория',
 				'на'..csep..'1'..csep..'категорию',
-			
+
 			"%[1 Категория%]"..csep..'+',
 			'на'..csep.."%[1 Категория%]",
 			}
-		),	
+		),
 	},
-	
+
 	{ -- цлк10хм
 		name = 'Цлк 10 хм',
 		instance_name = 'Цитадель Ледяной Короны',
@@ -276,14 +276,14 @@ local raid_list = {
 				'лич'..csep..'10'..csep..'хм',
 					'лич'..csep..'10'..csep..'хм',
 				'на'..csep..'лича'..csep..'10'..csep..'хм',
-				'на'..csep..'лича'..csep..'цлк'..csep..'10'..csep..'хм',	
-				
+				'на'..csep..'лича'..csep..'цлк'..csep..'10'..csep..'хм',
+
 				"%[Цитадель Ледняной Короны%]"..csep..'10'..csep..'хм',
 				"%[Цитадель Ледняной Короны%]"..csep..'10'..csep..'гер',
-			
-		
+
+
 			}
-		),	
+		),
 	},
 
 	{ -- цлк25хм
@@ -308,9 +308,9 @@ local raid_list = {
 				'на'..csep..'лича'..csep..'цлк'..csep..'25'..csep..'гер',
 	"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'хм',
 	"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'гер',
-	
+
 			}
-		),	
+		),
 	},
 
 	{ -- цлк10об
@@ -344,12 +344,12 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('цлк', 25, 'nm', 'Цитадель Ледяной Короны'),
-			{ 
+			{
 				'лич'..csep..'цлк'..csep..'25',
 				'лич'..csep..'25'..csep..'об',
-				'цлк'..csep..'25'..csep..'об',	
-				'цлк'..csep..'%('..csep..'25'..csep..'об'..csep..'%)',	
-				'цлк'..csep..'25об',					
+				'цлк'..csep..'25'..csep..'об',
+				'цлк'..csep..'%('..csep..'25'..csep..'об'..csep..'%)',
+				'цлк'..csep..'25об',
 		"%[Цитадель Ледняной Короны%]"..csep..'25'..csep..'об',
 		"Цитадель Ледняной Короны"..csep..'25',
 			}
@@ -363,10 +363,11 @@ local raid_list = {
 		difficulty = 4,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('магик', 25, 'hc', 'Логово Магтеридона'),
-			{ 
+			{
 				'магик'..csep..'хм',
 				'гм'..csep..'хм',
 				'грул%/магик'..csep..'хм',
+				'грул'..csep..'магик'..csep..'хм',
 				'ГРУЛ%/МАГИК'..csep..'хм',
 				'магик'..csep..'гер',
 				'магик%/грул'..csep..'хм',
@@ -374,22 +375,22 @@ local raid_list = {
 				'магик%/грул'..csep..'%(гер%)',
 				'гм'..csep..'гер',
 				'ГРУЛ%/МАГИК'..csep..'гер',
-				'магик%/грул'..csep..'гер',				
+				'магик%/грул'..csep..'гер',
 				'мг'..csep..'гер',
 				'мг'..csep..'хм',
 				-- "М*Г"..csep..'ХМ',
-				-- 'М/Г ХМ',				
+				-- 'М/Г ХМ',
 				'м%/г'..csep..'хм',
 				'г%/м'..csep..'хм',
 				'г%/м'..csep..'гер',
-				'м%/г'..csep..'гер',			
+				'м%/г'..csep..'гер',
 				'М'..csep..'Г'..csep..'ХМ',
 				'М'..csep..'%/'..csep..'Г'..csep..'ХМ',
 				'М/Г'..csep..'гер',
 				-- 'М/Г'..csep..'ГЕР',
 				-- 'М\Г'..csep..'ХМ',
-				'м%\г'..csep..'хм',
-				'м%\г'..csep..'гер',
+				'м'..csep..'г'..csep..'хм',
+				'м'..csep..'г'..csep..'гер',
 				-- 'М\Г'..csep..'ГЕР',
 				'мг'..csep..'хм',
 				"%[Логово Магтеридона%]"..csep..'хм',
@@ -398,13 +399,15 @@ local raid_list = {
 				'м'..csep..'и'..csep..'г'..csep..'гер',
 				'%[Охота на Великих Чудовищ%]'..csep..'хм',
 				'%[Охота на Великих Чудовищ%]'..csep..'гер',
+				'[Охота на Великих Чудовищ]'..csep..'хм',
+				'[Охота на Великих Чудовищ]'..csep..'гер',
 				'магик'..csep..'грул'..csep..'25хм',
 				'магик'..csep..'грул'..csep..'25'..csep..'хм',
 				'магик'..csep..'грул'..csep..'25гер',
 				'магик'..csep..'грул'..csep..'25'..csep..'гер',
 			}
 		),
-	
+
 	},
 
 	{ -- магик об
@@ -414,8 +417,9 @@ local raid_list = {
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('магик', 25, 'nm', 'Логово Магтеридона'),
-			{ 
+			{
 				'магик'..csep..'об',
+				'магик',
 				'магик'..csep..'грул',
 				'в'..csep..'мг',
 				'фаст'..csep..'охота',
@@ -434,10 +438,8 @@ local raid_list = {
 				'магик%/грул',
 				-- 'МАГИК'..csep..'об',
 				'м%/г'..csep..'об',
-				'м%/г'..csep..'нид',
-				'м%\г'..csep..'об',
-				'г%/м'..csep..'об',
-				'г%\м'..csep..'об',
+				'м%/г'..csep..'нид',				
+				'г%/м'..csep..'об',				
 				'мг'..csep..'(об)',
 				'мг(об)',
 				"%[Логово Магтеридона%]"..csep..'об',
@@ -454,7 +456,7 @@ local raid_list = {
 		difficulty = 4,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('груул', 25, 'hc', 'Логово Груула'),
-			{ 
+			{
 				'грул'..csep..'хм',
 				'груул'..csep..'хм',
 				'грулл'..csep..'хм',
@@ -474,10 +476,13 @@ local raid_list = {
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('груул', 25, 'nm', 'Логово Груула'),
-			{ 
+			{
 				'грул'..csep..'об',
 				'груул'..csep..'об',
 				'грулл'..csep..'об',
+				'грул',
+				'груул',
+				'грулл',
 				'на'..csep..'грула',
 				'на'..csep..'грулла',
 				'на'..csep..'груула',
@@ -493,33 +498,32 @@ local raid_list = {
 		instance_name = 'Обсидиановое святилище',
 		size = 10,
 		difficulty = 1,
-		patterns = create_pattern_from_template('ос', 10, 'simple', 'Обсидиановое святилище'),{ 
+		patterns = create_pattern_from_template('ос', 10, 'simple', 'Обсидиановое святилище'),{
 				'в'..csep..'ос'..csep..'10',
 				'ос'..csep..'10',
 				'ос'..csep..'10'..csep..'на'..csep..'%+'..csep..'3',
 				'в'..csep..'ос'..csep..'на'..csep..'%+'..csep..'3',
 				"%[Сартарион должен умереть!%]",
 				"%[Обсидиановое святилище%]"..csep..'10',
-				
-			} 
+			}
 	},
-	
+
 	{ -- ос25
 		name = 'Ос 25',
 		instance_name = 'Обсидиановое святилище',
 		size = 25,
 		difficulty = 2,
-		patterns = create_pattern_from_template('ос', 25, 'simple', 'Обсидиановое святилище'),{ 
+		patterns = create_pattern_from_template('ос', 25, 'simple', 'Обсидиановое святилище'),{
 				'в'..csep..'ос'..csep..'25',
 				'ос'..csep..'25'..csep..'на'..csep..'+'..csep..'3',
 				'ос'..csep..'25',
 				"%[Обсидиановое святилище%]"..csep..'25',
 				"[Меньше – не значит хуже %(25 игроков%)]",
 				"[Меньше – не значит хуже %(25 игроков%)]"..csep..'ос',
-			} 
+			}
 	},
-	
-	
+
+
 		{ -- ульда 10 хм
 		name = 'Ульда 10 хм',
 		instance_name = 'Ульдуар',
@@ -527,25 +531,23 @@ local raid_list = {
 		difficulty = 3,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 10, 'hc', 'Ульдуар'),
-			{ 
+			{
 				'ульда'..csep..'10'..csep..'хм',
 				'ульдуар'..csep..'10'..csep..'хм',
 				'ульдуар'..csep..'10'..csep..'гер',
 				'ульд'..csep..'10'..csep..'хм',
 				'ульд'..csep..'10'..csep..'гер',
-				'ульда'..csep..'10'..csep..'гер',		
+				'ульда'..csep..'10'..csep..'гер',
 				'в'..csep..'ульду'..csep..'10'..csep..'гер',
 				'в'..csep..'ульду'..csep..'10'..csep..'хм',
-				'ульда10хм',					
+				'ульда10хм',
 				'утюг'..csep..'10'..csep..'хм',
 				'утюг'..csep..'10',
-				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'10',		
-				"%[Ульдуар%]"..csep..'10'..csep..'хм',		
-				"%[Генерал Везакс%]"..csep..'10',	
-				"%[Йогг-Сарон%]"..csep..'10',					
-				"%[Ульдуар%]"..csep..'10'..csep..'гер',		
-				
-			
+				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'10',
+				"%[Ульдуар%]"..csep..'10'..csep..'хм',
+				"%[Генерал Везакс%]"..csep..'10',
+				"%[Йогг-Сарон%]"..csep..'10',
+				"%[Ульдуар%]"..csep..'10'..csep..'гер',
 			}
 		),
 	},
@@ -565,12 +567,12 @@ local raid_list = {
 			'%[слава рейдеру ульдуара %(10 игроков%)%]',
 			'%[защитник ульдуара%]',
 			'%[посланник титанов%]',
-			"%[Ульдуар%]"..csep..'10'..csep..'об',	
-			"%[Ульдуар%]"..csep..'10',	
+			"%[Ульдуар%]"..csep..'10'..csep..'об',
+			"%[Ульдуар%]"..csep..'10',
 		},
 	},
-	
-	
+
+
 	{ -- ульда25 хм
 		name = 'Ульда 25 хм',
 		instance_name = 'Ульдуар',
@@ -578,29 +580,29 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 25, 'hc', 'Ульдуар'),
-			{ 
+			{
 				'ульда'..csep..'25'..csep..'на',
 				'ульд'..csep..'25'..csep..'хм',
 				'ульд'..csep..'25'..csep..'гер',
 				'ульда'..csep..'10-25'..csep..'хм',
-				'ульда'..csep..'10-25'..csep..'гер',	
-			'в'..csep..'ульду'..csep..'на'..csep..'утюга',	
-'в'..csep..'ульду'..csep..'25'..csep..'на'..csep..'утюга',				
+				'ульда'..csep..'10-25'..csep..'гер',
+			'в'..csep..'ульду'..csep..'на'..csep..'утюга',
+'в'..csep..'ульду'..csep..'25'..csep..'на'..csep..'утюга',
 				'утюг'..csep..'ульда'..csep..'хм',
 				'утюг'..csep..'ульда'..csep..'гер',
 				'на'..csep..'утюга'..csep..'25',
-				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'25'..csep..'хм',				
+				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'25'..csep..'хм',
 			'ульдуар'..csep..'25'..csep..'хм',
 			'ульдуар'..csep..'25'..csep..'гер',
 			'в'..csep..'ульду'..csep..'25',
-		"%[Ульдуар%]"..csep..'25'..csep..'хм',		
-		"%[Ульдуар%]"..csep..'25'..csep..'гер',	
+		"%[Ульдуар%]"..csep..'25'..csep..'хм',
+		"%[Ульдуар%]"..csep..'25'..csep..'гер',
 			}
 		),
 	},
 
 
-	
+
 	{ -- ульда25
 		name = 'Ульда 25',
 		instance_name = 'Ульдуар',
@@ -608,17 +610,17 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 25, 'nm', 'Ульдуар'),
-			{ 
+			{
 				'ульда'..csep..'25'..csep..'на',
 				'ульда'..csep..'10-25',
-				
+
 				'утюг'..csep..'ульда',
-				'на'..csep..'утюга'..csep..'в'..csep..'ульду',				
+				'на'..csep..'утюга'..csep..'в'..csep..'ульду',
 			'ульдуар'..csep..'25',
 			'в'..csep..'ульду'..csep..'25',
 			'%[слава рейдеру ульдуара %(25 игроков%)%]',
 			'%[завоеватель ульдуара%]',
-			"%[Ульдуар%]"..csep..'25'..csep..'об',	
+			"%[Ульдуар%]"..csep..'25'..csep..'об',
 			}
 		),
 	},
@@ -637,10 +639,10 @@ local raid_list = {
 			"%[Нот Чумной должен умереть%!%]",
 			"%[Инструктор Разувий должен умереть%!%]",
 			"%[Лоскутик должен умереть%!%]",
-			
+
 		},
 	},
-	
+
 	{ -- накс25
 		name = 'Накс 25',
 		instance_name = 'Наксрамас',
@@ -656,16 +658,16 @@ local raid_list = {
 			"%[Лоскутик должен умереть!!%]"..csep..'25',
 		},
 	},
-	
 
-	{ -- око хм 
+
+	{ -- око хм
 		name = 'Око хм',
 		instance_name = 'Крепость Бурь',
 		size = 25,
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('око хм', 25, 'nm', 'Крепость Бурь'),
-			{ 
+			{
 				'око'..csep..'хм',
 				'око'..csep..'гер',
 				-- 'В'..csep..'око'..csep..'хм',
@@ -678,20 +680,20 @@ local raid_list = {
 			}
 		),
 	},
-	
-{ -- око 
+
+{ -- око
 		name = 'Око',
 		instance_name = 'Крепость Бурь',
 		size = 25,
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('око', 25, 'nm', 'Крепость Бурь'),
-			{ 
+			{
 				'око'..csep..'об',
 				'око',
 				-- 'ОКО',
 				'окооб',
-			
+
 				-- 'ОКООБ',
 				'окооб'..csep..'с0',
 				'окооб'..csep..'с'..csep..'0',
@@ -702,7 +704,7 @@ local raid_list = {
 				-- 'V'..csep..'око'..csep..'об',
 				'v'..csep..'око'..csep..'об',
 				"%[Око%]"..csep..'об',
-				
+
 			}
 		),
 	},
@@ -714,7 +716,7 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('зс хм', 25, 'nm', 'Кривой Клык: Змеиное святилище'),
-			{ 
+			{
 				'зс'..csep..'хм',
 				'в'..csep..'зс'..csep..'хм',
 				'в'..csep..'ЗС'..csep..'хм',
@@ -723,21 +725,21 @@ local raid_list = {
 			}
 		),
 	},
-	{ -- зс 
+	{ -- зс
 		name = 'Зс об',
 		instance_name = 'Кривой Клык: Змеиное святилище',
 		size = 25,
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('зс', 25, 'nm', 'Кривой Клык: Змеиное святилище'),
-			{ 
+			{
 				'зс'..csep..'об',
 				'зс'..csep..'%(об%)',
 				'зс',
-				'ЗС'..csep..'об'..csep..'от',			
+				'ЗС'..csep..'об'..csep..'от',
 				'зс'..csep..'от',
 				'ЗС'..csep..'от',
-				'ЗС',				
+				'ЗС',
 				'З'..csep..'С'..csep..'об'..csep..'время на сбор',
 				'З'..csep..'С'..csep..'ОБ',
 				'З'..csep..'C'..csep..'об',
@@ -754,15 +756,15 @@ local raid_list = {
 			}
 		),
 	},
-	
-{ -- за 
+
+{ -- за
 		name = 'ЗА',
 		instance_name = "Зул'Аман",
 		size = 10,
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ЗА', 10, 'nm', "Зул'Аман"),
-			{ 
+			{
 				'за'..csep..'об',
 				'в'..csep..'за',
 				'ЗА%+3',
@@ -775,14 +777,14 @@ local raid_list = {
 				  'сундука',
 				  "%[Зул'Аман%]",
 				  "%[Мщение Амани%]",
-				
+
 			}
 		),
 	},
-	
 
-	
-	
+
+
+
 	{ -- ивк10
 		name = 'Ивк 10',
 		instance_name = 'Испытание крестоносца',
@@ -790,13 +792,13 @@ local raid_list = {
 		difficulty = 3,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ик', 10, 'hc', 'Испытание крестоносца'),
-			{ 
+			{
 				'ивк'..csep..'10',
 				'%[дань фанатичному безумию%]',
 				'%[призыв великого крестоносца %(10 игроков%)%]',
 				"%[Испытание крестоносца%]"..csep..'10'..csep..'гер',
 				"%[Испытание крестоносца%]"..csep..'10'..csep..'хм',
-				
+
 			} -- Trial of the grand crusader (togc) refers to heroic toc
 		),
 	},
@@ -808,7 +810,7 @@ local raid_list = {
 		difficulty = 4,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ик', 25, 'hc', 'Испытание крестоносца'),
-			{ 
+			{
 				'ивк'..csep..'25',
 				'%[призыв великого крестоносца %(25 игроков%)%]',
 					"%[Испытание крестоносца%]"..csep..'25'..csep..'гер',
@@ -827,10 +829,10 @@ local raid_list = {
 			{ '%[призыв авангарда %(10 игроков%)%]',
 			'ик'..csep..'оня'..csep..'10',
 			'ик'..csep..'оню'..csep..'10',
-			'ик%\оня'..csep..'10',
+			'ик'..csep..'оня'..csep..'10',
 			'ик%/оня'..csep..'10',
-			'ИК%\ОНЯ'..csep..'10',
-			'ИК%\ОНю'..csep..'10',
+			'ИК'..csep..'ОНЯ'..csep..'10',
+			'ИК'..csep..'ОНю'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10',
 			'ИК%/ОНЯ'..csep..'10ка',
 			'ИК%/ОНЯ'..csep..'10ка',
@@ -840,8 +842,7 @@ local raid_list = {
 			'ИК'..csep..'ОНЯ'..csep..'10',
 			'ик'..csep..'и'..csep..'оня',
 			'ик'..csep..'после'..csep..'они',
-			'ИК'..csep..'ОНЯ'..csep..'10',
-			'ИК%\ОНЯ'..csep..'10',
+			'ИК'..csep..'ОНЯ'..csep..'10',			
 			'ИК%/ОНЯ'..csep..'10',
 			'ик%+оня'..csep..'10',
 			'ик%/оня'..csep..'10',
@@ -851,8 +852,10 @@ local raid_list = {
 			'ик%/оня'..csep..'10',
 			'ик'..csep..'10',
 			'ик'..csep..'10'..csep..'об',
-				"%[Испытание крестоносца%]"..csep..'10'..csep..'об',
-				"%[Испытание крестоносца%]"..csep..'10',
+			"%[Испытание крестоносца%]"..csep..'10'..csep..'об',
+			"%[Испытание крестоносца%]"..csep..'10',
+			"[Испытание крестоносца]"..csep..'10'..csep..'об',
+			"[Испытание крестоносца]"..csep..'10',
 			}
 		),
 	},
@@ -864,29 +867,31 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ик', 25, 'nm', 'Испытание крестоносца'),
-			{ 
-			'%[призыв авангарда %(25 игроков%)%]',			
+			{
+			'%[призыв авангарда %(25 игроков%)%]',
+			'[призыв авангарда (25 игроков)]',
 			"%[Испытание крестоносца%]"..csep..'25'..csep..'об',
+			"[Испытание крестоносца]"..csep..'25'..csep..'об',
 			'ик'..csep..'оня'..csep..'25',
 			'фул'..csep..'охота'..csep..'25',
 			'фул'..csep..'охота'..csep..'25об',
 			'фул'..csep..'охота'..csep..'25'..csep..'об',
-			
+
 			}
 		),
 	},
-	
+
 	{ -- рс10хм
 		name = 'Рс 10 хм',
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 3,
-		patterns = create_pattern_from_template('рс', 10, 'hc', 'Рубиновое святилище'),{ 
+		patterns = create_pattern_from_template('рс', 10, 'hc', 'Рубиновое святилище'),{
 				'в'..csep..'рс'..csep..'10'..csep..'хм',
 				'рс'..csep..'10'..csep..'хм',
 				'в'..csep..'рс'..csep..'10'..csep..'гер',
 				'рс'..csep..'10'..csep..'гер',
-			} 
+			}
 	},
 
 	{ -- рс25хм
@@ -894,17 +899,16 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 25,
 		difficulty = 4,
-		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),{ 
+		patterns = create_pattern_from_template('рс', 25, 'hc', 'Рубиновое святилище'),{
 				'в'..csep..'рс'..csep..'25'..csep..'хм',
 				'рс'..csep..'25'..csep..'хм',
 				'рс25/хм',
 				'рс25/гер',
 				'Рс25/хм',
-			
 				'в'..csep..'рс'..csep..'25'..csep..'гер',
 				'рс'..csep..'25'..csep..'гер',
-				
-			} 
+
+			}
 	},
 
 	{ -- рс10об
@@ -912,12 +916,12 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 10,
 		difficulty = 1,
-		patterns = create_pattern_from_template('рс', 10, 'nm', 'Рубиновое святилище'),{ 
+		patterns = create_pattern_from_template('рс', 10, 'nm', 'Рубиновое святилище'),{
 				'в'..csep..'рс'..csep..'10'..csep..'об',
 				'рс'..csep..'10'..csep..'об',
 				'в'..csep..'рс'..csep..'10',
 				'рс'..csep..'10',
-			} 
+			}
 	},
 
 	{ -- рс25об
@@ -925,28 +929,28 @@ local raid_list = {
 		instance_name = 'Рубиновое святилище',
 		size = 25,
 		difficulty = 2,
-		patterns = create_pattern_from_template('рс', 25, 'nm', 'Рубиновое святилище'),{ 
+		patterns = create_pattern_from_template('рс', 25, 'nm', 'Рубиновое святилище'),{
 				'в'..csep..'рс'..csep..'25',
 				'рс'..csep..'25',
 				'в'..csep..'рс'..csep..'25'..csep..'об',
 				'рс'..csep..'25'..csep..'об',
-			} 
+			}
 	},
-	
+
 	{ -- са10
 		name = 'Са 10',
 		instance_name = 'Склеп Аркавона',
 		size = 10,
 		difficulty = 1,
 		patterns = {
-		'са'..csep..'10', 
-		'склеп'..csep..'10', 
+		'са'..csep..'10',
+		'склеп'..csep..'10',
 		'с'..csep..'а'..csep..'10',
 		"%[Склеп Аркавона%]"..csep..'10',
 		},
 	},
-	
-	
+
+
 
 	{ -- са25
 		name = 'Са 25',
@@ -956,19 +960,19 @@ local raid_list = {
 		patterns = {
 		'са 25',
 		'са'..csep..'25',
-		'склеп'..csep..'25', 
+		'склеп'..csep..'25',
 		'с'..csep..'а'..csep..'25',
 		"%[Склеп Аркавона%]"..csep..'25',
 		},
 	},
-		
-		
-		
 
 
-	
 
-	
+
+
+
+
+
 	{ -- оня25
 		name = 'Оня 25',
 		instance_name = 'Логово Ониксии',
@@ -981,7 +985,7 @@ local raid_list = {
 			"%[Логово Ониксии%]"..csep..'25',
 		},
 	},
-	
+
 	{ -- оня10
 		name = 'Оня 10',
 		instance_name = 'Логово Ониксии',
@@ -993,13 +997,13 @@ local raid_list = {
 			'только'..csep..'оня',
 			'в'..csep..'оню'..csep..'10',
 			"%[Логово Ониксии%]"..csep..'10',
-			
-			
-		
-			
+
+
+
+
 		},
 	},
-	
+
 	{ -- каражан хм
 		name = 'Кара хм',
 		instance_name = 'Каражан',
@@ -1007,7 +1011,7 @@ local raid_list = {
 		difficulty = 2,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('кара', 10, 'hc', 'Каражан'),
-			{ 
+			{
 				'кара'..csep..'хм',
 				'кара'..csep..'гер',
 				'в'..csep..'кару'..csep..'хм'..csep..'с',
@@ -1021,13 +1025,13 @@ local raid_list = {
 				'в'..csep..'кару'..csep..'хм',
 				'в'..csep..'кару'..csep..'гер',
 				'каражан'..csep..'хм',
-				'каражан'..csep..'гер',				
+				'каражан'..csep..'гер',
 				"%[Каражан%]"..csep..'гер',
 				"%[Каражан%]"..csep..'хм',
 			}
 		),
 	},
-	
+
 	{ -- каражан
 		name = 'Кара',
 		instance_name = 'Каражан',
@@ -1035,7 +1039,7 @@ local raid_list = {
 		difficulty = 1,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('кара', 10, 'nm', 'Каражан'),
-			{ 
+			{
 				'кара'..csep..'об',
 				'в'..csep..'кару',
 
@@ -1049,15 +1053,15 @@ local raid_list = {
 				'по'..csep..'токенам',
 				'каражан'..csep..'по'..csep..'токенам',
 				'кара'..csep..'10'..csep..'токены',
-				'каражан'..csep..'об',	
-				'каражан',					
-									
+				'каражан'..csep..'об',
+				'каражан',
+
 				"%[Каражан%]",
 				"%[Каражан%]"..csep..'об',
 			}
 		),
 	},
-	
+
 	{ -- огненные недра
 		name = 'Недра',
 		instance_name = 'Огненные Недра',
@@ -1065,10 +1069,10 @@ local raid_list = {
 		difficulty = 1,
 		patterns = {
 			'огненные'..csep..'недра',
-			
+
 		},
 	},
-	
+
 	{ -- черный храм
 		name = 'ЧХ',
 		instance_name = 'Черный храм',
@@ -1082,66 +1086,66 @@ local raid_list = {
 		},
 	},
 
-	
+
 	{ -- ов 10
 		name = 'ов 10',
 		instance_name = 'Око Вечности',
 		size = 10,
 		difficulty = 1,
-		patterns = create_pattern_from_template('ов', 25, 'simple', 'Око Вечности'),{ 
+		patterns = create_pattern_from_template('ов', 25, 'simple', 'Око Вечности'),{
 				'в'..csep..'ов'..csep..'10',
 				'ов'..csep..'10',
 				"%[Малигос должен умереть!%]",
-			} 
+			}
 	},
-	
-	
+
+
 	{ -- ов 25
 		name = 'ов 25',
 		instance_name = 'Око Вечности',
 		size = 25,
 		difficulty = 2,
-		patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{ 
+		patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{
 				'в'..csep..'ов'..csep..'25',
 				'ов'..csep..'25',
-			} 
+			}
 	},
 	{ -- бс 25
 		name = 'бс 25',
 		instance_name = 'Бронзовое святилище',
 		size = 25,
 		difficulty = 2,
-		patterns = create_pattern_from_template('бс', 25, 'hc', 'Бронзовое святилище'),{ 
+		patterns = create_pattern_from_template('бс', 25, 'hc', 'Бронзовое святилище'),{
 				'в'..csep..'бс'..csep..'25'..csep..'хм',
 				'в'..csep..'бс'..csep..'25'..csep..'гер',
 				'бс'..csep..'25'..csep..'хм',
 				'бс'..csep..'25'..csep..'гер',
 				'в'..csep..'бс'..csep..'хм',
 				'в'..csep..'бс'..csep..'гер',
-				
-			} 
+
+			}
 	},
-	
+
 	{ -- бс 25
 		name = 'бс 25',
 		instance_name = 'Бронзовое святилище',
 		size = 25,
 		difficulty = 2,
-		patterns = create_pattern_from_template('бс', 25, 'nm', 'Бронзовое святилище'),{ 
+		patterns = create_pattern_from_template('бс', 25, 'nm', 'Бронзовое святилище'),{
 				'в'..csep..'бс'..csep..'25'..csep..'об',
 				'бс'..csep..'25'..csep..'об',
 				'в'..csep..'бс'..csep..'25',
 				'бс'..csep..'25',
-			} 
+			}
 	},
-	
+
 
 
 
 
 }
 
-local role_patterns = {	
+local role_patterns = {
 	dps = {
 		'[0-9]*'..csep..'dps',
 		'[0-9]*'..csep..'дд/рдд',
@@ -1150,14 +1154,14 @@ local role_patterns = {
 		'[0-9]*'..csep..'Р/дд',
 		'Р/дд',
 		'спек',
-		
+
 		'тащера',
 		'животных',
 		'мутанты',
 		'сильнейших'..csep..'дд',
 		'топовых'..csep..'дд',
-		
-		
+
+
 		-- melee dps
 		'[0-9]*'..csep..'дд',
 		'[0-9]'..csep..'дд',
@@ -1166,7 +1170,7 @@ local role_patterns = {
 		'[0-9]*'..csep..'кот',
 		'[0-9]*'..csep..'рога', 'крога', 'комбат',
 		'[0-9]*'..csep..'ретрик',
-				
+
 		-- ranged dps
 		'[0-9]*'..csep..'рдд',
 		'[0-9]'..csep..'рдд',
@@ -1182,17 +1186,16 @@ local role_patterns = {
 		'[0-9]*'..csep..'тела',
 		'дд','пару',
 		'р%(дд%)',
-	
+
 		'кольчужники',
 		'ткань',
-		
+
 		'латники',
 		'дпс',
 		'дпс+',
 		'дпс++',
 	'пару'..csep..'дд',
-	'дд'..csep..'рдд',
-	'дд%\рдд',
+	'дд'..csep..'рдд',	
 	'дд%.рдд',
 	'дд%/рдд',
 	'пару'..csep..'рдд',
@@ -1201,7 +1204,7 @@ local role_patterns = {
 	'помогите',
 
 	},
-	
+
 	healer = {
 		'[0-9]*'..csep..'хил',
 		'[0-9]*'..csep..'хилов',
@@ -1215,23 +1218,22 @@ local role_patterns = {
 		'хил','пару',
 		'солохил',
 	},
-	
+
 	tank = {
 		'[0-9]*'..csep..'танк',
 		'[0-9]'..csep..'танка',
 		'[0-9]*'..csep..'танка',
 		'танки',
 		'танк',
-	
+
 		'танки',
-					
-		'пару'..csep..'танков',	
-		'[0-9]*'..csep..'ппал', 
+
+		'пару'..csep..'танков',
+		'[0-9]*'..csep..'ппал',
 		'протопал',
 		'[0-9]*'..csep..'пвар',
 		'протовар',
-		'[0-9]*'..csep..'мт%/от',
-		'[0-9]*'..csep..'мт%\от',
+		'[0-9]*'..csep..'мт%/от',		
 		'[0-9]*'..csep..'от',
 		'дк'..csep..'танк',
 		'[0-9]*'..csep..'танк'..csep..'дк',
@@ -1239,26 +1241,15 @@ local role_patterns = {
 }
 
 local gearscore_patterns = {
-
 	'[1-3][0-9][0-9]%++',
 	'[1-3][0-9][0-9]%+',
 	'[1-3][0-9][0-9]',
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
 
 local lfm_patterns = {
 	'нид', 'нужны', 'нужен', 'надо', 'на'..csep..'фулл', 'на'..csep..'фул','помогите','рег','все'..csep..'%+','все',
-	'*','дпс++','дд','хил', 'танк', 'м/г','м\г','М/Г'..csep..'хм','Г'..csep..'ХМ',
+	'*','дпс++','дд','хил', 'танк', 'м/г','М/Г'..csep..'хм','Г'..csep..'ХМ',
 	'цлк'..csep..'10', 'цлк'..csep..'25', 'рс'..csep..'10', 'лич'..csep..'25'..csep..'хм',
 	'рс'..csep..'25','са'..csep..'10','са'..csep..'25',
 	'с'..csep..'а'..csep..'10', 'с'..csep..'а'..csep..'25', 'ивк'..csep..'10', 'ивк'..csep..'25',
@@ -1276,7 +1267,7 @@ local channel_listeners = {};
 local guild_recruitment_patterns = {
 	'гильдию',
 	'гильдия',
-	
+
 	'набор',
 	'рассмотрим',
 	'pve',
@@ -1284,8 +1275,8 @@ local guild_recruitment_patterns = {
 	'рассмотрим',
 	'rt',
 	'kick',
-	
-	
+
+
 	'проходок',
 	'epgp',
 	'ep',
@@ -1322,7 +1313,7 @@ local guild_recruitment_patterns = {
 	'в'..csep..'ги',
 	'в'..csep..'пве'..csep..'гильдию',
 	'прогресс'..csep..'ги',
-	
+
 };
 
 local wts_message_patterns = {
@@ -1360,23 +1351,23 @@ local function remove_achievement_text(message)
 end
 
 local function format_gs_string(gs)
-   
-	local formatted = string.sub(gs, "+", " ") 	
-	
+
+	local formatted = string.sub(gs, "+", " ")
+
 	--formatted  = string.sub(formatted ,"1","% ")
-	
+
 	-- formatted = string.gsub(formatted,'', '')
 	-- formatted = string.gsub(formatted,sep,'.');
 	-- formatted = tonumber(formatted);
-	
+
 	-- if gs  > 1000 then
 		-- gs  = gs / 1000 ;
-		
-	
+
+
 	-- elseif gs > 100 then
 		-- gs = gs / 100 ;
-		
-	
+
+
 	-- elseif gs > 1 then
 		-- gs = gs / 10;
 	-- end
@@ -1405,7 +1396,7 @@ local function remove_http_links(message)
 	local http_pattern = 'https?://*[%a]*.[%a]*.[%a]*/?[%a%-%%0-9_]*/?';
 	return string.gsub(message, http_pattern, '');
 end
-	
+
 local function find_roles(roles, message, pattern_table, role)
 	local found = false;
 	for _, pattern in ipairs(pattern_table[role]) do
@@ -1414,16 +1405,16 @@ local function find_roles(roles, message, pattern_table, role)
 		-- If a raid was found then save it to our list of roles and continue.
 		if result then
 			found = true;
-			
+
 			-- Remove the substring from the message
 			message = string.gsub(message, pattern, '')
 		end
 	end
-	
+
 	if not found then
 		return roles, message;
 	end
-	
+
 	table.insert(roles, role);
 	return roles, message;
 end
@@ -1432,20 +1423,20 @@ function raid_browser.raid_info(message)
 	if not message then return end;
 	message = string.lower(message)
 	message = remove_http_links(message);
-	
-	
+
+
 	-- Stop if it's a guild recruit message
 	if is_guild_recruitment(message) or is_wts_message(message) then
 		return;
 	end
-		
+
 	-- Search for LFM announcement in the message
-	local lfm_found = std.algorithm.find_if(lfm_patterns, function(pattern) return string.find(message, pattern) end) 
-	
+	local lfm_found = std.algorithm.find_if(lfm_patterns, function(pattern) return string.find(message, pattern) end)
+
 	if not lfm_found then
 		return;
 	end
-	
+
 	-- Get the raid_info from the message
 	local raid_info = nil;
 	for _, r in ipairs(raid_list) do
@@ -1461,19 +1452,19 @@ function raid_browser.raid_info(message)
 				break
 			end
 		end
-		
-		if raid_info then 
+
+		if raid_info then
 			break;
 		end
 	end
-	
+
 	message = remove_achievement_text(message);
-	
+
 	-- Get any roles that are needed
 	local roles = {};
-	
+
 	--if string.find(message, '
-	if not string.find(message, 'lfm? all ') and not string.find(message, 'need all ') then 
+	if not string.find(message, 'lfm? all ') and not string.find(message, 'need all ') then
 		roles, message  = find_roles(roles, message, role_patterns, 'dps');
 		roles, message  = find_roles(roles, message, role_patterns, 'tank');
 		roles, message = find_roles(roles, message, role_patterns, 'healer');
@@ -1485,7 +1476,7 @@ function raid_browser.raid_info(message)
 	end
 
 	local gs = gs;
-	
+
 
 	-- Search for a gearscore requirement.
 	for _, pattern in pairs(gearscore_patterns) do
@@ -1493,20 +1484,20 @@ function raid_browser.raid_info(message)
 		 local gs_final = string.match(message, pattern)
 		-- If a gs requirement was found, then save it and continue.
 		if gs_start and gs_end then
-		-- return 
+		-- return
 			 -- return gs_start
-			
+
 			  gs = gs_final;
 			--gs = format_gs_string(string.sub(message, gs_start))
 			else gs = 'нет'
-			
+
 		end
 	end
 -- local language = language;
 		-- local language = languageName()
-		-- if language  then 
+		-- if language  then
 		-- language = "орочий"
-		
+
 -- end
 
 	return raid_info, roles, gs
@@ -1519,79 +1510,79 @@ end
 -- local arg1, arg2, arg3 = ...;
 
 local function event_handler(self, event, message, sender,channel,  ...)
-	
-	
- 
+
+
+
   if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		arg2 = arg2
 		arg3 = arg3
 		if raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "всеобщий") then
 			-- Put the sender in the table of active raids
-			raid_browser.lfm_messages[sender] = {				
+			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = "|cff00ff00"..gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = "|cff00ff00"..gs,
+				time = time(),
 				message = message.."\n|cff00ff00Хозяин собирает Альянс|r",
 			};
-			
+
 		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "орочий") then
-	
+
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = "|cff00ff00"..gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = "|cff00ff00"..gs,
+				time = time(),
 				message = message.."\n|cff00ff00Хозяин собирает Орду|r",
 			};
-			
+
 		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "арго скорпидов") then
-	
+
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = "|cff00ff00"..gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = "|cff00ff00"..gs,
+				time = time(),
 				message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
 			};
-			
+
 		elseif raid_info and roles and gs and (arg3 == "орочий")  then
-		
-			
-			raid_browser.lfm_messages[sender] = {				
+
+
+			raid_browser.lfm_messages[sender] = {
 				sender = "|cffff0000"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = gs,
+				time = time(),
 				message = message.."\n|cffff0000Орда|r",
-			};		
-			
+			};
+
 		elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
-		
+
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00E5EE"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = gs,
+				time = time(),
 				message = message.."\n|cff0000ffАльянс|r",
 			};
 		elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
-	
+
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cffffcc00"..sender,
-				raid_info = raid_info, 
-				roles = roles, 
-				gs = gs,  
-				time = time(), 				
+				raid_info = raid_info,
+				roles = roles,
+				gs = gs,
+				time = time(),
 				message = message.."\n|cffffcc00Ренегаты|r",
 			};
-			
+
 		end
 
 
@@ -1614,13 +1605,13 @@ function raid_browser:OnEnable()
 		channel_listeners[i] = raid_browser.add_event_listener(channel, event_handler)
 		i=i+1
 	end
-	
+
 end
 
 function raid_browser:OnDisable()
 	for channel, listener in pairs(lfm_channel_listeners) do
 		raid_browser.remove_event_listener(channel, listener)
 	end
-	
+
 	raid_browser.kill_timer(raid_browser.timer)
 end
