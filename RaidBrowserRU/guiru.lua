@@ -22,13 +22,19 @@ addon.hideWithoutStandby = true
 
 function addon:OnTextUpdate()
 	self:SetText("RaidBrowserRU")
-  local f = addon.minimapFrame; 
+  local f = addon.minimapFrame;
   if f then -- ticket #14
-    f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others 	
+    f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others
   end
 end
+
+
+
+
+local AceEvent = AceLibrary("AceEvent-2.0")
+local RL = AceLibrary("Roster-2.1")
 -- AceDB stuff
-addon:RegisterDB("RaidBrowserDB")
+addon:RegisterDB("RaidBrowserRUDB")
 addon:RegisterDefaults("profile", {
 
 
@@ -38,52 +44,27 @@ addon:RegisterDefaults("profile", {
 local options = {
 	type = 'group',
 	handler = RaidBrowserRU,
-	--  args = {},
-	--settings = {},
+	args = {
+		settings = {
+			name = L["Settings"],
+			desc = L["Mod Settings"],
+			type = 'group',
+			args = {
+			}
+		}
+	}
 }
-addon.OnMenuRequest = options
 
 
-
-	-- addon:HookScript("OnClick",function()
-	-- 	LFRFrame_SetActiveTab(1)
-	-- 	if LFRParentFrame:IsShown()   then
-	-- 		LFRParentFrame:Hide()
-	-- 		LFRQueueFrame:Hide()
-	-- 		LFRBrowseFrame:Hide()				
-			
-	-- 	else
-	-- 		LFRParentFrame:Show()
-	-- 		LFRQueueFrame:Show()
-	-- 		-- LFRQueueFrame:Hide()
-	-- 		LFRBrowseFrame:Show()		
-
-	-- 	end
-	
-	
-	-- end)
-
--- function addon:Togglelfrwindow(self)
--- 	if LFRParentFrame then
--- 		if LFRParentFrame:IsShown() then
--- 			LFRParentFrame:Hide()
--- 			print("s")
--- 		else
--- 			LFRParentFrame:Show()
--- 			print("4")
--- 			end
--- 	end
--- 	LFRBrowseFrameRefreshButton:Hide()
--- end
 function lfrchange()
 	LFRFrame_SetActiveTab(2)
-	
+
 end
 
 
 function RaidBrowserRU:OnClick()
 	LFRFrame_SetActiveTab(2)
-	
+
 				if LFRParentFrame:IsShown()   then
 					LFRParentFrame:Hide()
 				else
@@ -93,23 +74,27 @@ function RaidBrowserRU:OnClick()
 				end
 end
 
+addon.OnMenuRequest = options
+function addon:OnInitialize()
+	self:RegisterChatCommand("/rbru", "/raidbrowserru", options, "RAIDBROWSERRU")
+  end
 
-local RBDB
+local LDB
 
-function addon:OnEnable()	
-	
-  self:OnProfileEnable()  
-  if RBDB then
+function addon:OnEnable()
+
+  self:OnProfileEnable()
+  if LDB then
     return
   end
   if AceLibrary:HasInstance("LibDataBroker-1.1") then
-    RBDB = AceLibrary("LibDataBroker-1.1")
+    LDB = AceLibrary("LibDataBroker-1.1")
   elseif LibStub then
-    RBDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
+    LDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
   end
-  if RBDB then
-    local dataobj = RBDB:GetDataObjectByName("RaidBrowserRU") or 
-	RBDB:NewDataObject("RaidBrowserRU", {
+  if LDB then
+    local dataobj = LDB:GetDataObjectByName("RaidBrowserRU") or
+	LDB:NewDataObject("RaidBrowserRU", {
         type = "launcher",
         label = "RaidBrowserRU",
         icon = "Interface\\AddOns\\RaidBrowserRU\\icon",
@@ -117,11 +102,12 @@ function addon:OnEnable()
 			dataobj.OnClick = function(self, button)
 								if button == "RightButton" then
 										RaidBrowserRU:OpenMenu(self,addon)
+										print("Clickr")
 								else
-										print("Click")
+										print("Clickl")
 										RaidBrowserRU:OnClick()
 								end
-             				end    
+             				end
 				dataobj.OnTooltipShow = function(tooltip)
 					if tooltip and tooltip.AddLine then
 							tooltip:SetText("RaidBrowserRU")
@@ -132,7 +118,21 @@ function addon:OnEnable()
 				end
 
 			end
+	DEFAULT_CHAT_FRAME:HookScript("OnHyperlinkEnter", function(self, linkData, olink)
+		if string.match(linkData,"^player::RaidBrowserRU:") then
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR");
+			GameTooltip:SetText(L["Click to add this event to chat"])
+			GameTooltip:Show()
 		end
+	end)
+	DEFAULT_CHAT_FRAME:HookScript("OnHyperlinkLeave", function(self, linkData, link)
+		if string.match(linkData,"^player::RaidBrowserRU:") then
+			GameTooltip:Hide()
+		end
+	end)
+
+
+end
 
 function addon:OnProfileDisable()
     end
@@ -166,13 +166,13 @@ local function on_join()
 		SendChatMessage(message, 'WHISPER', nil, LFRBrowseFrame.selectedName);
 	else
 		print("RaidBrowserRU: Выберите рейд!")
-	end	
+	end
 end
 
 local function clear_highlights()
 	for i = 1, NUM_LFR_LIST_BUTTONS do
 		_G["LFRBrowseFrameListButton"..i]:UnlockHighlight();
-	end	
+	end
 end
 
 join_button:SetText('Авто сообщение')
@@ -183,39 +183,39 @@ local function format_count(value)
    if value == 1 then
       return ' ';
    end
-   
+
    return 's ' ;
 end
 
 local function format_seconds(seconds)
    local seconds = tonumber(seconds)
-   
+
    if seconds <= 0 then
       return "00 seconds";
    end
-   
+
    local days_text = '';
    local hours_text = '';
    local mins_text = '';
    local seconds_text = '';
-   
+
    if seconds >= 86400 then
       local days = math.floor(seconds / 86400);
       days_text = days .. ' day' .. format_count(days);
       seconds = seconds % 86400;
    end
-   
+
    if seconds >= 3600 then
       local hours = math.floor(seconds / 3600) ;
       hours_text = hours .. ' hr' .. format_count(hours);
       seconds = seconds % 3600;
    end
-   
-   if seconds >= 60 then 
+
+   if seconds >= 60 then
       local minutes = math.floor(seconds / 60) ;
       minutes_text = minutes .. ' min' .. format_count(minutes);
    end
-   
+
    return days_text .. hours_text .. minutes_text;
 end
 
@@ -223,41 +223,41 @@ end
 for i = 1, NUM_LFR_LIST_BUTTONS do
 	local button = _G["LFRBrowseFrameListButton"..i];
 	button:SetScript("OnDoubleClick", on_join)
-	button:SetScript("OnClick", 
-		function(button) 
+	button:SetScript("OnClick",
+		function(button)
 			LFRBrowseFrame.selectedName = button.unitName;
 			clear_highlights();
 			button:LockHighlight();
 			LFRBrowse_UpdateButtonStates();
 		end
 	);
-	
-	button:SetScript('OnEnter', 
+
+	button:SetScript('OnEnter',
 		function(button)
 			GameTooltip:SetOwner(button, 'ANCHOR_RIGHT');
-			
+
 			local seconds = time() - button.lfm_info.time;
 			local last_sent = string.format('Последнее сообщение: %d секунд назад', seconds);
 			GameTooltip:AddLine(button.lfm_info.message, 1, 1, 1, true);
 			GameTooltip:AddLine(last_sent);
-			
+
 			if button.raid_locked then
 				GameTooltip:AddLine('\n|cffff0000Кд для ' .. button.raid_info.name);
-				
+
 				-- local _, reset_time = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size)
 				-- GameTooltip:AddLine('Lockout expires in ' .. format_seconds(reset_time));
 				local _, id = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty,button.raid_info.locked)
 				GameTooltip:AddLine('Id подземелья  ' .. tostring(id));
 			else
 				GameTooltip:AddLine('\n|cff00ff00Нет кд для ' .. button.raid_info.name);
-			
+
 			end
-			
+
 			GameTooltip:Show();
 		end
 	)
-	
-	button:SetScript('OnLeave', 
+
+	button:SetScript('OnLeave',
 		function(self)
 			GameTooltip:Hide();
 		end
@@ -272,7 +272,7 @@ search_button:SetScript('OnClick', function() end)
 local function clear_highlights()
 	for i = 1, NUM_LFR_LIST_BUTTONS do
 		_G["LFRBrowseFrameListButton"..i]:UnlockHighlight();
-	end	
+	end
 end
 
 
@@ -285,15 +285,15 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	index = index - offset;
 
 	button.lfm_info = lfm_info;
-	button.raid_info = lfm_info.raid_info;	
-	
+	button.raid_info = lfm_info.raid_info;
+
 	-- Update selected LFR raid host name
 
 	button.unitName = host_name;
 	button.name:SetWidth(100);
 
 	-- Update button text with raid host name , GS, Raid, and role information
---	if (arg3 == "орочий") then 
+--	if (arg3 == "орочий") then
 --	button.name:SetText('|cffff0000'..111);
 --	else button.name:SetText(host_name);
 --	end
@@ -305,7 +305,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	button.level:SetWidth(30);
 
 	-- Raid name
-	button.class:SetText(button.raid_info.name); 
+	button.class:SetText(button.raid_info.name);
 
 	button.raid_locked = raid_browser.stats.raid_lock_info(button.raid_info.instance_name, button.raid_info.size, button.raid_info.difficulty,button.raid_info.locked);
 	button.type = "party";
@@ -316,9 +316,9 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	button.tankIcon:Hide();
 	button.healerIcon:Hide();
 	button.damageIcon:Hide();
-	
+
 	-- Get all the roles from the lfm info table
-	for _, role in pairs(button.lfm_info.roles) do 
+	for _, role in pairs(button.lfm_info.roles) do
 		if role == 'tank' then
 			button.tankIcon:Show()
 		end
@@ -331,7 +331,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 			button.damageIcon:Show();
 		end
 	end
-	
+
 	button:Enable();
 --	button.name:SetTextColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 --	button.level:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
@@ -343,7 +343,7 @@ local function assign_lfr_button(button, host_name, lfm_info, index,message)
 	else
 		button.class:SetTextColor(0, 255, 0);
 	end;
-	
+
 	-- Set up the corresponding textures for the roles columns
 	button.tankIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
 	button.healerIcon:SetTexture("Interface\\LFGFrame\\LFGRole");
@@ -356,7 +356,7 @@ end
 local function insert_lfm_button(button, index)
 	local host_name = nil;
 	local count = 1;
-	
+
 	for n, lfm_info in pairs(raid_browser.lfm_messages) do
 		if count == index then
 			assign_lfr_button(button, n, lfm_info, index);
@@ -365,13 +365,13 @@ local function insert_lfm_button(button, index)
 
 		count = count + 1;
 	end
-	
+
 end
 
 local function update_buttons()
 	local playerName = UnitName("player");
 	local selectedName = LFRBrowseFrame.selectedName;
-	
+
 	if selectedName then
 		LFRBrowseFrameSendMessageButton:Enable();
 		LFRBrowseFrameInviteButton:Enable();
@@ -397,7 +397,7 @@ end
 
 function raid_browser.gui.update_list()
 	LFRBrowseFrameRefreshButton.timeUntilNextRefresh = LFR_BROWSE_AUTO_REFRESH_TIME;
-	  
+
 	local numResults = table_length(raid_browser.lfm_messages)
 
 	FauxScrollFrame_Update(LFRBrowseFrameListScrollFrame, numResults, NUM_LFR_LIST_BUTTONS, 16);

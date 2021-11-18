@@ -1,15 +1,21 @@
 ## Interface: 30300
 ## Title: Raid Browser RU
-## Version: 1.13
+## Version: 1.14
 ## Notes: A raid finder that parses chat channel text and displays any found raids in the raid browser LFR frame.
 ## Notes-ruRU: Анализ текста канала чата и отображение найденных рейдов в стандартном окне поиска рейдов. /rb
 ## Author: Horsebreed, адаптация русский язык и сленг при сборе рейда на wowsirus - fxpw
+## X-Embeds: Ace2, Ace3, RosterLib, FuBarPlugin-2.0
+## OptionalDeps: Ace2, Ace3, RosterLib, FuBarPlugin-2.0, FuBar2Broker,GearScoreLite
+## SavedVariables: RaidBrowserRUDB
 ## SavedVariablesPerCharacter: raid_browser_character_raidsets, raid_browser_character_current_raidset
-## OptionalDeps: GearScoreLite
-## X-Embeds: Ace3
+## LoadManagers: AddonLoader
+## X-LoadOn-Group: true
+## X-LoadOn-Slash: /rbru, /raidbrowserru
+## X-LoadOn-LDB-Launcher: Interface\AddOns\RaidBrowserRU\icon
+
 
 embedsru.xml
-
+locale.lua
 coreru.lua
 eventru.lua
 timerru.lua
