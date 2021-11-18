@@ -44,14 +44,7 @@ addon:RegisterDefaults("profile", {
 local options = {
 	type = 'group',
 	handler = RaidBrowserRU,
-	args = {
-		settings = {
-			name = L["Settings"],
-			desc = L["Mod Settings"],
-			type = 'group',
-			args = {
-			}
-		}
+	args = {		
 	}
 }
 
