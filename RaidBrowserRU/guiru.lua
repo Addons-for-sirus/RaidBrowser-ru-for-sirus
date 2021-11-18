@@ -55,6 +55,14 @@ function lfrchange()
 end
 
 
+LFRParentFrame:SetScript("OnShow", function()
+					LFRBrowseFrameInviteButton:SetWidth(113)
+					LFRBrowseFrameInviteButton:ClearAllPoints()
+					LFRBrowseFrameInviteButton:SetPoint("BOTTOMLEFT", 230, 12)
+	
+end
+)
+
 function RaidBrowserRU:OnClick()
 	LFRFrame_SetActiveTab(2)
 
@@ -64,6 +72,7 @@ function RaidBrowserRU:OnClick()
 					 ShowUIPanel(LFRParentFrame)
 					LFRBrowseFrame:Show();
 					LFRQueueFrame:Hide();
+					
 				end
 end
 
@@ -133,6 +142,49 @@ function addon:OnProfileDisable()
 function addon:OnProfileEnable()
     end
 
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------- movable
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+LFRParentFrame:EnableMouse(true)
+LFRParentFrame:SetMovable(true)
+LFRParentFrame:RegisterForDrag("LeftButton")
+--LFRParentFrame:Show()
+
+LFRParentFrame:SetScript("OnDragStart", function(this) 
+  this:StartMoving() 
+  end)
+LFRParentFrame:SetScript("OnDragStop", function(this)  
+  this:StopMovingOrSizing()
+  frame_x,frame_y = this:GetCenter()
+  frame_x = frame_x - GetScreenWidth() / 2
+  frame_y = frame_y - GetScreenHeight() / 2
+  this:ClearAllPoints()
+  this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
+--   LFRBrowseFrameInviteButton:SetPoint("RIGHT", LFRParentFrame,"BOTTOM",165,22)
+   -- UIParent:SetPoint("CENTER",LFRBrowseFrame,"CENTER",frame_x,frame_y)
+--   LFRParentFrame:SetAllPoints(LFRBrowseFrame)
+  end)
+-- LFRParentFrame:SetScript("OnShow", function(this) 
+-- 	this:SetPoint("CENTER", UIParent,"CENTER",frame_x,frame_y)
+-- end)
+ LFRBrowseFrame:SetScript("OnShow", function(tralala) 
+	--LFRParentFrame:SetPoint("CENTER", LFRBrowseFrame,"CENTER",0,0)
+		tralala:ClearAllPoints()
+		tralala:SetAllPoints(LFRParentFrame)
+		-- LFRBrowseFrameInviteButton:ClearAllPoints()
+		-- LFRBrowseFrameInviteButton:SetPoint("RIGHT", LFRParentFrame,"BOTTOM",165,22)
+
+	 end)
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------- movable
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
 raid_browser.gui = {}
 
 local search_button = LFRQueueFrameFindGroupButton
@@ -169,7 +221,10 @@ local function clear_highlights()
 end
 
 join_button:SetText('Авто сообщение')
+
+
 join_button:SetScript('OnClick', on_join)
+
 
 
 local function format_count(value)
@@ -436,3 +491,4 @@ LFRFrame_SetActiveTab(2)
 LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
 LFRBrowseFrameRefreshButton:Hide()
+

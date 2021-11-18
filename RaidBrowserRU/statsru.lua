@@ -49,10 +49,7 @@ end
 function raid_browser.stats.build_inv_string(raid_name)
 	local spec = raid_browser_character_current_raidset.spec
 	local gs = raid_browser_character_current_raidset.gs
-	local class = UnitClass("player");
-	
-	local message = 'инв в рейд '..spec .." ".. gs .. ' ,RaidBrowser';
-	
-	
+	local class = UnitClass("player");	
+	local message = 'Инвайт я - '..spec .." ".. gs .. ' , RaidBrowser';	
 	return message;
 end
