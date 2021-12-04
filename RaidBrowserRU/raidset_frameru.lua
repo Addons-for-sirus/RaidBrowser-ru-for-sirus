@@ -37,9 +37,9 @@ local function on_raidset_edit()
 		if BARaidBrowserEditSpec then
 		if BARaidBrowserEditSpec:IsShown() then
 			BARaidBrowserEditSpec:Hide()
-			
+
 		else
-			
+
 			BARaidBrowserEditSpec:Show()
 			end
 	end
@@ -67,18 +67,21 @@ function BARaidBrowserEditSpecSaveButton_OnClick()
 	local i = tonumber(string.sub(t1, -1, -1))
 	if t2 == "" or not t1 then
 		raid_browser_character_raidsets[i].spec = "Нет"
-	else	
+	else
 		raid_browser_character_raidsets[i].spec = t2
 	end
 	if t3 == "" or not t3 then
 		raid_browser_character_raidsets[i].gs = "nil"
-	else	
+	else
 		raid_browser_character_raidsets[i].gs = t3
 	end
+	BARaidBrowserEditSpec:Hide()
 end
 
 function BARaidBrowserEditCurrentSpecButton_OnClick()
 	local spec, gs = raid_browser.stats.get_active_raidset();
 	BARaidBrowserEditNameEditBox:SetText(tostring(spec));
 	BARaidBrowserEditGearScoreEditBox:SetText(tostring(gs));
+	BARaidBrowserEditSpec:Hide()
+
 end

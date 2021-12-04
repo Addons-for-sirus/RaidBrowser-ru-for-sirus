@@ -73,7 +73,7 @@ local raid_list = {
 	-- Heroic raids are checked first, since NM raids will have the default 'icc10' pattern.
 	-- Be careful about changing the order of the raids below
 	{ -- рлк
-		name = 'рлк',
+		name = 'РЛК',
 		instance_name = 'Испытание чемпиона',
 		size = 5,
 		difficulty = 2,
@@ -84,6 +84,7 @@ local raid_list = {
 				'в'..csep..'залы',
 				'в '..csep..'кузню',
 				'в'..csep..'яму',
+				'3рлк',
 
 			}
 		),
@@ -109,8 +110,22 @@ local raid_list = {
 			}
 		),
 	},
+
+	{ -- контр + эттин
+		name = "Норигорн",
+		instance_name = 'Черные топи',
+		size = 5,
+		difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('Норигорн', 5, 'nm', 'Черные топи'),
+			{
+				'норигорна',
+				'на'..csep..'норигорна',
+			}
+		),
+	},
 	{ -- рбк
-		name = 'рбк',
+		name = 'РБК',
 		instance_name = 'Черные топи',
 		size = 5,
 		difficulty = 2,
@@ -712,6 +727,7 @@ local raid_list = {
 			create_pattern_from_template('око', 25, 'nm', 'Крепость Бурь'),
 			{
 				'око'..csep..'об',
+				'ОКО'..csep..'об',
 				'око',
 				-- 'ОКО',
 				'окооб',
@@ -1163,34 +1179,6 @@ local raid_list = {
 				'бс'..csep..'25',
 			}
 	},
-
-	-- { -- бс 10 хм
-	-- 	name = 'бс 10 хм',
-	-- 	instance_name = 'Бронзовое святилище',
-	-- 	size = 10,
-	-- 	difficulty = 3,
-	-- 	patterns = create_pattern_from_template('бс', 10, 'hc', 'Бронзовое святилище'),{
-	-- 			'в'..csep..'бс'..csep..'10'..csep..'хм',
-	-- 			'в'..csep..'бс'..csep..'10'..csep..'гер',
-	-- 			'бс'..csep..'10'..csep..'хм',
-	-- 			'бс'..csep..'10'..csep..'гер',			}
-	-- },
-
-	-- { -- бс 10 об
-	-- 	name = 'бс 10 об',
-	-- 	instance_name = 'Бронзовое святилище',
-	-- 	size = 10,
-	-- 	difficulty = 1,
-	-- 	patterns = create_pattern_from_template('бс', 10, 'nm', 'Бронзовое святилище'),{
-	-- 			'в'..csep..'бс'..csep..'10'..csep..'об',
-	-- 			'бс'..csep..'10'..csep..'об',
-	-- 			'в'..csep..'бс'..csep..'10',
-	-- 			'бс'..csep..'10',
-	-- 		}
-	-- },
-
-
-
 
 
 }

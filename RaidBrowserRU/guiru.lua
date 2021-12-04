@@ -492,3 +492,6 @@ LFRParentFrameTab1:Hide();
 LFRParentFrameTab2:Hide();
 LFRBrowseFrameRefreshButton:Hide()
 
+
+
+
