@@ -121,6 +121,7 @@ local raid_list = {
 			create_pattern_from_template('Норигорн', 5, 'nm', 'Черные топи'),
 			{
 				'норигорна',
+				'норигорн',
 				'на'..csep..'норигорна',
 			}
 		),

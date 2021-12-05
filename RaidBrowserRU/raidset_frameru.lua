@@ -19,7 +19,8 @@ BARaidSetDropdown.initialize = function(self, level)
 		info.arg1 = key
 		info.func = function(self, arg1, arg2, checked)
 			raid_browser_character_current_raidset = raid_browser_character_raidsets[arg1]
-			BARaidBrowserRaidSetEditBox:SetText(raid_browser_character_current_raidset.name)
+			--print(arg1)
+			BARaidBrowserRaidSetEditBox:SetText(raid_browser_character_current_raidset.spec)
 			CloseDropDownMenus()
 		end;
 		UIDropDownMenu_AddButton(info);
