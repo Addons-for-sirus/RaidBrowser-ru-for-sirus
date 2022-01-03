@@ -75,23 +75,205 @@ local raid_list = {
 	-- Note: The order of each raid is deliberate.
 	-- Heroic raids are checked first, since NM raids will have the default 'icc10' pattern.
 	-- Be careful about changing the order of the raids below
-	{ -- рлк
-		name = 'РЛК',
-		instance_name = 'Испытание чемпиона',
-		size = 5,
-		difficulty = 2,
+
+	{ -- фул охота 25
+	name = 'Охота фул',
+	instance_name = 'Логово Магтеридона' and "Логово Груула" and 'Испытание крестоносца' and "Логово Ониксии",
+	size = 25,
+	difficulty = 4,
 		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('рлк', 5, 'nm', 'Испытание чемпиона'),
+			create_pattern_from_template('Охота фул', 25, 'nm', 'Логово Магтеридона' and "Логово Груула"),
+				{
+					-- 'м'..csep..'г'..csep..'хм',
+					-- 'г'..csep..'м'..csep..'хм',
+					'%[?охота на Великих чудовищ%]?'..csep..'на'..csep..'фул',
+					'%[?охота на Великих чудовищ%]?'..csep..'фул',
+					'фул'..csep..'охота',
+					'на'..csep..'фул'..csep..'охоту',
+					'фаст'..csep..'охота',
+					'на'..csep..'охоту',
+
+				}
+			),
+	},
+
+	{ -- г м хм
+		name = 'г/м хм',
+		instance_name = 'Логово Магтеридона' and "Логово Груула",
+		size = 25,
+		difficulty = 4,
+			patterns = std.algorithm.copy_back(
+				create_pattern_from_template('г/м хм', 25, 'hc', 'Логово Магтеридона' and "Логово Груула"),
+					{
+						'м'..csep..'г'..csep..'хм',
+						'г'..csep..'м'..csep..'хм',
+						'магик%/грул'..csep..'хм',
+						'магик%/грул'..csep..'%(хм%)',
+						'магик%/грул'..csep..'%(гер%)',
+						'гм'..csep..'гер',
+						'магик%/грул'..csep..'гер',
+						'мг'..csep..'гер',
+						'мг'..csep..'хм',
+						'м%/г'..csep..'хм',
+						'г%/м'..csep..'хм',
+						'г%/м'..csep..'гер',
+						'м%/г'..csep..'гер',
+						'м'..csep..'г'..csep..'хм',
+						'м'..csep..'г'..csep..'гер',
+						'мг'..csep..'хм',
+						'магик'..csep..'грул'..csep..'25хм',
+						'магик'..csep..'грул'..csep..'25'..csep..'хм',
+						'магик'..csep..'грул'..csep..'25гер',
+						'магик'..csep..'грул'..csep..'25'..csep..'гер',
+						'м'..csep..'и'..csep..'г'..csep..'хм',
+						'м'..csep..'и'..csep..'г'..csep..'гер',
+						'гм'..csep..'хм',
+						'грул%/магик'..csep..'хм',
+						'грул'..csep..'магик'..csep..'хм',
+					}
+				),
+		},
+	{ -- г м об
+	name = 'г/м об',
+	instance_name = 'Логово Магтеридона' and "Логово Груула" ,
+	size = 25,
+	difficulty = 1,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('г/м об', 25, 'nm', 'Логово Магтеридона' and "Логово Груула"),
+				{
+					'м'..csep..'г'..csep..'об',
+					'г'..csep..'м'..csep..'об',
+					'м'..csep..'и'..csep..'г'..csep..'об',
+					'м'..csep..'и'..csep..'г',
+					'гм'..csep..'об',
+					'груул%/магик'..csep..'об',
+					'мг'..csep..'об',
+					'магик%/грул',
+					'м%/г'..csep..'об',
+					'г%/м'..csep..'об',
+					'мг'..csep..'%(об%)',
+					'мг%(об%)',
+					'магик'..csep..'грул',
+					'в'..csep..'мг',
+				}
+			),
+	},
+	{ -- ик оня 25
+	name = 'ик/оня 25',
+	instance_name = 'Испытание крестоносца' and "Логово Ониксии",
+	size = 25,
+	difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('ик/оня 25', 25, 'nm', 'Испытание крестоносца' and "Логово Ониксии"),
+				{
+					'ик'..csep..'оня'..csep..'25',
+					'оня'..csep..'ик'..csep..'25',
+					'ик'..csep..'оня'..csep..'об',
+					'оня'..csep..'ик'..csep..'об',
+				}
+			),
+	},
+	{ -- ик оня 10
+	name = 'ик/оня 10',
+	instance_name = 'Испытание крестоносца' and "Логово Ониксии",
+	size = 10,
+	difficulty = 1,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('ик/оня 10', 10, 'nm', 'Испытание крестоносца' and "Логово Ониксии"),
+				{
+					'ик'..csep..'оня'..csep..'10',
+					'оня'..csep..'ик'..csep..'10',
+					'ик'..csep..'оня'..csep..'об',
+					'оня'..csep..'ик'..csep..'об',
+				}
+			),
+	},
+
+	{ -- магик хм
+		name = 'Магик хм',
+		instance_name = 'Логово Магтеридона',
+		size = 25,
+		difficulty = 4,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('магик', 25, 'hc', 'Логово Магтеридона'),
 			{
-				'рлк'..csep..'гер',
-				'в'..csep..'залы',
-				'в '..csep..'кузню',
-				'в'..csep..'яму',
-				'3рлк',
+				'магик'..csep..'хм',
+				'магик'..csep..'гер',
+				'м'..csep..'хм',
+				'г'..csep..'гер',
+				'%[?логово магтеридона%]?'..csep..'хм',
+				'%[?логово магтеридона%]?'..csep..'гер',
+				-- '%[?охота на великих чудовищ%]?'..csep..'хм',
+				-- '%[?охота на Великих чудовищ%]?'..csep..'гер',
 
 			}
 		),
+
 	},
+
+	{ -- магик об
+		name = 'Магик об',
+		instance_name = 'Логово Магтеридона',
+		size = 25,
+		difficulty = 1,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('магик', 25, 'nm', 'Логово Магтеридона'),
+			{
+				'магик'..csep..'об',
+				'магик',
+				'только'..csep..'магик',
+				'%[?логово магтеридона%]?',
+				-- 'фул'..csep..'%[?охота на великих чудовищ%]?',
+				-- 'на'..csep..'фул'..csep..'%[?охота на великих чудовищ%]?',
+				-- '%[?охота на великих чудовищ%]?',
+			}
+		),
+	},
+	{ -- грул хм
+		name = 'Грул хм',
+		instance_name = 'Логово Груула',
+		size = 25,
+		difficulty = 4,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('груул', 25, 'hc', 'Логово Груула'),
+			{
+				'грул'..csep..'хм',
+				'груул'..csep..'хм',
+				'грулл'..csep..'хм',
+				'грул'..csep..'гер',
+				'груул'..csep..'гер',
+				'грулл'..csep..'гер',
+				'%[?логово груула%]?'..csep..'хм',
+				'%[?логово груула%]?'..csep..'гер',
+				'г'..csep..'хм',
+			}
+		),
+	},
+	{ -- грул об
+		name = 'Грул об',
+		instance_name = 'Логово Груула',
+		size = 25,
+		difficulty = 1,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('груул', 25, 'nm', 'Логово Груула'),
+			{
+				'грул'..csep..'об',
+				'груул'..csep..'об',
+				'грулл'..csep..'об',
+				'грул',
+				'груул',
+				'грулл',
+				'на'..csep..'грула',
+				'на'..csep..'грулла',
+				'на'..csep..'груула',
+				-- 'закрыть'..csep..'охоту',
+				'%[?логово груула%]?'..csep..'об',
+				'%[?логово груула%]?',
+				'%[?логово груула%]?'..csep..'кто'..csep..'не',
+			}
+		),
+	},
+
 
 	{ -- снeговик
 		name = 'Снеговик',
@@ -105,7 +287,6 @@ local raid_list = {
 				'снеговик',
 				'%[?логово замёрзшего снеговика%]?',
 				'%[?снежный доспех%]?',
-
 			}
 		),
 	},
@@ -127,7 +308,6 @@ local raid_list = {
 				'тг'..csep..'элитки',	
 				'контракты'..csep..'%+'..csep..'эттины',
 				'эттины'..csep..'%+'..csep..'контракты',
-
 			}
 		),
 	},
@@ -181,6 +361,25 @@ local raid_list = {
 				'на'..csep..'3'..csep..'рбк',
 				'на'..csep..'3'..csep..'нрбк',
 
+			}
+		),
+	},
+
+	{ -- рлк
+		name = 'РЛК',
+		instance_name = 'Испытание чемпиона',
+		size = 5,
+		difficulty = 2,
+		patterns = std.algorithm.copy_back(
+			create_pattern_from_template('рлк', 5, 'nm', 'Испытание чемпиона'),
+			{
+				'рлк'..csep..'гер',
+				'в'..csep..'залы',
+				'в '..csep..'кузню',
+				'в'..csep..'яму',
+				'3рлк',
+				'3'..csep..'рлк',
+				'на'..csep..'3'..csep..'рлк',
 			}
 		),
 	},
@@ -357,125 +556,6 @@ local raid_list = {
 		),
 	},
 
-	{ -- магик хм
-		name = 'Магик хм',
-		instance_name = 'Логово Магтеридона',
-		size = 25,
-		difficulty = 4,
-		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('магик', 25, 'hc', 'Логово Магтеридона'),
-			{
-				'магик'..csep..'хм',
-				'гм'..csep..'хм',
-				'грул%/магик'..csep..'хм',
-				'грул'..csep..'магик'..csep..'хм',
-				'магик'..csep..'гер',
-				'магик%/грул'..csep..'хм',
-				'магик%/грул'..csep..'%(хм%)',
-				'магик%/грул'..csep..'%(гер%)',
-				'гм'..csep..'гер',
-				'магик%/грул'..csep..'гер',
-				'мг'..csep..'гер',
-				'мг'..csep..'хм',
-				'м%/г'..csep..'хм',
-				'г%/м'..csep..'хм',
-				'г%/м'..csep..'гер',
-				'м%/г'..csep..'гер',
-				'м'..csep..'г'..csep..'хм',
-				'м'..csep..'г'..csep..'гер',
-				'мг'..csep..'хм',
-				'%[?логово магтеридона%]?'..csep..'хм',
-				'%[?логово магтеридона%]?'..csep..'гер',
-				'м'..csep..'и'..csep..'г'..csep..'хм',
-				'м'..csep..'и'..csep..'г'..csep..'гер',
-				'%[?охота на великих чудовищ%]?'..csep..'хм',
-				'%[?охота на Великих чудовищ%]?'..csep..'гер',
-				'магик'..csep..'грул'..csep..'25хм',
-				'магик'..csep..'грул'..csep..'25'..csep..'хм',
-				'магик'..csep..'грул'..csep..'25гер',
-				'магик'..csep..'грул'..csep..'25'..csep..'гер',
-			}
-		),
-
-	},
-
-	{ -- магик об
-		name = 'Магик об',
-		instance_name = 'Логово Магтеридона',
-		size = 25,
-		difficulty = 1,
-		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('магик', 25, 'nm', 'Логово Магтеридона'),
-			{
-				'магик'..csep..'об',
-				'магик',
-				'магик'..csep..'грул',
-				'в'..csep..'мг',
-				'фаст'..csep..'охота',
-				'на'..csep..'охоту',
-				'охота'..csep..'на'..csep..'фул',
-				'м'..csep..'и'..csep..'г'..csep..'об',
-				-- 'м'..csep..'и'..csep..'г',
-				'только'..csep..'магик',
-				'гм'..csep..'об',
-				'груул%/магик'..csep..'об',
-				'мг'..csep..'об',
-				'магик%/грул',
-				'м%/г'..csep..'об',
-				'г%/м'..csep..'об',
-				'мг'..csep..'%(об%)',
-				'мг%(об%)',
-				'%[?логово магтеридона%]?',
-				'фул'..csep..'%[?охота на великих чудовищ%]?',
-				'на'..csep..'фул'..csep..'%[?охота на великих чудовищ%]?',
-				'%[?охота на великих чудовищ%]?',
-			}
-		),
-	},
-	{ -- грул хм
-		name = 'Грул хм',
-		instance_name = 'Логово Груула',
-		size = 25,
-		difficulty = 4,
-		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('груул', 25, 'hc', 'Логово Груула'),
-			{
-				'грул'..csep..'хм',
-				'груул'..csep..'хм',
-				'грулл'..csep..'хм',
-				'грул'..csep..'гер',
-				'груул'..csep..'гер',
-				'грулл'..csep..'гер',
-				'%[?логово груула%]?'..csep..'хм',
-				'%[?логово груула%]?'..csep..'гер',
-				'г'..csep..'хм',
-			}
-		),
-	},
-	{ -- грул об
-		name = 'Грул об',
-		instance_name = 'Логово Груула',
-		size = 25,
-		difficulty = 1,
-		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('груул', 25, 'nm', 'Логово Груула'),
-			{
-				'грул'..csep..'об',
-				'груул'..csep..'об',
-				'грулл'..csep..'об',
-				'грул',
-				'груул',
-				'грулл',
-				'на'..csep..'грула',
-				'на'..csep..'грулла',
-				'на'..csep..'груула',
-				'закрыть'..csep..'охоту',
-				'%[?логово груула%]?'..csep..'об',
-				'%[?логово груула%]?',
-				'%[?логово груула%]?'..csep..'кто'..csep..'не',
-			}
-		),
-	},
 		{ -- ос10
 		name = 'Ос 10',
 		instance_name = 'Обсидиановое святилище',
@@ -557,7 +637,7 @@ local raid_list = {
 		name = 'Ульда 25 хм',
 		instance_name = 'Ульдуар',
 		size = 25,
-		difficulty = 2,
+		difficulty = 4,
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 25, 'hc', 'Ульдуар'),
 			{
@@ -772,19 +852,19 @@ local raid_list = {
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ик', 10, 'nm', 'Испытание крестоносца'),{
 			'%[?призыв авангарда %(10 игроков%)%]?',
-			'ик'..csep..'оня'..csep..'10',
-			'ик'..csep..'оню'..csep..'10',
-			'ик'..csep..'оня'..csep..'10',
-			'ик%/оня'..csep..'10',
-			'иконя'..csep..'10',
-			'ик'..csep..'и'..csep..'оня',
-			'ик'..csep..'после'..csep..'они',
-			'ик%+оня'..csep..'10',
-			'ик%/оня'..csep..'10',
-			'ик%/оня'..csep..'(10)',
+			-- 'ик'..csep..'оня'..csep..'10',
+			-- 'ик'..csep..'оню'..csep..'10',
+			-- 'ик'..csep..'оня'..csep..'10',
+			-- 'ик%/оня'..csep..'10',
+			-- 'иконя'..csep..'10',
+			-- 'ик'..csep..'и'..csep..'оня',
+			-- 'ик'..csep..'после'..csep..'они',
+			-- 'ик%+оня'..csep..'10',
+			-- 'ик%/оня'..csep..'10',
+			-- 'ик%/оня'..csep..'(10)',
 			'ик'..csep..'(10)',
-			'ик%+оня'..csep..'(10)',
-			'ик%/оня'..csep..'10',
+			-- 'ик%+оня'..csep..'(10)',
+			-- 'ик%/оня'..csep..'10',
 			'ик'..csep..'10',
 			'ик'..csep..'10'..csep..'об',
 			'%[?испытание крестоносца%]?'..csep..'10'..csep..'об',
@@ -804,10 +884,10 @@ local raid_list = {
 			{
 			'%[?призыв авангарда %(25 игроков%)%]?',
 			'%[?испытание крестоносца%]?'..csep..'25',
-			'ик'..csep..'оня'..csep..'25',
-			'фул'..csep..'охота'..csep..'25',
-			'фул'..csep..'охота'..csep..'25об',
-			'фул'..csep..'охота'..csep..'25'..csep..'об',
+			-- 'ик'..csep..'оня'..csep..'25',
+			-- 'фул'..csep..'охота'..csep..'25',
+			-- 'фул'..csep..'охота'..csep..'25об',
+			-- 'фул'..csep..'охота'..csep..'25'..csep..'об',
 			}
 		),
 	},
@@ -1395,15 +1475,7 @@ function raid_browser.raid_info(message)
 
 		end
 	end
--- local language = language;
-		-- local language = languageName()
-		-- if language  then
-		-- language = "орочий"
-
--- end
-
 	return raid_info, roles, gs
-	-- , 	 language
 end
 
 local function is_lfm_channel(channel)
@@ -1419,7 +1491,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		arg2 = arg2
 		arg3 = arg3
-		if raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "всеобщий") then
+		if raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "всеобщий") then
 			-- Put the sender in the table of active raids
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
@@ -1430,7 +1502,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				message = message.."\n|cff00ff00Хозяин собирает Альянс|r",
 			};
 
-		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "орочий") then
+		elseif raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "орочий") then
 
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
@@ -1441,7 +1513,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				message = message.."\n|cff00ff00Хозяин собирает Орду|r",
 			};
 
-		elseif raid_info and roles and gs and (arg2 == "Пьяная") and (arg3 == "арго скорпидов") then
+		elseif raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "арго скорпидов") then
 
 			raid_browser.lfm_messages[sender] = {
 				sender = "|cff00ff00"..sender,
@@ -1472,7 +1544,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				roles = roles,
 				gs = gs,
 				time = time(),
-				message = message.."\n|cff0000ffАльянс|r",
+				message = message.."\n|cff00E5EEАльянс|r",
 			};
 		elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
 

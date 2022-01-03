@@ -25,21 +25,21 @@ function raid_browser.stats.raid_lock_info(instance_name, size, difficulty,locke
 			return true, BA_SavedInstance.id[i];
 		end
 	end
-	
+
 	return false, nil;
 end
 
 function raid_browser.stats.get_active_raidset()
 	local spec = nil;
 	local gs = nil;
-	
+
 	-- Retrieve gearscore if GearScoreLite is installed
 	if GearScore_GetScore then
 		local Name = UnitName("player")
 		GearScore_GetScore(Name, "player");
 		gs = GS_Data[GetRealmName()].Players[Name].GearScore
 	end
-	
+
 	spec = raid_browser.stats.active_spec();
 	return spec, gs;
 end
@@ -49,7 +49,7 @@ end
 function raid_browser.stats.build_inv_string(raid_name)
 	local spec = raid_browser_character_current_raidset.spec
 	local gs = raid_browser_character_current_raidset.gs
-	local class = UnitClass("player");	
-	local message = 'Инвайт я - '..spec .." ".. gs .. ' , RaidBrowser';	
+	local class = UnitClass("player");
+	local message = 'Инвайт я - '..spec .." ".. gs .. ', RaidBrowser';
 	return message;
 end

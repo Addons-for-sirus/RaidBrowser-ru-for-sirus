@@ -37,7 +37,7 @@ local function OnEvent(...)
 			BA_SavedInstance.saved_size[i] = saved_size;
 			BA_SavedInstance.difficulty[i] = difficulty;
 			BA_SavedInstance.locked[i] = locked;
-			-- print( saved_name, id, reset, difficulty, locked, _, _, _, saved_size) 
+			-- print( saved_name, id, reset, difficulty, locked, _, _, _, saved_size)
 		end
 	elseif event == "PLAYER_ALIVE" then
 		if not raid_browser_character_raidsets then
@@ -60,7 +60,7 @@ local function OnEvent(...)
 				registry[event][listener] = nil
 				if not success then script_error('event callback', rv) end
 			end
-		end	  
+		end
 		UnregisterOrphanedEvent(event)
 	end
 end
@@ -78,7 +78,7 @@ function raid_browser.add_event_listener(event, callback, userparam)
 		registry[event] = {}
 		frame:RegisterEvent(event)
 	end
-	
+
 	local listener = { callback, userparam }
 	registry[event][listener] = true
 	return listener

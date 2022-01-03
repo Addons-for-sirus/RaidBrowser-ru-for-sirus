@@ -326,8 +326,8 @@ end
 
 -- Assignment operator for LFR buttons
 local function assign_lfr_button(button, host_name, lfm_info, index,message)
-		arg2 = arg2
-		arg3 = arg3
+		-- arg2 = arg2
+		-- arg3 = arg3
 	local offset = FauxScrollFrame_GetOffset(LFRBrowseFrameListScrollFrame);
 	button.index = index;
 	index = index - offset;
