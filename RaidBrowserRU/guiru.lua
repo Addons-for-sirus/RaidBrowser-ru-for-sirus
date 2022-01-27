@@ -314,8 +314,8 @@ end)
 
 LFRParentFrame:HookScript("OnShow", function()
 	-------------create buttons to spam
-	if not _G["RBStartSpam"] then
-		local f = CreateFrame("Button","RBStartSpam",LFRQueueFrame,"StaticPopupButtonTemplate")
+	if not _G["RBStartSpamButton"] then
+		local f = CreateFrame("Button","RBStartSpamButton",LFRQueueFrame,"StaticPopupButtonTemplate")
 		f:SetSize(120,20)
 		f:SetText("Старт")
 		f:SetPoint("CENTER",LFRQueueFrame,"TOPRIGHT",-90,-90)
@@ -523,7 +523,7 @@ LFRParentFrame:HookScript("OnShow", function()
 		_G[ilvlslider:GetName()..'High']:ClearAllPoints()
 		_G[ilvlslider:GetName()..'High']:SetPoint("RIGHT",ilvlslider,"RIGHT",15,1)
 
-		_G[ilvlslider:GetName()..'Text']:SetText("ilvl ("..spaminfo.ilvl..")")
+		_G[ilvlslider:GetName()..'Text']:SetText("ilvl ("..spaminfo.ilvl.."+)")
 		ilvlslider:SetScript("OnValueChanged", function(self, newvalue)
 			spaminfo.ilvl = newvalue
 			_G[ilvlslider:GetName()..'Text']:SetText("ilvl ("..spaminfo.ilvl.."+)")
@@ -689,6 +689,33 @@ LFRParentFrame:HookScript("OnShow", function()
 			UpdateTextSpam()
 		end)
 		spmtimeslider:Show()
+	end
+	---------------clear all
+	if not  _G["RBClearAllButton"]  then
+		local clearallbutton = CreateFrame("Button","RBClearAllButton",LFRQueueFrame,"StaticPopupButtonTemplate")
+
+		clearallbutton:SetSize(120,20)
+		clearallbutton:SetText("Очистить все")
+		clearallbutton:SetPoint("CENTER",LFRQueueFrame,"TOPRIGHT",-90,-340)
+		clearallbutton:Show()
+		clearallbutton:SetScript("OnClick",function()
+			spaminfo.intsname = ""
+			spaminfo.tanks = 1
+			spaminfo.tankseb = ""
+			spaminfo.ddeal = 1
+			spaminfo.ddealeb = ""
+			spaminfo.healers = 1
+			spaminfo.healerseb = ""
+			spaminfo.ilvl = 200
+			spaminfo.anrol = ""
+			spaminfo.dopinfo = ""
+			RBTankEditBox:SetText(spaminfo.tankseb)
+			RBDDEditBox:SetText(spaminfo.ddealeb)
+			RBHealEditBox:SetText(spaminfo.healerseb)
+			RBAnrolText:SetText(spaminfo.anrol)
+			RBDInfoText:SetText(spaminfo.dopinfo)
+			UpdateTextSpam()
+		end)
 	end
 
 
