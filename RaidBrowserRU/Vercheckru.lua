@@ -29,7 +29,7 @@ do
         end
         SendMessageWaitingRB = nil
     end
-    
+
     local function SendRecieve_RB(_, event, prefix, message, _, sender)
         if event == "CHAT_MSG_ADDON" then
             -- print(argtime)
@@ -48,7 +48,6 @@ do
                 end
             end
         end
-   
 
         if event == "PARTY_MEMBERS_CHANGED" or event == "RAID_ROSTER_UPDATE" then
             local numRaid = GetNumRaidMembers()

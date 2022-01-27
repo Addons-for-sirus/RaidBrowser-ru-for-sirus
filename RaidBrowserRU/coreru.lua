@@ -779,6 +779,8 @@ local raid_list = {
 			'зс'..csep..'об',
 			'зс'..csep..'%(об%)',
 			'зс',
+			'вайши',
+			'каратрес',
 			'зс'..csep..'от',
 			'в'..csep..'зс'..csep..'от',
 			'в'..csep..'зс'..csep..'об',
@@ -1164,7 +1166,7 @@ local role_patterns = {
 		'[0-9]*'..csep..'тело',
 		'[0-9]*'..csep..'тела',
 		'дд',
-		'пару',
+		-- 'пару',
 		'р%(дд%)',
 		'кольчужники',
 		'ткань',
@@ -1179,7 +1181,7 @@ local role_patterns = {
 		'пару'..csep..'рдд',
 		'пара'..csep..'рдд',
 		'пара'..csep..'дд',
-		'помогите',
+		-- 'помогите',
 
 	},
 
@@ -1590,3 +1592,4 @@ function raid_browser:OnDisable()
 
 	raid_browser.kill_timer(raid_browser.timer)
 end
+
