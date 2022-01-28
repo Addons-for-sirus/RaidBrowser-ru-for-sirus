@@ -529,7 +529,7 @@ LFRParentFrame:HookScript("OnShow", function()
 			_G[ilvlslider:GetName()..'Text']:SetText("ilvl ("..spaminfo.ilvl.."+)")
 			UpdateTextSpam()
 		end)
-		ilvlslider:Show()
+		-- ilvlslider:Show()
 	end
 	-------------------anroll eb
 	if not  _G["RBAnrolText"] then
@@ -656,12 +656,17 @@ LFRParentFrame:HookScript("OnShow", function()
 		chkbx3:SetScript("OnClick",function()
 			if chkbx3:GetChecked() == 1 then
 				spaminfo.chattospam = spaminfo.lfgchatid
+				spaminfo.langid = 3
 				-- RBCheckButton1:SetChecked(false)
 			else
 				spaminfo.chattospam = spaminfo.lfgchatid
+				spaminfo.langid = 3
 				-- spaminfo.chattospam = false
 			end
 		end)
+		local chkbx3fontstring = chkbx3:CreateFontString("RBCheckButton"..spaminfo.hordechatid.."Text",OVERLAY,"GameTooltipText")
+		chkbx3fontstring:SetText(spaminfo.lfgchatid)
+		chkbx3fontstring:SetPoint("TOP",chkbx3,"TOP",0,10)
 
 	end
 	------------------spam time slider
