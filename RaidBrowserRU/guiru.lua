@@ -80,6 +80,7 @@ local spamonoroff = false
 -- local spamtime = 10
 local lastspamtime = 0
 local messagetospam
+local messagetoshow
 
 
 -- local messagetospam ="В "..intsname.." нужны "..tanks.. " танк(а)"..ddeal.." дд".. healers.." хила от "..ilvl.."%+ "..anrol
@@ -198,9 +199,10 @@ local function UpdateTextSpam()
 		-- if #messagetospam > 70 then
 		-- 	messagetospam = "В "..spaminfo.intsname.." нужны " .. tankmes .. tanksebmes .. ddmes .. ddealebmes .."\n".. healmes .. healersebmes .." от ".. spaminfo.ilvl .."+ "..spaminfo.anrol .. " "..spaminfo.dopinfo
 		-- end
-		messagetospam = space(messagetospam, 70," ", "  ")
+		messagetoshow = space(messagetospam, 70," ", "  ")
+		-- messagetospam = 
 
-		fntstr:SetText(messagetospam)
+		fntstr:SetText(messagetoshow)
 	else
 		if spaminfo.tanks == 0 and spaminfo.ddeal == 0 and spaminfo.healers == 0 then
 			messagetospam = spaminfo.intsname.." нужны все от " .. spaminfo.ilvl.."+ "..spaminfo.anrol  .. " "..spaminfo.dopinfo
@@ -210,8 +212,11 @@ local function UpdateTextSpam()
 			-- 	messagetospam = "В "..spaminfo.intsname.." нужны " .. tankmes .. tanksebmes .. ddmes .. ddealebmes .."\n".. healmes .. healersebmes .." от ".. spaminfo.ilvl .."+ "..spaminfo.anrol .. " "..spaminfo.dopinfo
 			-- end
 		end
-		messagetospam = space(messagetospam, 70," ", "  ")
-		AllMassage:SetText(messagetospam)
+		messagetoshow = space(messagetospam, 70," ", "  ")
+
+		AllMassage:SetText(messagetoshow)
+		-- messagetospam = space(messagetospam, 70," ", "  ")
+		-- AllMassage:SetText(messagetospam)
 		AllMassageCount:SetText(#messagetospam.."/255")
 	end
 
