@@ -672,7 +672,7 @@ LFRParentFrame:HookScript("OnShow", function()
 				-- spaminfo.chattospam = false
 			end
 		end)
-		local chkbx3fontstring = chkbx3:CreateFontString("RBCheckButton"..spaminfo.hordechatid.."Text",OVERLAY,"GameTooltipText")
+		local chkbx3fontstring = chkbx3:CreateFontString("RBCheckButton"..spaminfo.lfgchatid.."Text",OVERLAY,"GameTooltipText")
 		chkbx3fontstring:SetText(spaminfo.lfgchatid)
 		chkbx3fontstring:SetPoint("TOP",chkbx3,"TOP",0,10)
 
