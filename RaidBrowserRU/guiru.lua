@@ -731,7 +731,6 @@ LFRParentFrame:HookScript("OnShow", function()
 		end)
 	end
 
-
 end)
 
 function RaidBrowserRU:OnClick()

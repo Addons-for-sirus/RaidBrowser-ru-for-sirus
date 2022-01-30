@@ -1192,10 +1192,11 @@ local role_patterns = {
 		'[0-9]*'..csep..'рдру',
 		'[0-9]*'..csep..'ршам',
 		'[0-9]*'..csep..'хпал',
-		'[0-9]*'..csep..'дц',	'дц','ДЦ','Дц',
+		'[0-9]*'..csep..'дц','дц','ДЦ','Дц',
 		'[0-9]*'..csep..'хприст',
 		'[0-9]*'..csep..'прист',
-		'хил','пару',
+		'хил',
+		'пару',
 		'солохил',
 	},
 
@@ -1211,9 +1212,9 @@ local role_patterns = {
 }
 
 local gearscore_patterns = {
-	'[1-3][0-9][0-9]%++',
-	'[1-3][0-9][0-9]%+',
-	'[1-3][0-9][0-9]',
+	'[1-2][0-9][0-9]%++',
+	'[1-2][0-9][0-9]%+',
+	'[1-2][0-9][0-9]',
 
 }
 
@@ -1406,7 +1407,9 @@ end
 function raid_browser.raid_info(message)
 	if not message then return end;
 	message = string.lower(message)
+	-- print(message,1409)
 	message = remove_http_links(message);
+	-- print(message,1410)
 
 	-- Stop if it's a guild recruit message
 	if is_guild_recruitment(message) or is_wts_message(message) then
@@ -1440,9 +1443,30 @@ function raid_browser.raid_info(message)
 			break;
 		end
 	end
+	-- Search for a gearscore requirement.
+	local gs
 
+	for _, pattern in pairs(gearscore_patterns) do
+		-- print(k, pattern)
+		local gs_start, gs_end = string.find(message, pattern)
+		-- print(gs_start, gs_end)
+		-- local gs_final = string.match(message, pattern)
+		-- If a gs requirement was found, then save it and continue.
+		if gs_start and gs_end then
+			-- return
+				-- return gs_start
+
+			gs = string.sub(message, gs_start, gs_end);
+			--gs = format_gs_string(string.sub(message, gs_start))
+		else
+			gs = 'нет'
+
+		end
+	end
 	message = lex_achievements(message);
+	-- print(message,1447)
 	message = unlink_instlink(message);
+	-- print(message,1449)
 
 	-- Get any roles that are needed
 	local roles = {};
@@ -1457,25 +1481,6 @@ function raid_browser.raid_info(message)
 	-- If there is only an LFM message, then it is assumed that all roles are needed
 	if #roles == 0 then
 		roles = {'dps', 'tank', 'healer'}
-	end
-
-	local gs = gs;
-
-
-	-- Search for a gearscore requirement.
-	for _, pattern in pairs(gearscore_patterns) do
-		local gs_start, gs_end = string.find(message, pattern)
-		 local gs_final = string.match(message, pattern)
-		-- If a gs requirement was found, then save it and continue.
-		if gs_start and gs_end then
-		-- return
-			 -- return gs_start
-
-			  gs = gs_final;
-			--gs = format_gs_string(string.sub(message, gs_start))
-			else gs = 'нет'
-
-		end
 	end
 	return raid_info, roles, gs
 end
