@@ -720,9 +720,9 @@ local raid_list = {
 		name = 'Око хм',
 		instance_name = 'Крепость Бурь',
 		size = 25,
-		difficulty = 2,
+		difficulty = 4,
 		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('око хм', 25, 'nm', 'Крепость Бурь'),
+			create_pattern_from_template('око', 25, 'hc', 'Крепость Бурь'),
 			{
 				'%[?око%]?'..csep..'хм',
 				'%[?око%]?'..csep..'гер',
@@ -756,9 +756,9 @@ local raid_list = {
 		name = 'Зс хм',
 		instance_name = 'Кривой Клык: Змеиное святилище',
 		size = 25,
-		difficulty = 2,
+		difficulty = 4,
 		patterns = std.algorithm.copy_back(
-			create_pattern_from_template('зс хм', 25, 'nm', 'Кривой Клык: Змеиное святилище'),
+			create_pattern_from_template('зс', 25, 'hc', 'Кривой Клык: Змеиное святилище'),
 			{
 				'зс'..csep..'хм',
 				'в'..csep..'зс'..csep..'хм',
