@@ -32,7 +32,7 @@ end
 
 
 local AceEvent = AceLibrary("AceEvent-2.0")
-local RL = AceLibrary("Roster-2.1")
+--local RL = AceLibrary("Roster-2.1")
 -- AceDB stuff
 addon:RegisterDB("RaidBrowserRUDB")
 addon:RegisterDefaults("profile", {
