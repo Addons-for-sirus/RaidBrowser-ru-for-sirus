@@ -74,6 +74,7 @@ local options = {
 	spaminfo.hordechatid = spaminfo.hordechatid or ""
 	spaminfo.lfgchatid = spaminfo.lfgchatid or ""
 	spaminfo.spamtime = spaminfo.spamtime or 35
+	spaminfo.spamtimer = spaminfo.spamtimer or 35
 
 -- end
 local spamonoroff = false
@@ -92,7 +93,7 @@ local function SendChatMessageOnUpd()
 	-- 	langid = ""
 	-- end
 	local nowtime = time()
-	if nowtime - spaminfo.spamtime > lastspamtime and spamonoroff then
+	if nowtime - spaminfo.spamtimer > lastspamtime and spamonoroff then
 		if spaminfo.langid == 1 then
 			SendChatMessage(messagetospam, "CHANNEL", "орочий", spaminfo.chattospam)
 			-- print(96)
@@ -106,7 +107,7 @@ local function SendChatMessageOnUpd()
 				SendChatMessage(messagetospam,"CHANNEL", "всеобщий", spaminfo.chattospam)
 			end
 		end
-		spaminfo.spamtime = math.random(spaminfo.spamtime-3,spaminfo.spamtime+5)
+		spaminfo.spamtimer = math.random(spaminfo.spamtime-3,spaminfo.spamtime+7)
 	-- print(nowtime)
 	lastspamtime = time()
 	end
@@ -698,9 +699,10 @@ LFRParentFrame:HookScript("OnShow", function()
 
 		_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
 		spmtimeslider:SetScript("OnValueChanged", function(self, newvalue)
-			spaminfo.spamtime = math.random(newvalue-3,newvalue+7)
+			spaminfo.spamtime = newvalue
 			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
 			UpdateTextSpam()
+			spaminfo.spamtimer = spaminfo.spamtime
 		end)
 		spmtimeslider:Show()
 	end
