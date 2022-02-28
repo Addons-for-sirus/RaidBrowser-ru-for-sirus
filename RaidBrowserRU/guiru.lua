@@ -106,6 +106,7 @@ local function SendChatMessageOnUpd()
 				SendChatMessage(messagetospam,"CHANNEL", "всеобщий", spaminfo.chattospam)
 			end
 		end
+		spaminfo.spamtime = math.random(spaminfo.spamtime-3,spaminfo.spamtime+5)
 	-- print(nowtime)
 	lastspamtime = time()
 	end
