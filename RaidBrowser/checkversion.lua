@@ -7,7 +7,7 @@ local GetNumRaidMembers = GetNumRaidMembers
 local CreateFrame = CreateFrame
 
 local myname = UnitName("player")
-versionRB = GetAddOnMetadata("RaidBrowserRU", "Version")
+versionRB = GetAddOnMetadata("RaidBrowser", "Version")
 
 local spamt = 0
 local timeneedtospam = 180
@@ -40,8 +40,8 @@ do
             message = tonumber(message)
 
             local  timenow = time()
-            if message and (message > ver) then 
-                if timenow - spamt >= timeneedtospam then              
+            if message and (message > ver) then
+                if timenow - spamt >= timeneedtospam then
                     print("|cff1784d1".."RaidBrowser".."|r".." (".."|cffff0000"..ver.."|r"..") устарел. Вы можете загрузить последнюю версию (".."|cff00ff00"..message.."|r"..") из ".."|cffffcc00".."https://github.com/fxpw/RaidBrowser-ru-for-sirus".."|r")
                     -- spamt = time()
                     spamt = time()
@@ -61,15 +61,15 @@ do
                 end
                 SendRecieveGroupSizeRB = num
             end
-        elseif event == "PLAYER_ENTERING_WORLD" then          
+        elseif event == "PLAYER_ENTERING_WORLD" then
                     if not SendMessageWaitingRB then
-                        SendMessage_RB()                       
+                        SendMessage_RB()
                         -- SendMessageWaitingBB = E:Delay(10, SendMessage_BB)
                     end
-                
+
             end
     end
-           
+
     local f = CreateFrame("Frame")
     f:RegisterEvent("CHAT_MSG_ADDON")
     f:RegisterEvent("RAID_ROSTER_UPDATE")

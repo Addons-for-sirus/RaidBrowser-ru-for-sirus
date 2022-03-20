@@ -1,0 +1,14 @@
+{
+    "Lua.diagnostics.globals": [
+        "LFRQueueFrame",
+        "LFRBrowseFrame",
+        "LFRHistoryFrame",
+        "RBTankEditBox",
+        "RBDDEditBox",
+        "RBHealEditBox",
+        "RBAnrolText",
+        "RBDInfoText",
+        "PanelTemplates_SetNumTabs",
+        "LFRParentFrame"
+    ]
+}

@@ -10,6 +10,6 @@ vars.L = setmetatable({},{
 
 
 if locale == "ruRU" then do end
--- La["All Stats"] = "Все статы" 
+La["History"] = "История"
 
 end

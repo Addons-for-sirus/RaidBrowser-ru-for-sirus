@@ -1,4 +1,5 @@
 raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowser', 'AceConsole-3.0')
+historyRB = historyRB or {}
 -- Separator characters
 local sep_chars = '%s-_,.<>%*)(/#+&x'
 
@@ -1271,6 +1272,7 @@ local guild_recruitment_patterns = {
 
 	'осваиваем',
 	'освоено',
+	'примет',
 
 	'прогресс',
 	'рт',
@@ -1482,6 +1484,7 @@ function raid_browser.raid_info(message)
 	if #roles == 0 then
 		roles = {'dps', 'tank', 'healer'}
 	end
+	-- print(raid_info, roles, gs)
 	return raid_info, roles, gs
 end
 
@@ -1491,10 +1494,7 @@ end
 -- local arg1, arg2, arg3 = ...;
 
 local function event_handler(self, event, message, sender,channel,  ...)
-
-
-
-  if is_lfm_channel(event) then
+	if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		arg2 = arg2
 		arg3 = arg3
@@ -1563,14 +1563,22 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				time = time(),
 				message = message.."\n|cffffcc00Ренегаты|r",
 			};
+		end
+		if raid_info and roles and gs then
+			local addtohistory = {}
+			addtohistory.timespam = time()
+			addtohistory.spammessage = message
+			addtohistory.namespam = sender
+			addtohistory.raid = raid_info.name
 
+			table.insert(historyRB,addtohistory)
+			-- raid_browser:LogChangedRB()
 		end
 
+		raid_browser.gui.update_list();
 
-	raid_browser.gui.update_list();
-
-		end
 	end
+end
 
 
 function raid_browser:OnEnable()

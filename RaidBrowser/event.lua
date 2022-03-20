@@ -1,7 +1,7 @@
 local registry = {}
 local frame = CreateFrame('Frame')
 
-local function printf(...) DEFAULT_CHAT_FRAME:AddMessage('|cff0061ff[RaidBrowserRu]: '..format(...)) end
+local function printf(...) DEFAULT_CHAT_FRAME:AddMessage('|cff0061ff[RaidBrowser]: '..format(...)) end
 
 local function script_error(type, err)
 	local name, line, msg = err:match('%[string (".-")%]:(%d+): (.*)')

@@ -1,18 +1,18 @@
 
 -- Register addon
--- raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowserRU', 'AceConsole-3.0')
+-- raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowser', 'AceConsole-3.0')
 local addonName, vars = ...
 local L = vars.L
 if AceLibrary:HasInstance("FuBarPlugin-2.0") then
-	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
+	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0","FuBarPlugin-2.0")
 else
-	RaidBrowserRU = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
+	RaidBrowser = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
 end
 
 local TITLE = rbTitle
-local addon = RaidBrowserRU
+local addon = RaidBrowser
 addon.vars = vars
-addon.name = "RaidBrowserRU"
+addon.name = "RaidBrowser"
 addon.hasIcon = true
 addon.hasNoColor = true
 addon.clickableTooltip = false
@@ -21,7 +21,7 @@ addon.cannotDetachTooltip = true
 addon.hideWithoutStandby = true
 
 function addon:OnTextUpdate()
-	self:SetText("RaidBrowserRU")
+	self:SetText("RaidBrowser")
   local f = addon.minimapFrame;
   if f then -- ticket #14
     f.SetFrameStrata(f,"MEDIUM") -- ensure the minimap icon isnt covered by others
@@ -32,9 +32,9 @@ end
 
 
 local AceEvent = AceLibrary("AceEvent-2.0")
---local RL = AceLibrary("Roster-2.1")
+-- local RL = AceLibrary("Roster-2.1")
 -- AceDB stuff
-addon:RegisterDB("RaidBrowserRUDB")
+addon:RegisterDB("RaidBrowserDB")
 addon:RegisterDefaults("profile", {
 
 
@@ -43,7 +43,7 @@ addon:RegisterDefaults("profile", {
 -- ACE options menu
 local options = {
 	type = 'group',
-	handler = RaidBrowserRU,
+	handler = RaidBrowser,
 	args = {
 	}
 }
@@ -54,27 +54,68 @@ local options = {
 
 -- end
 -- if not spaminfo then
-	spaminfo = spaminfo or {}
-	spaminfo.intsname = spaminfo.intsname or ""
-	spaminfo.tanks = spaminfo.tanks or 1
-	spaminfo.tankseb = spaminfo.tankseb or ""
-	spaminfo.ddeal = spaminfo.ddeal or 1
-	spaminfo.ddealeb = spaminfo.ddealeb or ""
-	spaminfo.healers = spaminfo.healers or 1
-	spaminfo.healerseb = spaminfo.healerseb or ""
-	spaminfo.ilvl = spaminfo.ilvl or 200
-	spaminfo.chattospam = spaminfo.chattospam or ""
-	spaminfo.langid = spaminfo.langid or ""
-	spaminfo.anrol = spaminfo.anrol or ""
-	spaminfo.dopinfo = spaminfo.dopinfo or ""
-	spaminfo.alliancechat = spaminfo.alliancechat or false
-	spaminfo.hordechat = spaminfo.hordechat or false
-	spaminfo.lfgchat = spaminfo.lfgchat or false
-	spaminfo.alliancechatid = spaminfo.alliancechatid or ""
-	spaminfo.hordechatid = spaminfo.hordechatid or ""
-	spaminfo.lfgchatid = spaminfo.lfgchatid or ""
-	spaminfo.spamtime = spaminfo.spamtime or 35
-	spaminfo.spamtimer = spaminfo.spamtimer or 35
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+-----------------------------------------history locals
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+local function LogRecordToStringRB(record)
+	-- if record <= #historyRB then return "---------" end
+	-- local timestamp, name, message = unpack(record)
+    local timestamp = record.timespam
+	local name = record.namespam
+	local raid = record.raid
+    -- print(timestamp, name, message)
+	if not timestamp or not name or not raid then
+		return "NAIDI MENYA"
+	else
+   		return string.format("%s %s %s",date("%Y-%m-%d %H:%M", timestamp), name, raid)
+	end
+end
+------------------
+function GetLogRecordRB(i)
+	-- print(86)
+    local logsize = #historyRB
+    assert(i >= 0 and i < #historyRB, "Index "..i.." is out of bounds")
+    return LogRecordToStringRB(historyRB[logsize - i])
+end
+
+------------------
+------------------
+------------------
+------------------
+------------------
+-- local function LogRecordToStringRBTooltip(record)
+-- 	-- if record <= #historyRB then return "---------" end
+-- 	-- local timestamp, name, message = unpack(record)
+--     local timestamp = record.timespam
+-- 	local name = record.namespam
+-- 	local message = record.spammessage
+--     -- print(timestamp, name, message)
+-- 	if not timestamp or not name or not message then
+-- 		return "NAIDI MENYA"
+-- 	else
+--    		return record.timespam,
+-- 	end
+-- end
+-- ------------------
+-- function GetLogRecordRBTooltip(i)
+-- 	-- print(86)
+--     local logsize = #historyRB
+--     assert(i >= 0 and i < #historyRB, "Index "..i.." is out of bounds")
+--     return LogRecordToStringRBTooltip(historyRB[logsize - i])
+-- end
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+-----------------------------------------history locals
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
 -- end
 local spamonoroff = false
@@ -93,7 +134,7 @@ local function SendChatMessageOnUpd()
 	-- 	langid = ""
 	-- end
 	local nowtime = time()
-	if nowtime - spaminfo.spamtimer > lastspamtime and spamonoroff then
+	if spamonoroff and nowtime - spaminfo.rspamtime > lastspamtime then
 		if spaminfo.langid == 1 then
 			SendChatMessage(messagetospam, "CHANNEL", "орочий", spaminfo.chattospam)
 			-- print(96)
@@ -107,8 +148,8 @@ local function SendChatMessageOnUpd()
 				SendChatMessage(messagetospam,"CHANNEL", "всеобщий", spaminfo.chattospam)
 			end
 		end
-		spaminfo.spamtimer = math.random(spaminfo.spamtime-3,spaminfo.spamtime+7)
-	-- print(nowtime)
+
+	spaminfo.rspamtime = math.random(spaminfo.spamtime-3,spaminfo.spamtime+7)
 	lastspamtime = time()
 	end
 end
@@ -152,7 +193,8 @@ local function UpdateTextSpam()
 
 	if spaminfo.tankseb ~= "" then
 		tanksebmes = "("..spaminfo.tankseb..") "
-	else tanksebmes = spaminfo.tankseb
+	else
+		 tanksebmes = spaminfo.tankseb
 	end
 	----ddmes
 	if spaminfo.ddeal == 0 then
@@ -202,7 +244,7 @@ local function UpdateTextSpam()
 		-- 	messagetospam = "В "..spaminfo.intsname.." нужны " .. tankmes .. tanksebmes .. ddmes .. ddealebmes .."\n".. healmes .. healersebmes .." от ".. spaminfo.ilvl .."+ "..spaminfo.anrol .. " "..spaminfo.dopinfo
 		-- end
 		messagetoshow = space(messagetospam, 70," ", "  ")
-		-- messagetospam = 
+		-- messagetospam =
 
 		fntstr:SetText(messagetoshow)
 	else
@@ -273,7 +315,7 @@ local dungeonstoshow = {
 }
 
 local function RaidsRBOnInit(dropdown)
-	local parent = dropdown:GetParent()
+	-- local parent = dropdown:GetParent()
 	-- local dungeons = dungeonstoshow
 		for i,n in pairs(dungeonstoshow) do
 			-- if dungeons[i+2] == 2 then
@@ -570,7 +612,16 @@ LFRParentFrame:HookScript("OnShow", function()
 			GameTooltip:Hide()
 		end)
 	end
-	-------------------dop infa eb
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------dop infa eb
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBDInfoText"] then
 		local dopinfo = CreateFrame("EditBox", "RBDInfoText", LFRQueueFrame, "InputBoxTemplate")
 		dopinfo:SetWidth(100)
@@ -599,7 +650,16 @@ LFRParentFrame:HookScript("OnShow", function()
 			GameTooltip:Hide()
 		end)
 	end
-	------------------- checkboxes spam lang
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------checkboxes spam lang
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	for i = 1,6 do
 		local id, name = GetChannelName(i);
 		if name == "Поиск спутников(А)" then
@@ -613,11 +673,30 @@ LFRParentFrame:HookScript("OnShow", function()
 			spaminfo.lfgchatid = id
 		end
 	end
-	------------------ channel fntstrng
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------channel fntstrng
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+
 	local channelfontstring = LFRQueueFrame:CreateFontString("RBChannelText",OVERLAY,"GameTooltipText")
 	channelfontstring:SetText("Каналы")
 	channelfontstring:SetPoint("RIGHT",RBDInfoText,"RIGHT", 70, 180)
-	-----------------checkboxes spam lang all
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------checkboxes spam lang all
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if spaminfo.alliancechatid ~= nil and not _G["RBCheckButton"..spaminfo.alliancechatid] and spaminfo.alliancechat  then
 		local chkbx1 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.alliancechatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx1:SetPoint("CENTER", RBDInfoText, "CENTER", 150, 180)
@@ -638,7 +717,16 @@ LFRParentFrame:HookScript("OnShow", function()
 		chkbx1fontstring:SetText(spaminfo.alliancechatid)
 		chkbx1fontstring:SetPoint("TOP",chkbx1,"TOP",0,10)
 	end
-	-------------------checkboxes spam lang horde
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------checkboxes spam lang horde
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if  spaminfo.hordechatid  ~= nil and  not  _G["RBCheckButton"..spaminfo.hordechatid] and spaminfo.hordechat then
 		local chkbx2 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.hordechatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx2:SetPoint("CENTER", RBDInfoText, "CENTER", 200, 180)
@@ -658,7 +746,16 @@ LFRParentFrame:HookScript("OnShow", function()
 		chkbx2fontstring:SetText(spaminfo.hordechatid)
 		chkbx2fontstring:SetPoint("TOP",chkbx2,"TOP",0,10)
 	end
-	-------------------checkboxes spam lang lfg
+
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------checkboxes spam lang lfg
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not  _G["RBCheckButton"..spaminfo.lfgchatid] and not (spaminfo.hordechat or spaminfo.alliancechat) then
 		local chkbx3 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.lfgchatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx3:SetPoint("CENTER", RBDInfoText, "CENTER", 150, 180)
@@ -679,14 +776,22 @@ LFRParentFrame:HookScript("OnShow", function()
 		chkbx3fontstring:SetPoint("TOP",chkbx3,"TOP",0,10)
 
 	end
-	------------------spam time slider
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------spamtime slider
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not  _G["RBSpamTimerSlider"]  then
 		local spmtimeslider = CreateFrame("Slider","RBSpamTimerSlider",LFRQueueFrame,"OptionsSliderTemplate")
 		spmtimeslider:SetWidth(100)
 		spmtimeslider:SetHeight(20)
 		spmtimeslider:SetOrientation('HORIZONTAL')
 		spmtimeslider:SetPoint("RIGHT",RBDInfoText,"RIGHT", 150, 130)
-		spmtimeslider:SetValue(spaminfo.spamtime or 35)
+		spmtimeslider:SetValue(spaminfo.spamtime or 40)
 		spmtimeslider:SetMinMaxValues(40, 120)
 		spmtimeslider:SetValueStep(1)
 		_G[spmtimeslider:GetName()..'Low']:SetText('35')
@@ -696,13 +801,16 @@ LFRParentFrame:HookScript("OnShow", function()
 		_G[spmtimeslider:GetName()..'High']:SetText('120')
 		_G[spmtimeslider:GetName()..'High']:ClearAllPoints()
 		_G[spmtimeslider:GetName()..'High']:SetPoint("RIGHT",spmtimeslider,"RIGHT",15,1)
-
-		_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
+		if not spaminfo.spamtime then
+			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
+		else
+			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - (выберите время)")
+		end
 		spmtimeslider:SetScript("OnValueChanged", function(self, newvalue)
 			spaminfo.spamtime = newvalue
+			spaminfo.rspamtime = math.random(spaminfo.spamtime-3,spaminfo.spamtime+7)
 			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
 			UpdateTextSpam()
-			spaminfo.spamtimer = spaminfo.spamtime
 		end)
 		spmtimeslider:Show()
 	end
@@ -734,9 +842,299 @@ LFRParentFrame:HookScript("OnShow", function()
 		end)
 	end
 
+
 end)
 
-function RaidBrowserRU:OnClick()
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------history frame
+--------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+local function SetCheckedButtons(index)
+	for i = 1,5 do
+		local button = _G["LFRHistoryFrameCheckButton"..i]
+		if index == button.days then
+			button:SetChecked(true)
+		end
+	end
+end
+
+function addon:UpdateHistory()
+	local currenttime = time()
+	local tableindex = 1
+	while historyRB[tableindex] and historyRB[tableindex].timespam do
+		if(currenttime - historyRB[tableindex].timespam > 60*60*24*(spaminfo.historytime or 1)) then
+			table.remove(historyRB,tableindex)
+		else
+			tableindex = tableindex + 1
+		end
+	end
+end
+
+local function CreateLogFrame()
+	if not _G["LFRHistoryFrame"] then
+		local lfrhf = CreateFrame("Frame","LFRHistoryFrame",LFRParentFrame)
+		lfrhf:SetAllPoints(LFRParentFrame)
+		-- lfrhf:SetSize(355,440)
+		lfrhf:Hide()
+	end
+
+	if not _G["LFRParentFrameTab3"] then
+		local lfrtab3 = CreateFrame("Button","LFRParentFrameTab3",LFRParentFrame,"CharacterFrameTabButtonTemplate")
+
+		lfrtab3:SetText(L["History"])
+		-- lfrtab3:SetSize(97,32)
+		lfrtab3:SetWidth(97)
+		lfrtab3:SetPoint("LEFT", LFRParentFrameTab2, "RIGHT", -15, 0)
+		PanelTemplates_SetNumTabs(LFRParentFrame,3)
+		lfrtab3:SetScript("OnClick",function()
+			LFRFrame_SetActiveTab(3)
+		end)
+		hooksecurefunc("LFRFrame_OnLoad",function(self)
+			PanelTemplates_SetNumTabs(self, 3);
+		end)
+		hooksecurefunc("LFRFrame_SetActiveTab",function(tab)
+			-- print("sadgsf")
+			if ( tab == 1 ) then
+				LFRParentFrame.activeTab = 1;
+				LFRQueueFrame:Show();
+				LFRBrowseFrame:Hide();
+				LFRHistoryFrame:Hide();
+				-- print(1)
+			elseif ( tab == 2 ) then
+				LFRParentFrame.activeTab = 2;
+				LFRBrowseFrame:Show();
+				LFRQueueFrame:Hide();
+				LFRHistoryFrame:Hide();
+				-- print(2)
+			elseif ( tab == 3 ) then
+				LFRParentFrame.activeTab = 3;
+				LFRBrowseFrame:Hide();
+				LFRQueueFrame:Hide();
+				LFRHistoryFrame:Show();
+			end
+			PanelTemplates_SetTab(LFRParentFrame, tab);
+		end)
+	end
+
+	for i = 1,5 do
+		if not _G["LFRHistoryFrameCheckButton"..i] then
+			local chbtn = CreateFrame("CheckButton", "LFRHistoryFrameCheckButton"..i,LFRHistoryFrame,"UICheckButtonTemplate")
+			chbtn:SetSize(25,25)
+			chbtn.index = i
+			if i == 1 then
+				chbtn:SetPoint("CENTER", LFRHistoryFrame, "TOP", -100, -50)
+			else
+				chbtn:SetPoint("RIGHT", _G["LFRHistoryFrameCheckButton"..i-1], "RIGHT", 50, 0)
+			end
+			-- chbtn:SetSize(25,25)
+			local chkbxFontString = chbtn:CreateFontString("LFRHistoryFrameCheckButton"..i.."Text",OVERLAY,"GameTooltipText")
+			chkbxFontString:SetPoint("TOP",chbtn,"TOP",0,10)
+			if i == 1 then
+				chkbxFontString:SetText("Выкл")
+				chbtn.days = 0
+			elseif i == 2 then
+				chkbxFontString:SetText("1 день")
+				chbtn.days = 1
+			elseif i == 3 then
+				chkbxFontString:SetText("3 дня")
+				chbtn.days = 3
+			elseif i == 4 then
+				chkbxFontString:SetText("5 дней")
+				chbtn.days = 5
+			elseif i == 5 then
+				chkbxFontString:SetText("7 дней")
+				chbtn.days = 7
+			end
+		end
+	end
+	for i = 1,5 do
+		if i == 1 then
+			_G["LFRHistoryFrameCheckButton"..i]:SetScript("OnClick",function(self)
+				-- local check = _G["LFRHistoryFrameCheckButton"..i]:GetChecked()
+				for k = 1,5 do
+					if k ~= _G["LFRHistoryFrameCheckButton"..i].index then
+					_G["LFRHistoryFrameCheckButton"..k]:SetChecked(false)
+					end
+				end
+				spaminfo.historytime = 0
+				self:SetChecked(true)
+
+			end)
+		elseif i == 2 then
+			_G["LFRHistoryFrameCheckButton"..i]:SetScript("OnClick",function(self)
+				for k = 1,5 do
+					if k ~= _G["LFRHistoryFrameCheckButton"..i].index then
+					_G["LFRHistoryFrameCheckButton"..k]:SetChecked(false)
+					end
+				end
+				spaminfo.historytime = 1
+				self:SetChecked(true)
+			end)
+		elseif i == 3 then
+			_G["LFRHistoryFrameCheckButton"..i]:SetScript("OnClick",function(self)
+				for k = 1,5 do
+					if k ~= _G["LFRHistoryFrameCheckButton"..i].index then
+					_G["LFRHistoryFrameCheckButton"..k]:SetChecked(false)
+					end
+				end
+				spaminfo.historytime = 3
+				self:SetChecked(true)
+			end)
+		elseif i == 4 then
+			_G["LFRHistoryFrameCheckButton"..i]:SetScript("OnClick",function(self)
+				for k = 1,5 do
+					if k ~= _G["LFRHistoryFrameCheckButton"..i].index then
+					_G["LFRHistoryFrameCheckButton"..k]:SetChecked(false)
+					end
+				end
+				spaminfo.historytime = 5
+				self:SetChecked(true)
+			end)
+		elseif i == 5 then
+			_G["LFRHistoryFrameCheckButton"..i]:SetScript("OnClick",function(self)
+				for k = 1,5 do
+					if k ~= _G["LFRHistoryFrameCheckButton"..i].index then
+					_G["LFRHistoryFrameCheckButton"..k]:SetChecked(false)
+					end
+				end
+				spaminfo.historytime = 7
+				self:SetChecked(true)
+			end)
+		end
+	end
+
+
+	if not _G["LFRHistoryFrameScrollParent"] then
+		local scrollParent = CreateFrame("Frame", "LFRHistoryFrameScrollParent",LFRHistoryFrame)
+		scrollParent:SetPoint("CENTER",LFRHistoryFrame,"CENTER", 0, -30)
+		scrollParent:SetSize(330,350)
+		local font = "ChatFontSmall"
+		local fontHeight = select(2, getglobal(font):GetFont())
+		local recordHeight = fontHeight + 2
+		local recordWidth = scrollParent:GetWidth() - 35
+		local numLogRecordFrames = math.floor(
+		(scrollParent:GetHeight() - 3) / recordHeight)
+		-- local record = scrollParent:CreateFontString("LFRHistoryFrameRecordFrame1", OVERLAY, font)
+		local record = CreateFrame("Button","LFRHistoryFrameRecordFrame1",LFRHistoryFrameScrollParent)
+		record:SetHeight(recordHeight)
+		record:SetWidth(recordWidth)
+		local fnstng = record:CreateFontString("LFRHistoryFrameRecordFrameFS1",OVERLAY,"GameTooltipText")
+		fnstng:SetPoint("LEFT",record,"LEFT",0,0)
+		-- record:SetText("test")
+		-- record:SetNonSpaceWrap(false)
+		record:SetScript("OnEnter",function(self)
+		end)
+		record:SetScript("OnLeave",function(self)
+			GameTooltip:Hide()
+		end)
+		record:SetPoint("TOPLEFT", scrollParent, "TOPLEFT", 5, -3)
+		for i=2,numLogRecordFrames do
+			record = CreateFrame("Button","LFRHistoryFrameRecordFrame"..i,LFRHistoryFrameScrollParent)
+			record:SetHeight(recordHeight)
+			record:SetWidth(recordWidth)
+			fnstng = record:CreateFontString("LFRHistoryFrameRecordFrameFS"..i,OVERLAY,"GameTooltipText")
+			fnstng:SetPoint("LEFT",record,"LEFT",0,0)
+			record:SetScript("OnEnter",function(self)
+			end)
+			record:SetScript("OnLeave",function(self)
+				GameTooltip:Hide()
+			end)
+			-- record:SetNonSpaceWrap(false)
+			record:SetPoint("TOPLEFT", "LFRHistoryFrameRecordFrame"..(i-1), "BOTTOMLEFT")
+		end
+
+		local scrollBar = CreateFrame("ScrollFrame", "LFRHistoryFrameScrollFrame",scrollParent,"FauxScrollFrameTemplateLight")
+		scrollBar:SetWidth(scrollParent:GetWidth() - 35)
+		scrollBar:SetHeight(scrollParent:GetHeight() - 10)
+		scrollBar:SetPoint("TOPRIGHT", scrollParent, "TOPRIGHT", -20, -10)
+
+		function addon:LogChangedRB()
+			if not LFRHistoryFrame:IsVisible() then
+				return
+			end
+			--local log = #HistoryRB
+			local offset = FauxScrollFrame_GetOffset(scrollBar)
+			-- print(offset,862)
+			local numRecords = #historyRB
+			-- print(numRecords)
+			local numDisplayedRecords = math.min(numLogRecordFrames, numRecords - offset)
+			recordWidth = scrollParent:GetWidth() - 35
+			for i=1,numLogRecordFrames do
+				-- print(i,864)
+				local buttontoshow = _G["LFRHistoryFrameRecordFrame"..i]
+				local fnstrngtoshow = _G["LFRHistoryFrameRecordFrameFS"..i]
+				buttontoshow:SetWidth(recordWidth)
+				local logIndex = i + offset - 1
+				-- print(logIndex,870)
+				-- print(LogRecordToStringRB(logIndex),868)
+				if logIndex < numRecords then
+					-- print(874)
+					-- recordtoshow:SetText
+					-- print(LogRecordToStringRB(logIndex),870)
+					fnstrngtoshow:SetText(GetLogRecordRB(logIndex))
+					-- recordtoshow:SetPoint("LEFT",recordtoshow,"RIGHT")
+					buttontoshow:SetScript("OnEnter",function(self)
+						local tume,sender,raid,message
+						tume = historyRB[#historyRB-logIndex].timespam
+						sender = historyRB[#historyRB-logIndex].namespam
+						raid = historyRB[#historyRB-logIndex].raid
+						message = historyRB[#historyRB-logIndex].spammessage
+						GameTooltip:SetOwner(self, 'ANCHOR_RIGHT');
+						GameTooltip:AddLine("Время: "..date("%Y-%m-%d %H:%M", tume))
+						GameTooltip:AddLine("Отправитель: "..sender)
+						GameTooltip:AddLine("Подземелье: "..raid)
+						GameTooltip:AddLine("Сообщение: \n"..message)
+						GameTooltip:Show()
+					end)
+					buttontoshow:SetScript("OnLeave",function(self)
+						GameTooltip:Hide()
+					end)
+					-- recordtoshow:SetJustifyH("LEFT")
+					buttontoshow:Show()
+				else
+					buttontoshow:Hide()
+				end
+			end
+			FauxScrollFrame_Update(scrollBar, numRecords, numDisplayedRecords, recordHeight)
+		end
+		LFRHistoryFrame:SetScript("OnUpdate",function()
+			addon:UpdateHistory()
+			addon:LogChangedRB()
+		end)
+		scrollBar:SetScript("OnVerticalScroll",function(self, value)
+			FauxScrollFrame_OnVerticalScroll(scrollBar, value, recordHeight, addon.LogChangedRB)
+		end)
+	end
+end
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+--------------------------------------------------
+--------------------------------------------------history frame end
+--------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+
+
+
+function RaidBrowser:OnClick()
 	-- LFRFrame_SetActiveTab(2)
 	if LFRParentFrame:IsShown()   then
 		HideUIPanel(LFRParentFrame)
@@ -749,18 +1147,42 @@ end
 
 addon.OnMenuRequest = options
 function addon:OnInitialize()
-	self:RegisterChatCommand("/rbru", "/raidbrowserru", options, "RAIDBROWSERRU")
-  end
-
-
-
-
-
+	self:RegisterChatCommand("/rbru", "/RaidBrowserRU", options)
+	spaminfo = spaminfo or {}
+	spaminfo.intsname = spaminfo.intsname or ""
+	spaminfo.tanks = spaminfo.tanks or 1
+	spaminfo.tankseb = spaminfo.tankseb or ""
+	spaminfo.ddeal = spaminfo.ddeal or 1
+	spaminfo.ddealeb = spaminfo.ddealeb or ""
+	spaminfo.healers = spaminfo.healers or 1
+	spaminfo.healerseb = spaminfo.healerseb or ""
+	spaminfo.ilvl = spaminfo.ilvl or 200
+	spaminfo.chattospam = spaminfo.chattospam or ""
+	spaminfo.langid = spaminfo.langid or ""
+	spaminfo.anrol = spaminfo.anrol or ""
+	spaminfo.dopinfo = spaminfo.dopinfo or ""
+	spaminfo.alliancechat = spaminfo.alliancechat or false
+	spaminfo.hordechat = spaminfo.hordechat or false
+	spaminfo.lfgchat = spaminfo.lfgchat or false
+	spaminfo.alliancechatid = spaminfo.alliancechatid or ""
+	spaminfo.hordechatid = spaminfo.hordechatid or ""
+	spaminfo.lfgchatid = spaminfo.lfgchatid or ""
+	spaminfo.spamtime = spaminfo.spamtime or 35
+	spaminfo.rspamtime = spaminfo.rspamtime or 35
+	spaminfo.historyenable = spaminfo.historyenable or false
+	spaminfo.historytime = spaminfo.historytime or 0
+	CreateLogFrame()
+	LFRParentFrame:HookScript("OnUpdate", function()
+		LFRParentFrameTab1:SetWidth(90)
+		LFRParentFrameTab2:SetWidth(90)
+		LFRParentFrameTab3:SetWidth(90)
+	end)
+	SetCheckedButtons(spaminfo.historytime)
+end
 
 local LDB
 
 function addon:OnEnable()
-
 
 	self:OnProfileEnable()
 	if LDB then
@@ -772,24 +1194,24 @@ function addon:OnEnable()
 		LDB = LibStub:GetLibrary("LibDataBroker-1.1",true)
 	end
 	if LDB then
-		local dataobj = LDB:GetDataObjectByName("RaidBrowserRU") or
-		LDB:NewDataObject("RaidBrowserRU", {
+		local dataobj = LDB:GetDataObjectByName("RaidBrowser") or
+		LDB:NewDataObject("RaidBrowser", {
 		type = "launcher",
-		label = "RaidBrowserRU",
-		icon = "Interface\\AddOns\\RaidBrowserRU\\icon",
+		label = "RaidBrowser",
+		icon = "Interface\\AddOns\\RaidBrowser\\icon",
 		})
 		dataobj.OnClick = function(self, button)
 			if button == "RightButton" then
-				RaidBrowserRU:OpenMenu(self,addon)
+				RaidBrowser:OpenMenu(self,addon)
 				-- print("Clickr")
 			else
 				-- print("Clickl")
-				RaidBrowserRU:OnClick()
+				RaidBrowser:OnClick()
 			end
 		end
 		dataobj.OnTooltipShow = function(tooltip)
 			if tooltip and tooltip.AddLine then
-				tooltip:SetText("RaidBrowserRU")
+				tooltip:SetText("RaidBrowser")
 				tooltip:AddLine(L["|cffff8040Left Click|r to toggle the window"])
 				tooltip:AddLine(L["|cffff8040Right Click|r for menu"])
 				tooltip:Show()
@@ -797,14 +1219,14 @@ function addon:OnEnable()
 		end
 	end
 	DEFAULT_CHAT_FRAME:HookScript("OnHyperlinkEnter", function(self, linkData, olink)
-		if string.match(linkData,"^player::RaidBrowserRU:") then
+		if string.match(linkData,"^player::RaidBrowser:") then
 			GameTooltip:SetOwner(self, "ANCHOR_CURSOR");
 			GameTooltip:SetText(L["Click to add this event to chat"])
 			GameTooltip:Show()
 		end
 	end)
 	DEFAULT_CHAT_FRAME:HookScript("OnHyperlinkLeave", function(self, linkData, link)
-		if string.match(linkData,"^player::RaidBrowserRU:") then
+		if string.match(linkData,"^player::RaidBrowser:") then
 			GameTooltip:Hide()
 		end
 	end)
@@ -887,7 +1309,7 @@ local function on_join()
 		local message = raid_browser.stats.build_inv_string(raid_name);
 		SendChatMessage(message, 'WHISPER', nil, LFRBrowseFrame.selectedName);
 	else
-		print("RaidBrowserRU: Выберите рейд!")
+		print("RaidBrowser: Выберите рейд!")
 	end
 end
 
@@ -994,11 +1416,11 @@ LFRBrowseFrameRaidDropDown:Hide()
 search_button:SetText('Find Raid')
 search_button:SetScript('OnClick', function() end)
 
-local function clear_highlights()
-	for i = 1, NUM_LFR_LIST_BUTTONS do
-		_G["LFRBrowseFrameListButton"..i]:UnlockHighlight();
-	end
-end
+-- local function clear_highlights()
+-- 	for i = 1, NUM_LFR_LIST_BUTTONS do
+-- 		_G["LFRBrowseFrameListButton"..i]:UnlockHighlight();
+-- 	end
+-- end
 
 
 -- Assignment operator for LFR buttons
@@ -1167,14 +1589,3 @@ LFRBrowseFrameListButton_SetData = insert_lfm_button
 
 -- LFRParentFrameTab1:Hide();
 -- LFRParentFrameTab2:Hide();
-
-
-
-
---------------------------tab1 spammer
-
-
-
-
-
-
