@@ -1,5 +1,8 @@
 raid_browser = LibStub('AceAddon-3.0'):NewAddon('RaidBrowser', 'AceConsole-3.0')
 historyRB = historyRB or {}
+spaminfo = spaminfo or {}
+spaminfo.historytime = spaminfo.historytime or 0
+spaminfo.historyenable = spaminfo.historyenable or false
 -- Separator characters
 local sep_chars = '%s-_,.<>%*)(/#+&x'
 
@@ -1564,7 +1567,7 @@ local function event_handler(self, event, message, sender,channel,  ...)
 				message = message.."\n|cffffcc00Ренегаты|r",
 			};
 		end
-		if raid_info and roles and gs then
+		if raid_info and roles and gs and spaminfo.historyenable == true then
 			local addtohistory = {}
 			addtohistory.timespam = time()
 			addtohistory.spammessage = message

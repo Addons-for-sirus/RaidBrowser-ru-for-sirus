@@ -862,10 +862,17 @@ local function SetCheckedButtons(index)
 	for i = 1,5 do
 		local button = _G["LFRHistoryFrameCheckButton"..i]
 		if index == button.days then
-			button:SetChecked(true)
+			if index == 0 then
+				spaminfo.historyenable = false
+			else
+				spaminfo.historyenable = true
+			end
+		button:SetChecked(true)
 		end
 	end
+	-- print(spaminfo.historyenable)
 end
+
 
 function addon:UpdateHistory()
 	local currenttime = time()
@@ -966,6 +973,7 @@ local function CreateLogFrame()
 					end
 				end
 				spaminfo.historytime = 0
+				spaminfo.historyenable = false
 				self:SetChecked(true)
 
 			end)
@@ -977,6 +985,7 @@ local function CreateLogFrame()
 					end
 				end
 				spaminfo.historytime = 1
+				spaminfo.historyenable = true
 				self:SetChecked(true)
 			end)
 		elseif i == 3 then
@@ -987,6 +996,7 @@ local function CreateLogFrame()
 					end
 				end
 				spaminfo.historytime = 3
+				spaminfo.historyenable = true
 				self:SetChecked(true)
 			end)
 		elseif i == 4 then
@@ -997,6 +1007,7 @@ local function CreateLogFrame()
 					end
 				end
 				spaminfo.historytime = 5
+				spaminfo.historyenable = true
 				self:SetChecked(true)
 			end)
 		elseif i == 5 then
@@ -1007,6 +1018,7 @@ local function CreateLogFrame()
 					end
 				end
 				spaminfo.historytime = 7
+				spaminfo.historyenable = true
 				self:SetChecked(true)
 			end)
 		end
