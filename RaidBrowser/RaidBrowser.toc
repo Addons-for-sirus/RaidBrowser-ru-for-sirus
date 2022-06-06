@@ -1,6 +1,6 @@
 ## Interface: 30300
-## Title: Raid Browser RU
-## Version: 1.26
+## Title: Raid Browser
+## Version: 1.27
 ## Notes: A raid finder that parses chat channel text and displays any found raids in the raid browser LFR frame.
 ## Notes-ruRU: Анализ текста канала чата и отображение найденных рейдов в стандартном окне поиска рейдов. /rbru
 ## Author: Horsebreed, адаптация, русский язык, кнопка и сленг при сборе рейда на sirus.su - fxpw

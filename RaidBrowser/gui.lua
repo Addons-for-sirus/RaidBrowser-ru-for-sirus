@@ -311,6 +311,8 @@ local dungeonstoshow = {
 	"Ульда 10 хм",
 	"Ульда 25 об",
 	"Ульда 25 хм",
+	-- "-------------",
+	-- "Зорт",
 
 }
 
@@ -365,7 +367,15 @@ LFRParentFrame:HookScript("OnUpdate", function()
 end)
 
 LFRParentFrame:HookScript("OnShow", function()
-	-------------create buttons to spam
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------button for spam
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBStartSpamButton"] then
 		local f = CreateFrame("Button","RBStartSpamButton",LFRQueueFrame,"StaticPopupButtonTemplate")
 		f:SetSize(120,20)
@@ -383,16 +393,33 @@ LFRParentFrame:HookScript("OnShow", function()
 			SendSpam()
 		end)
 	end
-	------------------raids pick
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------raid pick
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBNumRaidsDropDown"] then
 		local drpdwn = CreateFrame("Frame","RBNumRaidsDropDown",LFRQueueFrame,"UIDropDownMenuTemplate")
 		drpdwn:EnableMouse(true)
 		UIDropDownMenu_Initialize(drpdwn, RaidsRBOnInit)
 		UIDropDownMenu_SetWidth(drpdwn, 120)
+		UIDropDownMenu_SetText(drpdwn, spaminfo.intsname)
 		drpdwn:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-100,-120)
 		UpdateTextSpam()
 	end
-	-------------------tanks slider
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------tank slider
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBTankSlider"] then
 		local tankslider = CreateFrame("Slider","RBTankSlider",LFRQueueFrame,"OptionsSliderTemplate")
 		tankslider:SetWidth(100)
@@ -400,9 +427,10 @@ LFRParentFrame:HookScript("OnShow", function()
 		tankslider:SetOrientation('HORIZONTAL')
 		tankslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-90)
 		tankslider:Show()
-		tankslider:SetValue(spaminfo.tanks or 1)
+
 		tankslider:SetMinMaxValues(0, 5)
 		tankslider:SetValueStep(1)
+		tankslider:SetValue(spaminfo.tanks or 1)
 		_G[tankslider:GetName()..'Low']:SetText('0')
 		_G[tankslider:GetName()..'Low']:ClearAllPoints()
 		_G[tankslider:GetName()..'Low']:SetPoint("LEFT",tankslider,"LEFT",0,1)
@@ -418,7 +446,15 @@ LFRParentFrame:HookScript("OnShow", function()
 			UpdateTextSpam()
 		end)
 	end
-	-------------------tanks editbox
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------tank eb
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBTankEditBox"] then
 		local tankseb = CreateFrame("EditBox", "RBTankEditBox", LFRQueueFrame, "InputBoxTemplate")
 		tankseb:SetWidth(100)
@@ -436,7 +472,7 @@ LFRParentFrame:HookScript("OnShow", function()
 		tankseb:Show()
 		tankseb:SetScript("OnEnter",function(self)
 			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT');
-			GameTooltip:AddLine("Сюда можно вписывать дополнительнную информация по танкам(отображается в скобках)")
+			GameTooltip:AddLine("Сюда можно вписывать дополнительнную информация по танкам (отображается в скобках)")
 			GameTooltip:AddLine("Пример: (не дк)")
 			GameTooltip:Show()
 
@@ -448,17 +484,25 @@ LFRParentFrame:HookScript("OnShow", function()
 		-- tankfontstring:SetText("Танки доп текст")
 		-- tankfontstring:SetPoint("TOP",tankseb,"TOP",0,20)
 	end
-	-------------------ddeal slider
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------dd slider
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBDDSlider"] then
 		local ddslider = CreateFrame("Slider","RBDDSlider",LFRQueueFrame,"OptionsSliderTemplate")
 		ddslider:SetWidth(100)
 		ddslider:SetHeight(20)
 		ddslider:SetOrientation('HORIZONTAL')
 		ddslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-140)
-		ddslider:Show()
-		ddslider:SetValue(spaminfo.ddeal or 1)
+		ddslider:Show()	
 		ddslider:SetMinMaxValues(0, 20)
 		ddslider:SetValueStep(1)
+		ddslider:SetValue(spaminfo.ddeal or 1)
 		_G[ddslider:GetName()..'Low']:SetText('0')
 		_G[ddslider:GetName()..'Low']:ClearAllPoints()
 		_G[ddslider:GetName()..'Low']:SetPoint("LEFT",ddslider,"LEFT",0,1)
@@ -474,7 +518,15 @@ LFRParentFrame:HookScript("OnShow", function()
 			UpdateTextSpam()
 		end)
 	end
-	-------------------ddeal editbox
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------dd eb
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBDDEditBox"] then
 		local ddealeb = CreateFrame("EditBox", "RBDDEditBox", LFRQueueFrame, "InputBoxTemplate")
 		ddealeb:SetWidth(100)
@@ -503,7 +555,15 @@ LFRParentFrame:HookScript("OnShow", function()
 			GameTooltip:Hide()
 		end)
 	end
-	-------------------healers slider
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------heal slider
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBHealSlider"] then
 		local healslider = CreateFrame("Slider","RBHealSlider",LFRQueueFrame,"OptionsSliderTemplate")
 		healslider:SetWidth(100)
@@ -511,9 +571,10 @@ LFRParentFrame:HookScript("OnShow", function()
 		healslider:SetOrientation('HORIZONTAL')
 		healslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-190)
 		healslider:Show()
-		healslider:SetValue(spaminfo.healers or 1)
+		
 		healslider:SetMinMaxValues(0, 5)
 		healslider:SetValueStep(1)
+		healslider:SetValue(spaminfo.healers or 1)
 		_G[healslider:GetName()..'Low']:SetText('0')
 		_G[healslider:GetName()..'Low']:ClearAllPoints()
 		_G[healslider:GetName()..'Low']:SetPoint("LEFT",healslider,"LEFT",0,1)
@@ -528,7 +589,15 @@ LFRParentFrame:HookScript("OnShow", function()
 			UpdateTextSpam()
 		end)
 	end
-	-------------------healers editbox
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------heal eb
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not _G["RBHealEditBox"] then
 		local healerseb = CreateFrame("EditBox", "RBHealEditBox", LFRQueueFrame, "InputBoxTemplate")
 		healerseb:SetWidth(100)
@@ -549,7 +618,7 @@ LFRParentFrame:HookScript("OnShow", function()
 		-- healfontstring:SetPoint("TOP",healerseb,"TOP",0,20)
 		healerseb:SetScript("OnEnter",function(self)
 			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT');
-			GameTooltip:AddLine("Сюда можно вписывать дополнительнную информация по дд (отображается в скобках)")
+			GameTooltip:AddLine("Сюда можно вписывать дополнительнную информация по хилам (отображается в скобках)")
 			GameTooltip:AddLine("Пример: 2 хила (дц фул)")
 			GameTooltip:Show()
 		end)
@@ -557,16 +626,24 @@ LFRParentFrame:HookScript("OnShow", function()
 			GameTooltip:Hide()
 		end)
 	end
-	-------------------ilvl slider
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------ilvl slider
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not  _G["RBILVLSlider"] then
 		local ilvlslider = CreateFrame("Slider","RBILVLSlider",LFRQueueFrame,"OptionsSliderTemplate")
 		ilvlslider:SetWidth(100)
 		ilvlslider:SetHeight(20)
 		ilvlslider:SetOrientation('HORIZONTAL')
 		ilvlslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-260)
-		ilvlslider:SetValue(spaminfo.ilvl or 200)
 		ilvlslider:SetMinMaxValues(200, 300)
 		ilvlslider:SetValueStep(5)
+		ilvlslider:SetValue(spaminfo.ilvl or 200)
 		_G[ilvlslider:GetName()..'Low']:SetText('200')
 		_G[ilvlslider:GetName()..'Low']:ClearAllPoints()
 		_G[ilvlslider:GetName()..'Low']:SetPoint("LEFT",ilvlslider,"LEFT",-15,1)
@@ -583,7 +660,15 @@ LFRParentFrame:HookScript("OnShow", function()
 		end)
 		-- ilvlslider:Show()
 	end
-	-------------------anroll eb
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	--------------------------------------------------
+	--------------------------------------------------anrol eb
+	--------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------------
 	if not  _G["RBAnrolText"] then
 		local anrol = CreateFrame("EditBox", "RBAnrolText", LFRQueueFrame, "InputBoxTemplate")
 		anrol:SetWidth(100)
@@ -701,6 +786,7 @@ LFRParentFrame:HookScript("OnShow", function()
 		local chkbx1 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.alliancechatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx1:SetPoint("CENTER", RBDInfoText, "CENTER", 150, 180)
 		chkbx1:SetSize(25,25)
+		
 		chkbx1:SetScript("OnClick",function()
 			-- print(chkbx1:GetChecked())
 			if chkbx1:GetChecked() == 1 then
@@ -791,17 +877,18 @@ LFRParentFrame:HookScript("OnShow", function()
 		spmtimeslider:SetHeight(20)
 		spmtimeslider:SetOrientation('HORIZONTAL')
 		spmtimeslider:SetPoint("RIGHT",RBDInfoText,"RIGHT", 150, 130)
-		spmtimeslider:SetValue(spaminfo.spamtime or 40)
+
 		spmtimeslider:SetMinMaxValues(40, 120)
 		spmtimeslider:SetValueStep(1)
-		_G[spmtimeslider:GetName()..'Low']:SetText('35')
+		spmtimeslider:SetValue(spaminfo.spamtime or 40)
+		_G[spmtimeslider:GetName()..'Low']:SetText('40')
 		_G[spmtimeslider:GetName()..'Low']:ClearAllPoints()
 		_G[spmtimeslider:GetName()..'Low']:SetPoint("LEFT",spmtimeslider,"LEFT",-15,1)
 
 		_G[spmtimeslider:GetName()..'High']:SetText('120')
 		_G[spmtimeslider:GetName()..'High']:ClearAllPoints()
 		_G[spmtimeslider:GetName()..'High']:SetPoint("RIGHT",spmtimeslider,"RIGHT",15,1)
-		if not spaminfo.spamtime then
+		if spaminfo.spamtime then
 			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - ("..spaminfo.spamtime..")")
 		else
 			_G[spmtimeslider:GetName()..'Text']:SetText("Время отправки - (выберите время)")
@@ -1266,7 +1353,7 @@ LFRParentFrame:SetScript("OnDragStart", function(this)
   end)
 LFRParentFrame:SetScript("OnDragStop", function(this)
   this:StopMovingOrSizing()
-  frame_x,frame_y = this:GetCenter()
+  local frame_x,frame_y = this:GetCenter()
   frame_x = frame_x - GetScreenWidth() / 2
   frame_y = frame_y - GetScreenHeight() / 2
   this:ClearAllPoints()

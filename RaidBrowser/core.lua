@@ -101,7 +101,7 @@ local raid_list = {
 			),
 	},
 
-	{ -- г м хм
+	{ -- гм хм
 		name = 'г/м хм',
 		instance_name = 'Логово Магтеридона' and "Логово Груула",
 		size = 25,
@@ -122,22 +122,19 @@ local raid_list = {
 						'г%/м'..csep..'хм',
 						'г%/м'..csep..'гер',
 						'м%/г'..csep..'гер',
-						'м'..csep..'г'..csep..'хм',
 						'м'..csep..'г'..csep..'гер',
 						'мг'..csep..'хм',
 						'магик'..csep..'грул'..csep..'25хм',
 						'магик'..csep..'грул'..csep..'25'..csep..'хм',
 						'магик'..csep..'грул'..csep..'25гер',
 						'магик'..csep..'грул'..csep..'25'..csep..'гер',
-						'м'..csep..'и'..csep..'г'..csep..'хм',
-						'м'..csep..'и'..csep..'г'..csep..'гер',
 						'гм'..csep..'хм',
 						'грул%/магик'..csep..'хм',
 						'грул'..csep..'магик'..csep..'хм',
 					}
 				),
 		},
-	{ -- г м об
+	{ -- гм об
 	name = 'г/м об',
 	instance_name = 'Логово Магтеридона' and "Логово Груула" ,
 	size = 25,
@@ -647,18 +644,18 @@ local raid_list = {
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 25, 'hc', 'Ульдуар'),
 			{
-				'ульда'..csep..'25'..csep..'на',
+				'ульда'..csep..'25'..csep..'хм'..csep..'на',
 				'ульд'..csep..'25'..csep..'хм',
 				'ульд'..csep..'25'..csep..'гер',
 				'ульда'..csep..'10%-25'..csep..'хм',
 				'ульда'..csep..'10%-25'..csep..'гер',
-				'в'..csep..'ульду'..csep..'на'..csep..'утюга',
-				'в'..csep..'ульду'..csep..'25'..csep..'на'..csep..'утюга',
+				-- 'в'..csep..'ульду'..csep..'на'..csep..'утюга',
+				-- 'в'..csep..'ульду'..csep..'25'..csep..'на'..csep..'утюга',
 				'утюг'..csep..'ульда'..csep..'хм',
 				'утюг'..csep..'ульда'..csep..'гер',
-				'на'..csep..'утюга'..csep..'25',
+				-- 'на'..csep..'утюга'..csep..'25',
 				'на'..csep..'утюга'..csep..'в'..csep..'ульду'..csep..'25'..csep..'хм',
-				'в'..csep..'ульду'..csep..'25',
+				-- 'в'..csep..'ульду'..csep..'25',
 				'%[?ульдуар%]?'..csep..'25'..csep..'хм',
 				'%[?ульдуар%]?'..csep..'25'..csep..'гер',
 			}
@@ -674,7 +671,7 @@ local raid_list = {
 		patterns = std.algorithm.copy_back(
 			create_pattern_from_template('ульда', 25, 'nm', 'Ульдуар'),{
 			'ульда'..csep..'25'..csep..'на',
-			'ульда'..csep..'10-25',
+			'ульда'..csep..'25',
 			'утюг'..csep..'ульда',
 			'на'..csep..'утюга'..csep..'в'..csep..'ульду',
 			'в'..csep..'ульду'..csep..'25',
@@ -730,12 +727,14 @@ local raid_list = {
 			{
 				'%[?око%]?'..csep..'хм',
 				'%[?око%]?'..csep..'гер',
+				'в'..csep..'око'..csep..'хм',
+				'в'..csep..'око'..csep..'хм'..csep..'нуля',
 			}
 		),
 	},
 
 	{ -- око
-		name = 'Око',
+		name = 'Око об',
 		instance_name = 'Крепость Бурь',
 		size = 25,
 		difficulty = 1,
@@ -743,13 +742,8 @@ local raid_list = {
 			create_pattern_from_template('око', 25, 'nm', 'Крепость Бурь'),
 			{
 				'%[?око%]?',
-				'окооб',
-				'окооб'..csep..'с0',
-				'окооб'..csep..'с'..csep..'0',
-				'окооб'..csep..'с'..csep..'нуля',
-				'в'..csep..'окооб'..csep..'с'..csep..'нуля',
-				'в'..csep..'окооб'..csep..'с'..csep..'нуля',
 				'в'..csep..'око'..csep..'об',
+				'в'..csep..'око'..csep..'об'..csep..'нуля',
 				'%[?око%]?'..csep..'об',
 
 			}
@@ -950,7 +944,18 @@ local raid_list = {
 			'%[?рубиновое святилище%]?'..csep..'25',
 			}
 	},
-
+	{ -- са25
+	name = 'Са 25',
+	instance_name = 'Склеп Аркавона',
+	size = 25,
+	difficulty = 2,
+	patterns = {
+		'са'..csep..'25',
+		'склеп'..csep..'25',
+		'с'..csep..'а'..csep..'25',
+		'%[?склеп аркавона%]?'..csep..'25',
+	},
+},
 	{ -- са10
 		name = 'Са 10',
 		instance_name = 'Склеп Аркавона',
@@ -964,18 +969,7 @@ local raid_list = {
 		},
 	},
 
-	{ -- са25
-		name = 'Са 25',
-		instance_name = 'Склеп Аркавона',
-		size = 25,
-		difficulty = 2,
-		patterns = {
-			'са'..csep..'25',
-			'склеп'..csep..'25',
-			'с'..csep..'а'..csep..'25',
-			'%[?склеп аркавона%]?'..csep..'25',
-		},
-	},
+	
 
 	{ -- оня25
 		name = 'Оня 25',
@@ -1072,7 +1066,17 @@ local raid_list = {
 		},
 	},
 
-
+	{ -- ов 25
+	name = 'ов 25',
+	instance_name = 'Око Вечности',
+	size = 25,
+	difficulty = 2,
+	patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{
+			'в'..csep..'ов'..csep..'25',
+			'ов'..csep..'25',
+			'%[?око вечности%]?'..csep..'25',
+		}
+},
 	{ -- ов 10
 		name = 'ов 10',
 		instance_name = 'Око Вечности',
@@ -1087,17 +1091,7 @@ local raid_list = {
 	},
 
 
-	{ -- ов 25
-		name = 'ов 25',
-		instance_name = 'Око Вечности',
-		size = 25,
-		difficulty = 2,
-		patterns = create_pattern_from_template('ос', 25, 'simple', 'Око Вечности'),{
-				'в'..csep..'ов'..csep..'25',
-				'ов'..csep..'25',
-				'%[?око вечности%]?'..csep..'25',
-			}
-	},
+	
 	{ -- бс 25 хм
 		name = 'бс 25 хм',
 		instance_name = 'Бронзовое святилище',
@@ -1126,6 +1120,16 @@ local raid_list = {
 				'%[?бронзовое святилище%]?',
 				'%[?бронзовое святилище%]?'..csep..'об',
 			}
+	},
+	{ -- на зорта
+		name = 'Зорт',
+		instance_name = 'Пустота',
+		size = 25,
+		difficulty = 1,
+		patterns =  create_pattern_from_template('Зорт', 25, 'nm', 'Пустота'),{
+				'на'..csep..'зорта',
+				'зорт',
+		}
 	},
 
 
