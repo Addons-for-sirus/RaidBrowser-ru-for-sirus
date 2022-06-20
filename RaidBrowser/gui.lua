@@ -284,7 +284,7 @@ local dungeonstoshow = {
 	"ОВ 25",
 	"ОС 10",
 	"ОС 25",
-	"Накс 10",
+	"[Наксрамас] 10",
 	"Накс 25",
 	"Сa 10",
 	"Сa 25",
@@ -499,7 +499,8 @@ LFRParentFrame:HookScript("OnShow", function()
 		ddslider:SetHeight(20)
 		ddslider:SetOrientation('HORIZONTAL')
 		ddslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-140)
-		ddslider:Show()	
+		ddslider:Show()
+
 		ddslider:SetMinMaxValues(0, 20)
 		ddslider:SetValueStep(1)
 		ddslider:SetValue(spaminfo.ddeal or 1)
@@ -571,7 +572,7 @@ LFRParentFrame:HookScript("OnShow", function()
 		healslider:SetOrientation('HORIZONTAL')
 		healslider:SetPoint("CENTER", LFRQueueFrame, "TOPRIGHT",-270,-190)
 		healslider:Show()
-		
+
 		healslider:SetMinMaxValues(0, 5)
 		healslider:SetValueStep(1)
 		healslider:SetValue(spaminfo.healers or 1)
@@ -745,17 +746,20 @@ LFRParentFrame:HookScript("OnShow", function()
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
+	local alliancechat,alliancechatid
+	local hordechat,hordechatid
+	local lfgchat,lfgchatid
 	for i = 1,10 do
 		local id, name = GetChannelName(i);
 		if name == "Поиск спутников(А)" then
-			spaminfo.alliancechat = true
-			spaminfo.alliancechatid = id
+			alliancechat = true
+			alliancechatid = id
 		elseif name == "Поиск спутников(О)" then
-			spaminfo.hordechat = true
-			spaminfo.hordechatid = id
+			hordechat = true
+			hordechatid = id
 		elseif name == "Поиск спутников" then
-			spaminfo.lfgchat = true
-			spaminfo.lfgchatid = id
+			lfgchat = true
+			lfgchatid = id
 		end
 	end
 
@@ -782,25 +786,25 @@ LFRParentFrame:HookScript("OnShow", function()
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
-	if spaminfo.alliancechatid ~= nil and not _G["RBCheckButton"..spaminfo.alliancechatid] and spaminfo.alliancechat  then
-		local chkbx1 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.alliancechatid,LFRQueueFrame,"UICheckButtonTemplate")
+	if alliancechatid ~= nil and not _G["RBCheckButton"..alliancechatid] and alliancechat then
+		local chkbx1 = CreateFrame("CheckButton","RBCheckButton"..alliancechatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx1:SetPoint("CENTER", RBDInfoText, "CENTER", 150, 180)
 		chkbx1:SetSize(25,25)
-		
+
 		chkbx1:SetScript("OnClick",function()
 			-- print(chkbx1:GetChecked())
 			if chkbx1:GetChecked() == 1 then
-				spaminfo.chattospam = spaminfo.alliancechatid
+				spaminfo.chattospam = alliancechatid
 				spaminfo.langid = 2
-				_G["RBCheckButton"..spaminfo.hordechatid]:SetChecked(false)
+				_G["RBCheckButton"..hordechatid]:SetChecked(false)
 			else
-				_G["RBCheckButton"..spaminfo.hordechatid]:SetChecked(true)
+				_G["RBCheckButton"..hordechatid]:SetChecked(true)
 				spaminfo.langid = 1
-				spaminfo.chattospam = spaminfo.hordechatid
+				spaminfo.chattospam = hordechatid
 			end
 		end)
-		local chkbx1fontstring = chkbx1:CreateFontString("RBCheckButton"..spaminfo.alliancechatid.."Text",OVERLAY,"GameTooltipText")
-		chkbx1fontstring:SetText(spaminfo.alliancechatid)
+		local chkbx1fontstring = chkbx1:CreateFontString("RBCheckButton"..alliancechatid.."Text",OVERLAY,"GameTooltipText")
+		chkbx1fontstring:SetText(alliancechatid)
 		chkbx1fontstring:SetPoint("TOP",chkbx1,"TOP",0,10)
 	end
 
@@ -813,23 +817,23 @@ LFRParentFrame:HookScript("OnShow", function()
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
-	if  spaminfo.hordechatid  ~= nil and  not  _G["RBCheckButton"..spaminfo.hordechatid] and spaminfo.hordechat then
-		local chkbx2 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.hordechatid,LFRQueueFrame,"UICheckButtonTemplate")
+	if  hordechatid  ~= nil and not _G["RBCheckButton"..hordechatid] and hordechat then
+		local chkbx2 = CreateFrame("CheckButton","RBCheckButton"..hordechatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx2:SetPoint("CENTER", RBDInfoText, "CENTER", 200, 180)
 		chkbx2:SetSize(25,25)
 		chkbx2:SetScript("OnClick",function()
 			if chkbx2:GetChecked() == 1 then
-				spaminfo.chattospam = spaminfo.hordechatid
-				_G["RBCheckButton"..spaminfo.alliancechatid]:SetChecked(false)
+				spaminfo.chattospam = hordechatid
+				_G["RBCheckButton"..alliancechatid]:SetChecked(false)
 				spaminfo.langid = 1
 			else
-				_G["RBCheckButton"..spaminfo.alliancechatid]:SetChecked(true)
-				spaminfo.chattospam = spaminfo.alliancechatid
+				_G["RBCheckButton"..alliancechatid]:SetChecked(true)
+				spaminfo.chattospam = alliancechatid
 				spaminfo.langid = 2
 			end
 		end)
-		local chkbx2fontstring = chkbx2:CreateFontString("RBCheckButton"..spaminfo.hordechatid.."Text",OVERLAY,"GameTooltipText")
-		chkbx2fontstring:SetText(spaminfo.hordechatid)
+		local chkbx2fontstring = chkbx2:CreateFontString("RBCheckButton"..hordechatid.."Text",OVERLAY,"GameTooltipText")
+		chkbx2fontstring:SetText(hordechatid)
 		chkbx2fontstring:SetPoint("TOP",chkbx2,"TOP",0,10)
 	end
 
@@ -842,23 +846,23 @@ LFRParentFrame:HookScript("OnShow", function()
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
 	----------------------------------------------------------------------------------------------------
-	if not  _G["RBCheckButton"..spaminfo.lfgchatid] and not (spaminfo.hordechat or spaminfo.alliancechat) then
-		local chkbx3 = CreateFrame("CheckButton","RBCheckButton"..spaminfo.lfgchatid,LFRQueueFrame,"UICheckButtonTemplate")
+	if not _G["RBCheckButton"..lfgchatid] and (not hordechat or not alliancechat) and lfgchat then
+		local chkbx3 = CreateFrame("CheckButton","RBCheckButton"..lfgchatid,LFRQueueFrame,"UICheckButtonTemplate")
 		chkbx3:SetPoint("CENTER", RBDInfoText, "CENTER", 150, 180)
 		chkbx3:SetSize(25,25)
 		chkbx3:SetScript("OnClick",function()
 			if chkbx3:GetChecked() == 1 then
-				spaminfo.chattospam = spaminfo.lfgchatid
+				spaminfo.chattospam = lfgchatid
 				spaminfo.langid = 3
 				-- RBCheckButton1:SetChecked(false)
 			else
-				spaminfo.chattospam = spaminfo.lfgchatid
+				spaminfo.chattospam = lfgchatid
 				spaminfo.langid = 3
 				-- spaminfo.chattospam = false
 			end
 		end)
-		local chkbx3fontstring = chkbx3:CreateFontString("RBCheckButton"..spaminfo.lfgchatid.."Text",OVERLAY,"GameTooltipText")
-		chkbx3fontstring:SetText(spaminfo.lfgchatid)
+		local chkbx3fontstring = chkbx3:CreateFontString("RBCheckButton"..lfgchatid.."Text",OVERLAY,"GameTooltipText")
+		chkbx3fontstring:SetText(lfgchatid)
 		chkbx3fontstring:SetPoint("TOP",chkbx3,"TOP",0,10)
 
 	end
@@ -1260,12 +1264,12 @@ function addon:OnInitialize()
 	spaminfo.langid = spaminfo.langid or ""
 	spaminfo.anrol = spaminfo.anrol or ""
 	spaminfo.dopinfo = spaminfo.dopinfo or ""
-	spaminfo.alliancechat = spaminfo.alliancechat or false
-	spaminfo.hordechat = spaminfo.hordechat or false
-	spaminfo.lfgchat = spaminfo.lfgchat or false
-	spaminfo.alliancechatid = spaminfo.alliancechatid or ""
-	spaminfo.hordechatid = spaminfo.hordechatid or ""
-	spaminfo.lfgchatid = spaminfo.lfgchatid or ""
+	-- alliancechat = alliancechat or false
+	-- hordechat = hordechat or false
+	-- spaminfo.lfgchat = spaminfo.lfgchat or false
+	-- alliancechatid = alliancechatid or ""
+	-- hordechatid = hordechatid or ""
+	-- lfgchat = lfgchat or ""
 	spaminfo.spamtime = spaminfo.spamtime or 35
 	spaminfo.rspamtime = spaminfo.rspamtime or 35
 	spaminfo.historyenable = spaminfo.historyenable or false
@@ -1684,7 +1688,7 @@ LFRBrowseFrameList_Update = raid_browser.gui.update_list
 LFRBrowseFrameListButton_SetData = insert_lfm_button
 
 -- Set the "Browse" tab to be active.
--- LFRFrame_SetActiveTab(2)
+LFRFrame_SetActiveTab(2)
 
 -- LFRParentFrameTab1:Hide();
 -- LFRParentFrameTab2:Hide();

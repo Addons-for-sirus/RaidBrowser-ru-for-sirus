@@ -95,7 +95,7 @@ local raid_list = {
 					'фул'..csep..'охота',
 					'на'..csep..'фул'..csep..'охоту',
 					'фаст'..csep..'охота',
-					'на'..csep..'охоту',
+					-- 'на'..csep..'охоту',
 
 				}
 			),
@@ -201,8 +201,8 @@ local raid_list = {
 			{
 				'магик'..csep..'хм',
 				'магик'..csep..'гер',
-				'м'..csep..'хм',
-				'г'..csep..'гер',
+				-- 'м'..csep..'хм',
+				-- 'г'..csep..'гер',
 				'%[?логово магтеридона%]?'..csep..'хм',
 				'%[?логово магтеридона%]?'..csep..'гер',
 				-- '%[?охота на великих чудовищ%]?'..csep..'хм',
@@ -559,34 +559,7 @@ local raid_list = {
 		),
 	},
 
-		{ -- ос10
-		name = 'Ос 10',
-		instance_name = 'Обсидиановое святилище',
-		size = 10,
-		difficulty = 1,
-		patterns = create_pattern_from_template('ос', 10, 'simple', 'Обсидиановое святилище'),{
-				'в'..csep..'ос'..csep..'10',
-				'ос'..csep..'10',
-				'ос'..csep..'10'..csep..'на'..csep..'%+'..csep..'3',
-				'в'..csep..'ос'..csep..'на'..csep..'%+'..csep..'3',
-				'%[?сартарион должен умереть%!?%]?',
-				'%[?обсидиановое святилище%]?'..csep..'10',
-			}
-	},
-
-	{ -- ос25
-		name = 'Ос 25',
-		instance_name = 'Обсидиановое святилище',
-		size = 25,
-		difficulty = 2,
-		patterns = create_pattern_from_template('ос', 25, 'simple', 'Обсидиановое святилище'),{
-				'в'..csep..'ос'..csep..'25',
-				'ос'..csep..'25'..csep..'на'..csep..'%+'..csep..'3',
-				'ос'..csep..'25',
-				'%[?Обсидиановое святилище%]?'..csep..'25',
-				'%[?меньше – не значит хуже %(25 игроков%)%]?',
-			}
-	},
+	
 
 
 	{ -- ульда 10 хм
@@ -672,6 +645,7 @@ local raid_list = {
 			create_pattern_from_template('ульда', 25, 'nm', 'Ульдуар'),{
 			'ульда'..csep..'25'..csep..'на',
 			'ульда'..csep..'25',
+			'ульдуар'..csep..'25',
 			'утюг'..csep..'ульда',
 			'на'..csep..'утюга'..csep..'в'..csep..'ульду',
 			'в'..csep..'ульду'..csep..'25',
@@ -680,6 +654,35 @@ local raid_list = {
 			'%[?ульдуар%]?'..csep..'25',
 			}
 		),
+	},
+
+	{ -- ос10
+	name = 'Ос 10',
+	instance_name = 'Обсидиановое святилище',
+	size = 10,
+	difficulty = 1,
+	patterns = create_pattern_from_template('ос', 10, 'simple', 'Обсидиановое святилище'),{
+			'в'..csep..'ос'..csep..'10',
+			'ос'..csep..'10',
+			'ос'..csep..'10'..csep..'на'..csep..'%+'..csep..'3',
+			'в'..csep..'ос'..csep..'на'..csep..'%+'..csep..'3',
+			'%[?сартарион должен умереть%!?%]?',
+			'%[?обсидиановое святилище%]?'..csep..'10',
+		}
+	},
+
+	{ -- ос25
+		name = 'Ос 25',
+		instance_name = 'Обсидиановое святилище',
+		size = 25,
+		difficulty = 2,
+		patterns = create_pattern_from_template('ос', 25, 'simple', 'Обсидиановое святилище'),{
+				'в'..csep..'ос'..csep..'25',
+				'ос'..csep..'25'..csep..'на'..csep..'%+'..csep..'3',
+				'ос'..csep..'25',
+				'%[?Обсидиановое святилище%]?'..csep..'25',
+				'%[?меньше – не значит хуже %(25 игроков%)%]?',
+			}
 	},
 
 	{ -- накс10
@@ -1204,7 +1207,7 @@ local role_patterns = {
 		'[0-9]*'..csep..'хприст',
 		'[0-9]*'..csep..'прист',
 		'хил',
-		'пару',
+		-- 'пару',
 		'солохил',
 	},
 
@@ -1220,9 +1223,9 @@ local role_patterns = {
 }
 
 local gearscore_patterns = {
-	'[1-2][0-9][0-9]%++',
-	'[1-2][0-9][0-9]%+',
-	'[1-2][0-9][0-9]',
+	'[2-3][1-9][1-9]%+%+',
+	'[2-3][1-9][1-9]%+',
+	'[2-3][1-9][1-9]',
 
 }
 
@@ -1236,7 +1239,7 @@ local lfm_patterns = {
 	'в'..csep..'ульду'..csep..'25', 'в'..csep..'ульду'..csep..'10', 'ульда'..csep..'10', 'ульда'..csep..'25',
 }
 
-lfm_channel_listeners = {
+local lfm_channel_listeners = {
 	['CHAT_MSG_CHANNEL'] = {},
 	['CHAT_MSG_YELL'] = {},
 	['CHAT_MSG_SAY'] = {},
@@ -1255,8 +1258,9 @@ local guild_recruitment_patterns = {
 	'рассмотрим',
 	'rt',
 	'kick',
-
-
+	"состав",
+	"молодую",
+	"закрытия",
 	'проходок',
 	'epgp',
 	'ep',
@@ -1276,7 +1280,7 @@ local guild_recruitment_patterns = {
 	'от нас',
 	'от вас',
 	'требуются',
-
+	'берем',
 	'осваиваем',
 	'освоено',
 	'примет',
@@ -1495,83 +1499,106 @@ function raid_browser.raid_info(message)
 	return raid_info, roles, gs
 end
 
+local channels ={
+	["CHAT_MSG_CHANNEL"] = true,
+	["CHAT_MSG_YELL"] = true,
+	["CHAT_MSG_SAY"] = true,
+
+}
 local function is_lfm_channel(channel)
-	return channel == 'CHAT_MSG_CHANNEL' or channel == 'CHAT_MSG_YELL' or channel == 'CHAT_MSG_SAY';
+	return channels[channel] or false
 end
+local lang ={
+	["всеобщий"] = "Альянс",
+	["орочий"] = "Орда",
+	["арго скорпидов"] = "Ренегаты",
+}
 -- local arg1, arg2, arg3 = ...;
 
-local function event_handler(self, event, message, sender,channel,  ...)
+local function event_handler(self, event, message, sender, channel,  ...)
+	-- print(...)
+	local args ={...}
+	-- for k,v in pairs(args)do
+	-- 	print(k,v)
+	-- end
 	if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
-		arg2 = arg2
-		arg3 = arg3
-		if raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "всеобщий") then
+		if not raid_info or not roles or not gs then return end
+		-- args[2] = arg2
+		args[3] = arg3
+		-- print(arg2)
+		-- print(arg3)
+		if  lang[args[3]] then
 			-- Put the sender in the table of active raids
 			raid_browser.lfm_messages[sender] = {
-				sender = "|cff00ff00"..sender,
 				raid_info = raid_info,
 				roles = roles,
 				gs = "|cff00ff00"..gs,
 				time = time(),
-				message = message.."\n|cff00ff00Хозяин собирает Альянс|r",
+				message = message.."\n|cff00ff00"..lang[args[3]].."|r",
 			};
+			if (args[2] == "Шутка") then
+				raid_browser.lfm_messages[sender].sender = "|cff00ff00"..sender
+			else
+				raid_browser.lfm_messages[sender].sender = "|cffff0000"..sender
+			end
 
-		elseif raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "орочий") then
+		-- elseif raid_info and roles and gs and (args[2] == "Шутка") and (arg3 == "орочий") then
 
-			raid_browser.lfm_messages[sender] = {
-				sender = "|cff00ff00"..sender,
-				raid_info = raid_info,
-				roles = roles,
-				gs = "|cff00ff00"..gs,
-				time = time(),
-				message = message.."\n|cff00ff00Хозяин собирает Орду|r",
-			};
+		-- 	raid_browser.lfm_messages[sender] = {
+		-- 		sender = "|cff00ff00"..sender,
+		-- 		raid_info = raid_info,
+		-- 		roles = roles,
+		-- 		gs = "|cff00ff00"..gs,
+		-- 		time = time(),
+		-- 		message = message.."\n|cff00ff00Хозяин собирает Орду|r",
+		-- 	};
 
-		elseif raid_info and roles and gs and (arg2 == "Шутка") and (arg3 == "арго скорпидов") then
+		-- elseif raid_info and roles and gs and (args[2] == "Шутка") and (arg3 == "арго скорпидов") then
 
-			raid_browser.lfm_messages[sender] = {
-				sender = "|cff00ff00"..sender,
-				raid_info = raid_info,
-				roles = roles,
-				gs = "|cff00ff00"..gs,
-				time = time(),
-				message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
-			};
+		-- 	raid_browser.lfm_messages[sender] = {
+		-- 		sender = "|cff00ff00"..sender,
+		-- 		raid_info = raid_info,
+		-- 		roles = roles,
+		-- 		gs = "|cff00ff00"..gs,
+		-- 		time = time(),
+		-- 		message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
+		-- 	};
 
-		elseif raid_info and roles and gs and (arg3 == "орочий")  then
+		-- elseif lang[args[3]]  then
 
 
-			raid_browser.lfm_messages[sender] = {
-				sender = "|cffff0000"..sender,
-				raid_info = raid_info,
-				roles = roles,
-				gs = gs,
-				time = time(),
-				message = message.."\n|cffff0000Орда|r",
-			};
+		-- 	raid_browser.lfm_messages[sender] = {
+		-- 		sender = "|cffff0000"..sender,
+		-- 		raid_info = raid_info,
+		-- 		roles = roles,
+		-- 		gs = gs,
+		-- 		time = time(),
+		-- 		message = message.."\n|cff00ff00"..lang[args[3]].."|r",
+		-- 	};
 
-		elseif raid_info and roles and gs and (arg3 == "всеобщий")  then
+		-- elseif raid_info and roles and gs and (args[3] == "всеобщий")  then
 
-			raid_browser.lfm_messages[sender] = {
-				sender = "|cff00E5EE"..sender,
-				raid_info = raid_info,
-				roles = roles,
-				gs = gs,
-				time = time(),
-				message = message.."\n|cff00E5EEАльянс|r",
-			};
-		elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
+		-- 	raid_browser.lfm_messages[sender] = {
+		-- 		sender = "|cff00E5EE"..sender,
+		-- 		raid_info = raid_info,
+		-- 		roles = roles,
+		-- 		gs = gs,
+		-- 		time = time(),
+		-- 		message = message.."\n|cff00E5EEАльянс|r",
+		-- 	};
+		-- elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
 
-			raid_browser.lfm_messages[sender] = {
-				sender = "|cffffcc00"..sender,
-				raid_info = raid_info,
-				roles = roles,
-				gs = gs,
-				time = time(),
-				message = message.."\n|cffffcc00Ренегаты|r",
-			};
+		-- 	raid_browser.lfm_messages[sender] = {
+		-- 		sender = "|cffffcc00"..sender,
+		-- 		raid_info = raid_info,
+		-- 		roles = roles,
+		-- 		gs = gs,
+		-- 		time = time(),
+		-- 		message = message.."\n|cffffcc00Ренегаты|r",
+		-- 	};
 		end
-		if raid_info and roles and gs and spaminfo.historyenable == true then
+		if spaminfo.historyenable == true then
 			local addtohistory = {}
 			addtohistory.timespam = time()
 			addtohistory.spammessage = message
