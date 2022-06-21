@@ -1508,7 +1508,7 @@ local channels ={
 local function is_lfm_channel(channel)
 	return channels[channel] or false
 end
-local lang ={
+local lang = {
 	["всеобщий"] = "Альянс",
 	["орочий"] = "Орда",
 	["арго скорпидов"] = "Ренегаты",
@@ -1540,7 +1540,13 @@ local function event_handler(self, event, message, sender, channel,  ...)
 			if (args[2] == "Шутка") then
 				raid_browser.lfm_messages[sender].sender = "|cff00ff00"..sender
 			else
-				raid_browser.lfm_messages[sender].sender = "|cffff0000"..sender
+				if args[3] == "всеобщий" then
+					raid_browser.lfm_messages[sender].sender = "|cff00E5EE"..sender
+				elseif args[3] == "орочий" then
+					raid_browser.lfm_messages[sender].sender = "|cffff0000"..sender
+				else
+					raid_browser.lfm_messages[sender].sender = "|cffffcc00"..sender
+				end
 			end
 
 		-- elseif raid_info and roles and gs and (args[2] == "Шутка") and (arg3 == "орочий") then
