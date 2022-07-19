@@ -1484,7 +1484,7 @@ function raid_browser.raid_info(message)
 	local roles = {};
 
 	--if string.find(message, '
-	if not string.find(message, 'lfm? all ') and not string.find(message, 'need all ') then
+	if not string.find(message, 'lfm? all ') and not string.find(message, 'нид все') then
 		roles, message  = find_roles(roles, message, role_patterns, 'dps');
 		roles, message  = find_roles(roles, message, role_patterns, 'tank');
 		roles, message = find_roles(roles, message, role_patterns, 'healer');
