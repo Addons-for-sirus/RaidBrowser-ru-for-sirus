@@ -558,8 +558,30 @@ local raid_list = {
 			}
 		),
 	},
+	{ -- ттг10
+		name = 'ТТГ 10',
+		instance_name = "Тюрьма Тол'Гарода",
+		size = 10,
+		difficulty = 1,
+		patterns = {
+				'ттг'..csep..'цлк'..csep..'10',
+				'тюрьма 10'..csep..'цлк'..csep..'10',
 
-	
+		}
+	},
+
+	{ -- ттг25
+		name = 'ТТГ 25',
+		instance_name = "Тюрьма Тол'Гарода",
+		size = 25,
+		difficulty = 1,
+		patterns = {
+				'ттг'..csep..'цлк'..csep..'25',
+				'тюрьма 10'..csep..'цлк'..csep..'25',
+
+		}
+	},
+
 
 
 	{ -- ульда 10 хм
@@ -1514,94 +1536,32 @@ local lang = {
 }
 -- local arg1, arg2, arg3 = ...;
 
-local function event_handler(self, event, message, sender, channel,  ...)
-	-- print(...)
-	local args ={...}
-	-- for k,v in pairs(args)do
-	-- 	print(k,v)
-	-- end
+local function event_handler(self, event, message, sender, language,  ...)
+
 	if is_lfm_channel(event) then
 		local raid_info, roles, gs   = raid_browser.raid_info(message)
 		if not raid_info or not roles or not gs then return end
-		-- args[2] = arg2
-		args[3] = arg3
-		-- print(arg2)
-		-- print(arg3)
-		if  lang[args[3]] then
+		if  lang[language] then
 			-- Put the sender in the table of active raids
 			raid_browser.lfm_messages[sender] = {
 				raid_info = raid_info,
 				roles = roles,
 				gs = "|cff00ff00"..gs,
 				time = time(),
-				message = message.."\n|cff00ff00"..lang[args[3]].."|r",
+				message = message.."\n|cff00ff00"..lang[language].."|r",
 			};
-			if (args[2] == "Шутка") then
+			if (sender == "Шутка") then
 				raid_browser.lfm_messages[sender].sender = "|cff00ff00"..sender
 			else
-				if args[3] == "всеобщий" then
+				if language == "всеобщий" then
 					raid_browser.lfm_messages[sender].sender = "|cff00E5EE"..sender
-				elseif args[3] == "орочий" then
+				elseif language == "орочий" then
 					raid_browser.lfm_messages[sender].sender = "|cffff0000"..sender
 				else
 					raid_browser.lfm_messages[sender].sender = "|cffffcc00"..sender
 				end
 			end
 
-		-- elseif raid_info and roles and gs and (args[2] == "Шутка") and (arg3 == "орочий") then
-
-		-- 	raid_browser.lfm_messages[sender] = {
-		-- 		sender = "|cff00ff00"..sender,
-		-- 		raid_info = raid_info,
-		-- 		roles = roles,
-		-- 		gs = "|cff00ff00"..gs,
-		-- 		time = time(),
-		-- 		message = message.."\n|cff00ff00Хозяин собирает Орду|r",
-		-- 	};
-
-		-- elseif raid_info and roles and gs and (args[2] == "Шутка") and (arg3 == "арго скорпидов") then
-
-		-- 	raid_browser.lfm_messages[sender] = {
-		-- 		sender = "|cff00ff00"..sender,
-		-- 		raid_info = raid_info,
-		-- 		roles = roles,
-		-- 		gs = "|cff00ff00"..gs,
-		-- 		time = time(),
-		-- 		message = message.."\n|cff00ff00Хозяин собирает Ренегатов|r",
-		-- 	};
-
-		-- elseif lang[args[3]]  then
-
-
-		-- 	raid_browser.lfm_messages[sender] = {
-		-- 		sender = "|cffff0000"..sender,
-		-- 		raid_info = raid_info,
-		-- 		roles = roles,
-		-- 		gs = gs,
-		-- 		time = time(),
-		-- 		message = message.."\n|cff00ff00"..lang[args[3]].."|r",
-		-- 	};
-
-		-- elseif raid_info and roles and gs and (args[3] == "всеобщий")  then
-
-		-- 	raid_browser.lfm_messages[sender] = {
-		-- 		sender = "|cff00E5EE"..sender,
-		-- 		raid_info = raid_info,
-		-- 		roles = roles,
-		-- 		gs = gs,
-		-- 		time = time(),
-		-- 		message = message.."\n|cff00E5EEАльянс|r",
-		-- 	};
-		-- elseif raid_info and roles and gs and (arg3 == "арго скорпидов")  then
-
-		-- 	raid_browser.lfm_messages[sender] = {
-		-- 		sender = "|cffffcc00"..sender,
-		-- 		raid_info = raid_info,
-		-- 		roles = roles,
-		-- 		gs = gs,
-		-- 		time = time(),
-		-- 		message = message.."\n|cffffcc00Ренегаты|r",
-		-- 	};
 		end
 		if spaminfo.historyenable == true then
 			local addtohistory = {}
